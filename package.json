@@ -1,0 +1,55 @@
+{
+  "name": "twenty-questions",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "webpack --config webpack.config.development.js",
+    "start": "yarn webpack-dev-server --config webpack.config.development.js",
+    "test": "jest",
+    "cypress:open": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress open",
+    "cypress:run": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress run --headed",
+    "cypress:headless": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress run"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-jest": "^22.1.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-inline-import-graphql-ast": "^2.1.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-plugin-transform-react-pug": "^4.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "cypress": "^1.4.1",
+    "enzyme": "^3.3.0",
+    "eslint": "^4.17.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.6.1",
+    "eslint-plugin-react-pug": "^0.1.0",
+    "flow-bin": "^0.64.0",
+    "html-webpack-plugin": "^2.30.1",
+    "jest": "^22.1.4",
+    "jest-enzyme": "^4.1.1",
+    "prettier": "^1.10.2",
+    "react-test-renderer": "^16.2.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
+  },
+  "dependencies": {
+    "graphql": "^0.12.3",
+    "graphql-tag": "^2.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.1.6"
+  }
+}

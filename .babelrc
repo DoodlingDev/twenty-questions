@@ -1,0 +1,10 @@
+{
+  "presets": ["env", "react", "flow", "es2015"],
+  "plugins": [
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "babel-plugin-inline-import-graphql-ast",
+    "transform-react-pug",
+    "transform-react-jsx"
+  ]
+}
