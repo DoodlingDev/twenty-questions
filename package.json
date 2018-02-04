@@ -5,11 +5,11 @@
   "license": "MIT",
   "author": {
     "name": "Aji Slater",
-    "email": "aji.slater@gmail.com",
+    "email": "aji.slater@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DoodlingDev/twenty-questions",
+    "url": "https://github.com/DoodlingDev/twenty-questions"
   },
   "scripts": {
     "build": "webpack --config webpack.config.development.js",
