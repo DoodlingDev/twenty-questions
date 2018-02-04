@@ -1,6 +1,16 @@
 {
   "name": "twenty-questions",
+  "description": "React components for rendering forms and elements based on js object schemas",
   "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Aji Slater",
+    "email": "aji.slater@gmail.com",
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DoodlingDev/twenty-questions",
+  },
   "scripts": {
     "build": "webpack --config webpack.config.development.js",
     "start": "yarn webpack-dev-server --config webpack.config.development.js",
