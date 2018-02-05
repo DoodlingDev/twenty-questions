@@ -15,6 +15,7 @@
     "build": "webpack --config webpack.config.development.js",
     "start": "yarn webpack-dev-server --config webpack.config.development.js",
     "test": "jest",
+    "flow-watch": "fswatch -o ./ | xargs -n1 -I{} sh -c 'clear; printf \"\\033[3J\" && yarn flow'",
     "cypress:open": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress open",
     "cypress:run": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress run --headed",
     "cypress:headless": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress run"
@@ -43,6 +44,7 @@
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
     "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-flowtype-errors": "^3.3.7",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.6.1",
     "eslint-plugin-react-pug": "^0.1.0",
@@ -57,6 +59,7 @@
     "webpack-dev-server": "^2.11.1"
   },
   "dependencies": {
+    "global": "^4.3.2",
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
     "react": "^16.2.0",
