@@ -11,6 +11,7 @@ module.exports = {
   },
   "plugins": [
     "react-pug",
+    "prettier",
     "flowtype-errors",
   ],
   "parserOptions": {
