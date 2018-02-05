@@ -2,30 +2,14 @@
 import React, { Component } from "react";
 import FormBuilder from "./formBuilder";
 
-type Schema = {
-  properties: FormNodeType[],
-  title?: string,
-  description?: string,
-};
-
 type Props = {
   schema: Schema,
-};
-
-type ErrorType = {
-  [fieldName: string]: string[],
 };
 
 type State = {
   values: { [fieldName: string]: any },
   errors: { [fieldName: string]: ErrorType },
 };
-
-type FormNodeType = {
-  name: string,
-  title?: string,
-  description?: string,
-}
 
 /**
  * FormController

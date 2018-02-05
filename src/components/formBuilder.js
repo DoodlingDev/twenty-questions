@@ -1,9 +1,19 @@
 // @flow
 import React from "react";
+import FormNode from "./formNode";
 
-export const FormBuilder = (props: any) => {
-  return (<h1>formBuilder</h1>);
+export const FormBuilder = ({schema, ...props}: {schema: Schema, props: any}) => {
+  const nodeArray = schema.properties.map(property => {
+    return pug`
+      FormNode(
+        key=schema.name + "." + property.name,
+        path=schema.name + "." + property.name,
+        schema=property,
+        ...props
+      )
+    `;
+  });
+  return nodeArray;
 };
 
 export default FormBuilder;
-
