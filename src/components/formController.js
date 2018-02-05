@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from "react";
-import FormNode from "./formNode";
+import FormBuilder from "components/formBuilder";
 
 type Schema = {
   properties: FormNodeType[],
@@ -29,7 +29,6 @@ type FormNodeType = {
 
 /**
  * FormController
- *
  */
 export default class FormController extends Component<Props, State> {
   /**
@@ -53,10 +52,11 @@ export default class FormController extends Component<Props, State> {
    */
   formContent(): React$Element<any>[] {
     return this.props.schema.properties.map((node: FormNodeType) =>
-      <FormNode
-
-
-      />
+      pug`
+        FormBuilder(
+          schema=schema
+        )
+      `
     );
   }
 
@@ -65,7 +65,8 @@ export default class FormController extends Component<Props, State> {
    * React render function
    * @return {object} component
    */
-  render(): ?React$Element<any> {
-    return pug`h1 form`;
+  render(): ?React$Element<any>[] {
+    return this.formContent();
   }
 }
+
