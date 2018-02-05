@@ -5,7 +5,11 @@ import Form from "index";
 const ExampleApp = (props) => {
   return pug`
     Form(
-      schema = {}
+      schema = {
+        title: "Example Form",
+        name: "example_form",
+        properties: [],
+      }
     )
   `;
 };
