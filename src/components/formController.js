@@ -2,25 +2,53 @@
 import React, { Component } from "react";
 import FormBuilder from "./formBuilder";
 
-type Props = {
-  schema: Schema,
-};
+type q20$FormControllerProps = {
+  schema: q20$Schema,
+}
 
-type State = {
-  values: { [fieldName: string]: any },
-  errors: { [fieldName: string]: ErrorType },
-};
+type q20$Schema = {
+  title?: string,
+  description?: string,
+  properties: q20$Node[],
+}
+
+type q20$FormControllerState = {
+  values: q20$FormValues,
+  errors: q20$FormErrors,
+}
+
+type q20$Node = {
+  name: string,
+  type: q20$NodeType,
+}
+
+type q20$NodeType = "object" | "string" | "array" | "number" | "boolean";
+
+type q20$FormValues = {
+  [key: string]: any,
+}
+
+type q20$FormErrors = {
+  [key: string]: ErrorType,
+}
 
 /**
  * FormController
+ *   master component for the q20 forms, holds values and errors
  */
-export default class FormController extends Component<Props, State> {
+export default class FormController extends Component
+  <q20$FormControllerProps, q20$FormControllerState> {
+  state = {
+    values: {},
+    errors: {},
+  }
+
   /**
    * constructor
-   * Initializes state values and errors to {}
-   * @param{object} props
+   *   sets state to empty objects to begin with
+   * @param {FormControllerProps} props
    */
-  constructor(props: Props) {
+  constructor(props: q20$FormControllerProps) {
     super(props);
     this.state = {
       values: {},
@@ -30,15 +58,13 @@ export default class FormController extends Component<Props, State> {
 
   /**
    * render
-   * React render function
-   * @return {object} component
+   *   react render function
+   *   renders the FormBuilder to make the markup
+   * @return {React$Element} FormBuilder
    */
-  render(): ?React$Element<any> {
-    return pug`
-      FormBuilder(
-        schema=this.props.schema
-      )
-    `;
+  render() {
+    return (
+      <form>form</form>
+    );
   }
 }
-
