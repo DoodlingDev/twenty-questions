@@ -1,13 +1,15 @@
 // @flow
 import React, { Component } from "react";
-import FormBuilder from "./formBuilder";
+import FormNodeObject from "./nodes/types/object";
 
 type q20$FormControllerProps = {
   schema: q20$Schema,
+  title: string,
+  description?: string,
 };
 
 type q20$Schema = {
-  title?: string,
+  title: string,
   description?: string,
   properties: q20$Node[],
 };
@@ -58,6 +60,21 @@ export default class FormController extends Component<
    * @return {React$Element} FormBuilder
    */
   render() {
-    return <form>form</form>;
+    const { title, description, properties } = this.props.schema;
+    return (
+      <form>
+        <h2>{title}</h2>
+        {description && <h3>{description}</h3>}
+
+        <FormNodeObject
+          name={title}
+          label={title}
+          description={description}
+          type={"object"}
+          path={`${title}`}
+          properties={properties}
+        />
+      </form>
+    );
   }
 }

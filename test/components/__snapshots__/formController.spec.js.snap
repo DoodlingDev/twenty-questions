@@ -2,6 +2,19 @@
 
 exports[`renders correctly 1`] = `
 <form>
-  form
+  <h2>
+    test form title
+  </h2>
+  <h3>
+    this is a test form
+  </h3>
+  <div>
+    <label>
+      test form title
+    </label>
+    <span>
+      this is a test form
+    </span>
+  </div>
 </form>
 `;
