@@ -17,11 +17,11 @@ const ExampleApp = props => {
             {
               type: "string",
               name: "a_string",
-              title: "A String",
+              label: "A String",
               description: "A simple string",
-            }
-          ]
-        }
+            },
+          ],
+        },
       ],
     }}
   />

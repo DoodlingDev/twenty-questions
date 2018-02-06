@@ -10,9 +10,14 @@ Enzyme.configure({ adapter: new Adapter() });
 it("renders correctly", () => {
   const render = renderer.create(
     <FormNodeObject
-      name={"test-name"}
+      name="test-name"
       type="object"
       path="the.path.test-name"
+      valueManager={{
+        update: () => {},
+        values: {},
+        errors: {},
+      }}
       properties={[]}
     />
   ).toJSON();
