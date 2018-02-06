@@ -14,8 +14,10 @@ export const FormNode = (props: q20$Node) => {
         return <FormNodeString
           name={props.name}
           path={`${props.path}.${props.name}`}
-          label={props.label ? props.label : undefined}
-          description={props.description ? props.description : undefined}
+          label={props.label}
+          description={props.description}
+          widget={props.widget}
+          widgets={props.widgets}
         />
 
     case "array":

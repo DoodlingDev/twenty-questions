@@ -1,5 +1,5 @@
 import React from "react";
-import FormNode from "../src/components/formNode";
+import FormNodeString from "../../../../src/components/nodes/types/string";
 import { shallow, mount } from "enzyme";
 import renderer from "react-test-renderer";
 import Enzyme from 'enzyme';
@@ -10,9 +10,9 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("rendering", () => {
   it("renders string types correctly", () => {
     const render = renderer.create(
-      <FormNode
-        type="string"
+      <FormNodeString
         name="test_string"
+        path="test_form.test_string"
         title="string title"
         description="A simple String"
       />

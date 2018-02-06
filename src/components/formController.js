@@ -1,17 +1,20 @@
 // @flow
 import React, { Component } from "react";
 import FormNodeObject from "./nodes/types/object";
+import getWidgets from "../utils/getWidgets";
 
 type q20$FormControllerProps = {
   schema: q20$Schema,
   title: string,
   description?: string,
+  widgets?: q20$RenderedNode[],
 };
 
 type q20$Schema = {
   title: string,
   description?: string,
   properties: q20$Node[],
+  widget?: string,
 };
 
 type q20$FormControllerState = {
@@ -35,6 +38,12 @@ export default class FormController extends Component<
   q20$FormControllerProps,
   q20$FormControllerState,
 > {
+
+  /**
+   * state
+   * @param {object} values input values from the form
+   * @param {object} errors error objects created by the validator
+   */
   state = {
     values: {},
     errors: {},
@@ -42,15 +51,11 @@ export default class FormController extends Component<
 
   /**
    * constructor
-   *   sets state to empty objects to begin with
+   *
    * @param {FormControllerProps} props
    */
   constructor(props: q20$FormControllerProps) {
     super(props);
-    this.state = {
-      values: {},
-      errors: {},
-    };
   }
 
   /**
@@ -60,7 +65,8 @@ export default class FormController extends Component<
    * @return {React$Element} FormBuilder
    */
   render() {
-    const { title, description, properties } = this.props.schema;
+    const { widgets } = this.props;
+    const { title, description, properties, widget } = this.props.schema;
     return (
       <form>
         <h2>{title}</h2>
@@ -73,6 +79,8 @@ export default class FormController extends Component<
           type={"object"}
           path={`${title}`}
           properties={properties}
+          widgets={getWidgets(widgets)}
+          widget={widget ? widget : undefined}
         />
       </form>
     );

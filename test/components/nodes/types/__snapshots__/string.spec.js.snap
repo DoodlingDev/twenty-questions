@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`rendering renders string types correctly 1`] = `
 <div
   className="q20_node__string"
 >
   <input
     className="q20_node__string--input"
-    id={undefined}
+    id="test_form.test_string"
     type="text"
   />
 </div>
