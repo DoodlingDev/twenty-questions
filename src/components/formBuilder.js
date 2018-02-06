@@ -2,18 +2,25 @@
 import React from "react";
 import FormNode from "./formNode";
 
-export const FormBuilder = ({schema, ...props}: {schema: Schema, props: any}) => {
-  const nodeArray = schema.properties.map(property => {
-    return pug`
-      FormNode(
-        key=schema.name + "." + property.name,
-        path=schema.name + "." + property.name,
-        schema=property,
-        ...props
-      )
-    `;
+type q20$FormBuilderProps = {
+  title?: string,
+  description?: string,
+  properties: q20$Node[],
+};
+
+export const FormBuilder = (props: q20$FormBuilderProps) => {
+  const formContent = props.properties.map((property: q20$Node) => {
+    return (
+      <FormNode
+        title={property.title}
+        description={property.title}
+        name={property.name}
+        type={property.type}
+        properties={property.properties}
+      />
+    );
   });
-  return nodeArray;
+  return formContent;
 };
 
 export default FormBuilder;

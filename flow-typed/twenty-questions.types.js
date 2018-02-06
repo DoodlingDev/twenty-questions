@@ -1,13 +1,14 @@
-export type ErrorType = {
+export type q20$Error = {
   [fieldName: string]: string[],
 };
 
-type FormNodeType = {
+export type q20$Node = {
   name: string,
-  type?: NodeType,
+  type: q20$NodeType,
   title?: string,
   description?: string,
-  properties?: FormNodeType[],
-}
+  properties?: q20$Node[],
+};
 
-export type NodeType = "object" | "string" | "number" | "boolean";
+export type q20$NodeType = "object" | "string" | "array" | "number" | "boolean";
+

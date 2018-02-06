@@ -25,6 +25,7 @@ module.exports = {
   "rules": {
     "no-multi-spaces": "off",
     "quotes": ["error", "double"],
+    "arrow-parens": ["error", "as-needed"],
     "one-var": "off",
   },
 };

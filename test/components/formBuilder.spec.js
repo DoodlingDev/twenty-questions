@@ -14,6 +14,7 @@ function setup(renderFn) {
         schema={
           name: "test-builder",
           properties: [{
+          type: "object",
             name: "test-name",
           }],
         }
@@ -29,6 +30,7 @@ it("renders correctly", () => {
         schema={
           name: "test-builder",
           properties: [{
+          type: "object",
             name: "test-name",
           }],
         }
