@@ -17,6 +17,7 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
           properties={property.properties}
           path={`${props.path}`}
           widgets={props.widgets}
+          valueManager={props.valueManager}
         />
       );
     });

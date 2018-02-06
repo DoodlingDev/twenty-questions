@@ -19,9 +19,9 @@ const ExampleApp = props => {
               name: "a_string",
               label: "A String",
               description: "A simple string",
-            }
-          ]
-        }
+            },
+          ],
+        },
       ],
     }}
   />

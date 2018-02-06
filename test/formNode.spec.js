@@ -15,6 +15,11 @@ describe("rendering", () => {
         name="test_string"
         title="string title"
         description="A simple String"
+        valueManager={{
+          update: () => {},
+          values: {},
+          errors: {},
+        }}
       />
     ).toJSON();
     expect(render).toMatchSnapshot();

@@ -13,7 +13,10 @@ exports[`rendering renders string types correctly 1`] = `
   <input
     className="q20_nodeString__testString--input"
     id="undefined.test_string"
+    onChange={[Function]}
+    placeholder={undefined}
     type="text"
+    value={undefined}
   />
 </div>
 `;

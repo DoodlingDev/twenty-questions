@@ -12,6 +12,7 @@ type q20$FormControllerProps = {
 
 type q20$Schema = {
   title: string,
+  name: string,
   description?: string,
   properties: q20$Node[],
   widget?: string,
@@ -28,6 +29,12 @@ type q20$FormValues = {
 
 type q20$FormErrors = {
   [key: string]: q20$Error,
+};
+
+type q20$ChangeDataParams = {
+  value: any,
+  path: string,
+  name: string,
 };
 
 /**
@@ -59,6 +66,23 @@ export default class FormController extends Component<
   }
 
   /**
+   * changeValue
+   *   updates the form's internal state with new data from the field element
+   *
+   * @param {q20$ChangeDataParams} changeData
+   *   required data sent from the form field
+   * @return {boolean}
+   */
+  changeValue(changeData: q20$ChangeDataParams) {
+    this.setState((oldState: q20$FormControllerState): q20$FormControllerState => {
+      let newState = Object.assign(oldState, {});
+      newState.values[changeData.path] = changeData.value;
+      return newState;
+    });
+    return true;
+  }
+
+  /**
    * render
    *   react render function
    *   renders the FormBuilder to make the markup
@@ -69,7 +93,7 @@ export default class FormController extends Component<
     const { title, description, properties } = this.props.schema;
     if (properties[0].type !== "object") {
       throw new Error(
-        "The first property in a 20-questions form must be of type object"
+      "The first property in a 20-questions form must be of type object. Set all further fields/data as properties of that object."
       );
     }
     return (
@@ -82,10 +106,15 @@ export default class FormController extends Component<
           label={properties[0].label}
           description={properties[0].description}
           type={"object"}
-          path={`${title}.${properties[0].name}`}
+          path={`${this.props.schema.name}.${properties[0].name}`}
           properties={properties[0].properties}
           widgets={getWidgets(widgets)}
           widget={properties[0].widget ? properties[0].widget : undefined}
+          valueManager={{
+            update: this.changeValue.bind(this),
+            values: this.state.values,
+            errors: this.state.errors,
+          }}
         />
       </form>
     );

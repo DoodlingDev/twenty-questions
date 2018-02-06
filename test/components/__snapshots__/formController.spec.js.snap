@@ -14,8 +14,11 @@ exports[`renders correctly 1`] = `
     >
       <input
         className="q20_nodeString__testString--input"
-        id="test form title.test name.testString"
+        id="undefined.test name.testString"
+        onChange={[Function]}
+        placeholder={undefined}
         type="text"
+        value={undefined}
       />
     </div>
   </div>

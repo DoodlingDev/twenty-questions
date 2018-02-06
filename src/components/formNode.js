@@ -14,6 +14,7 @@ export const FormNode = (props: q20$Node) => {
           widget={props.widget}
           widgets={props.widgets}
           properties={props.properties}
+          valueManager={props.valueManager}
         />
 
     case "boolean":
@@ -27,6 +28,7 @@ export const FormNode = (props: q20$Node) => {
           description={props.description}
           widget={props.widget}
           widgets={props.widgets}
+          valueManager={props.valueManager}
         />
 
     case "array":

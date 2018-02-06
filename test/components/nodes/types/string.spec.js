@@ -15,7 +15,12 @@ describe("rendering", () => {
         path="test_form.test_string"
         title="string title"
         description="A simple String"
-      />
+        valueManager={{
+          update: () => {},
+          values: {},
+          errors: {},
+        }}
+        />
     ).toJSON();
     expect(render).toMatchSnapshot();
   });
