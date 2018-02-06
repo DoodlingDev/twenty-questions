@@ -5,13 +5,13 @@ exports[`rendering renders string types correctly 1`] = `
   className="q20_node__string"
 >
   <span
-    className="q20_nodeString__test_string--description"
+    className="q20_nodeString__testString--description"
     htmlFor="test_form.test_string"
   >
     A simple String
   </span>
   <input
-    className="q20_nodeString__test_string--input"
+    className="q20_nodeString__testString--input"
     id="test_form.test_string"
     type="text"
   />

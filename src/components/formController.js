@@ -67,6 +67,11 @@ export default class FormController extends Component<
   render() {
     const { widgets } = this.props;
     const { title, description, properties } = this.props.schema;
+    if (properties[0].type !== "object") {
+      throw new Error(
+        "The first property in a 20-questions form must be of type object"
+      );
+    }
     return (
       <form>
         <h2>{title}</h2>
