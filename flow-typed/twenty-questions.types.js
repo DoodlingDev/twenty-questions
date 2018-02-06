@@ -15,6 +15,7 @@ export type q20$Node = {
   properties?: q20$Node[],
   widget?: string,
   widgets: q20$widgetList,
+  layoutStyle?: string,
 };
 
 export type q20$RenderedNode = {
@@ -25,6 +26,7 @@ export type q20$RenderedNode = {
   properties?: q20$Node[],
   widget?: string,
   widgets: q20$widgetList,
+  layoutStyle?: string,
 }
 
 export type q20$NodeType = "object" | "string" | "array" | "number" | "boolean";

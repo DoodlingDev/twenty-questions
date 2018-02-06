@@ -8,7 +8,18 @@ it("renders correctly", () => {
       schema={{
         title: "test form title",
         description: "this is a test form",
-        properties: [],
+          properties: [
+            {
+              name: "test name",
+              type: "object",
+              properties: [
+                {
+                  type: "string",
+                  name: "testString",
+                },
+              ],
+            },
+          ],
       }}
     />
   ).toJSON();

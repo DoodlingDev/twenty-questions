@@ -9,18 +9,18 @@ const ExampleApp = props => {
       description: "Please treat this like a form",
       properties: [
         {
-          // type: "object",
-          // name: "form-name",
-          // label: "A simple form",
-          // description: "Please, a form sir",
-          // properties: [
-          //   {
+          type: "object",
+          name: "form-name",
+          label: "A simple form",
+          description: "Please, a form sir",
+          properties: [
+            {
               type: "string",
               name: "a_string",
-              title: "A String",
+              label: "A String",
               description: "A simple string",
-            // }
-          // ]
+            }
+          ]
         }
       ],
     }}

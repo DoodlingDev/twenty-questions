@@ -9,12 +9,15 @@ exports[`renders correctly 1`] = `
     this is a test form
   </h3>
   <div>
-    <label>
-      test form title
-    </label>
-    <span>
-      this is a test form
-    </span>
+    <div
+      className="q20_node__string"
+    >
+      <input
+        className="q20_nodeString__testString--input"
+        id="test form title.test name.testString"
+        type="text"
+      />
+    </div>
   </div>
 </form>
 `;
