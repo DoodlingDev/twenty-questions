@@ -1,4 +1,5 @@
 // @flow
+import camelcase from "./camelize";
 
 /**
  * className
@@ -18,7 +19,7 @@
 export default function(block: string, element?: string, modifier?: string, layoutStyle?: string): string {
   let className = "q20_";
   if (block) {
-    className += block;
+    className += camelcase(block);
   } else {
     throw new Error(
       "className function not supplied with a block string"
@@ -26,11 +27,11 @@ export default function(block: string, element?: string, modifier?: string, layo
   }
 
   if (element) {
-    className += "__" + element;
+    className += "__" + camelcase(element);
   }
 
   if (modifier && element) {
-    className += "--" + modifier;
+    className += "--" + camelcase(modifier);
   } else if (modifier && !element) {
     throw new Error(
       "className funciton was supplied a modifier but no element"
