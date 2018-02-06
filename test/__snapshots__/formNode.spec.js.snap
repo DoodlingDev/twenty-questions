@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders string types correctly 1`] = `
+<div>
+  <input
+    id="undefined.test_string"
+    type="text"
+  />
+</div>
+`;

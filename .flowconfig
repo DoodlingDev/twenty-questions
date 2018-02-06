@@ -2,7 +2,7 @@
 .*/node_modules/*
 
 [include]
-flow-typed/npm/pug_vx.x.x.js
+flow-typed/twenty-questions.types.js
 
 [libs]
 

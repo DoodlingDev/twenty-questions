@@ -1,7 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<h1>
-  formBuilder
-</h1>
+<form>
+  <h2>
+    test form title
+  </h2>
+  <h3>
+    this is a test form
+  </h3>
+  <div>
+    <label>
+      test form title
+    </label>
+    <span>
+      this is a test form
+    </span>
+  </div>
+</form>
 `;

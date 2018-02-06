@@ -4,12 +4,13 @@ import renderer from "react-test-renderer";
 
 it("renders correctly", () => {
   const render = renderer.create(
-  pug`FormController(
-    schema={
-      title: "Test Form",
-      description: "This is a test Form",
-      properties: [{}],
-    })`
+    <FormController
+      schema={{
+        title: "test form title",
+        description: "this is a test form",
+        properties: [],
+      }}
+    />
   ).toJSON();
   expect(render).toMatchSnapshot();
 });

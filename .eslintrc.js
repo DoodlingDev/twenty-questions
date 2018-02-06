@@ -1,7 +1,9 @@
 module.exports = {
   "extends": [
-    "plugin:react-pug/all",
-    "google",
+    "eslint-config-google",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/react",
   ],
   "parser": "babel-eslint",
   "env": {
@@ -10,8 +12,9 @@ module.exports = {
     "es6": true,
   },
   "plugins": [
-    "react-pug",
-    "flowtype-errors",
+    "react",
+    "promise",
+    "prettier",
   ],
   "parserOptions": {
     "ecmaVersion": 6,
@@ -22,8 +25,13 @@ module.exports = {
     },
   },
   "rules": {
+    "react/jsx-uses-vars": 1,
+    "ignoreStrings": "off",
+    "ignoreComments": "off",
     "no-multi-spaces": "off",
     "quotes": ["error", "double"],
+    "arrow-parens": ["error", "as-needed"],
+    "object-curly-spacing": ["error", "always", {"objectsInObjects": false}],
     "one-var": "off",
   },
 };
