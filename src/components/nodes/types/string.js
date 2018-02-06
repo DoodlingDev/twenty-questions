@@ -9,7 +9,6 @@ export const FormNodeString = (props: q20$RenderedNode) => {
     }
   }
   if (props.widget) {
-    // return props.widgets[props.widget]({...props});
     const WidgetTag = props.widgets[props.widget];
     return <WidgetTag
              {...props}

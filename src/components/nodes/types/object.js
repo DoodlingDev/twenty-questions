@@ -9,15 +9,10 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
       return (
         <FormNode
           key={`node-${props.path}.${property.name}`}
-          label={property.label ? property.label : undefined}
-          description={property.description}
-          name={property.name}
-          type={property.type}
-          widget={property.widget}
-          properties={property.properties}
           path={`${props.path}`}
           widgets={props.widgets}
           valueManager={props.valueManager}
+          {...property}
         />
       );
     });
