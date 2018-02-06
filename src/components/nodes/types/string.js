@@ -13,13 +13,17 @@ export const FormNodeString = (props: q20$RenderedNode) => {
     return (
       <div className={cn("node", "string")}>
         {props.label && (
-          <label htmlFor={props.path} className={cn("node", "string", "label")}>
+          <label htmlFor={props.path} className={cn("nodeString", props.name, "label", props.layoutStyle)}>
             {props.label}
           </label>
         )}
 
+        {props.description && (
+          <span htmlFor={props.path} className={cn("nodeString", props.name, "description", props.layoutStyle)}>{props.description}</span>
+        )}
+
         <input
-          className={cn("node", "string", "input")}
+          className={cn("nodeString", props.name, "input", props.layoutStyle)}
           id={props.path}
           type="text"
         />

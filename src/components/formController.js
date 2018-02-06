@@ -66,21 +66,21 @@ export default class FormController extends Component<
    */
   render() {
     const { widgets } = this.props;
-    const { title, description, properties, widget } = this.props.schema;
+    const { title, description, properties } = this.props.schema;
     return (
       <form>
         <h2>{title}</h2>
         {description && <h3>{description}</h3>}
 
         <FormNodeObject
-          name={title}
-          label={title}
-          description={description}
+          name={properties[0].name}
+          label={properties[0].label}
+          description={properties[0].description}
           type={"object"}
-          path={`${title}`}
-          properties={properties}
+          path={`${title}.${properties[0].name}`}
+          properties={properties[0].properties}
           widgets={getWidgets(widgets)}
-          widget={widget ? widget : undefined}
+          widget={properties[0].widget ? properties[0].widget : undefined}
         />
       </form>
     );
