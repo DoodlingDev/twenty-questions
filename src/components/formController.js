@@ -2,26 +2,7 @@
 import React, { Component } from "react";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
-
-type q20$FormControllerProps = {
-  schema: q20$Schema,
-  title: string,
-  description?: string,
-  widgets?: q20$RenderedNode[],
-};
-
-type q20$Schema = {
-  title: string,
-  name: string,
-  description?: string,
-  properties: q20$Node[],
-  widget?: string,
-};
-
-type q20$FormControllerState = {
-  values: q20$FormValues,
-  errors: q20$FormErrors,
-};
+import Validator from "../utils/validator";
 
 type q20$FormValues = {
   [key: string]: any,
@@ -56,6 +37,9 @@ export default class FormController extends Component<
     errors: {},
   };
 
+  validator: q20$Validator;
+
+
   /**
    * constructor
    *
@@ -63,6 +47,7 @@ export default class FormController extends Component<
    */
   constructor(props: q20$FormControllerProps) {
     super(props);
+    this.validator = new Validator(this.props.schema);
   }
 
   /**
