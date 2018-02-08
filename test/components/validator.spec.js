@@ -195,4 +195,110 @@ describe("gatherValidations", () => {
       });
     });
   });
+
+  describe("validate single", () => {
+    it("should error when passed an invalid validationRule", () => {
+      const wrapper = setup(shallow, {
+        schema: {
+          type: "string",
+          name: "one",
+          label: "ONE",
+          validates: ["godzilla"],
+        },
+      });
+      try {
+        wrapper.props().validate.single({
+          name: "one",
+          path: "one.one",
+          value: "boop",
+        });
+      } catch (err) {
+        expect(err).toBeTruthy();
+      }
+    });
+
+    it("should create a validation entry in the state when valid", () => {
+      const wrapper = setup(shallow, {
+        schema: {
+          type: "string",
+          name: "one",
+          label: "ONE",
+          validates: ["required"],
+        },
+      });
+      wrapper.props().validate.single({
+        name: "one",
+        path: "one.one",
+        value: "boop",
+      });
+      wrapper.update();
+      const inputValidationList = wrapper.props().validate.state["one.one"];
+      expect(inputValidationList.length).toBe(1);
+    });
+
+    it("should create a validation entry in the state when invalid", () => {
+      const wrapper = setup(shallow, {
+        schema: {
+          type: "string",
+          name: "one",
+          label: "ONE",
+          validates: ["required"],
+        },
+      });
+      wrapper.props().validate.single({
+        name: "one",
+        path: "one.one",
+        value: "",
+      });
+      wrapper.update();
+      const inputValidationList = wrapper.props().validate.state["one.one"];
+      expect(inputValidationList.length).toBe(1);
+    });
+
+    it("should remove a valid entry for the same validation when new invalid is passed", () => {
+      const wrapper = setup(shallow, {
+        schema: {
+          type: "string",
+          name:"one",
+          label: "ONE",
+          validates: ["required"],
+        },
+      });
+      wrapper.instance().state.validationState["one.one"] = [{
+        validation: "required",
+        valid: true,
+      }];
+      wrapper.props().validate.single({
+        name: "one",
+        path: "one.one",
+        value: "",
+      });
+      wrapper.update();
+      const inputValidationList = wrapper.props().validate.state["one.one"];
+      expect(inputValidationList[0].valid).toBe(false);
+    });
+
+    it("removes an invalid entry for the same validation when new valid is passed", () => {
+      const wrapper = setup(shallow, {
+        schema: {
+          type: "string",
+          name:"one",
+          label: "ONE",
+          validates: ["required"],
+        },
+      });
+      wrapper.instance().state.validationState["one.one"] = [{
+        validation: "required",
+        valid: false,
+      }];
+      wrapper.props().validate.single({
+        name: "one",
+        path: "one.one",
+        value: "here now!",
+      });
+      wrapper.update();
+      const inputValidationList = wrapper.props().validate.state["one.one"];
+      expect(inputValidationList[0].valid).toBe(true);
+    });
+  });
 });
