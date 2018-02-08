@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
-import Validator from "../utils/validator";
+import withValidation from "./validator";
 
 type q20$FormValues = {
   [key: string]: any,
@@ -12,17 +12,11 @@ type q20$FormErrors = {
   [key: string]: q20$Error,
 };
 
-type q20$ChangeDataParams = {
-  value: any,
-  path: string,
-  name: string,
-};
-
 /**
  * FormController
  *   master component for the q20 forms, holds values and errors
  */
-export default class FormController extends Component<
+export class FormController extends Component<
   q20$FormControllerProps,
   q20$FormControllerState,
 > {
@@ -47,7 +41,6 @@ export default class FormController extends Component<
    */
   constructor(props: q20$FormControllerProps) {
     super(props);
-    this.validator = new Validator(this.props.schema);
   }
 
   /**
@@ -105,3 +98,5 @@ export default class FormController extends Component<
     );
   }
 }
+
+export default withValidation(FormController);
