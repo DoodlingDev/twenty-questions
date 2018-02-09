@@ -4,21 +4,15 @@ import FormNodeObject from "./nodes/types/object";
 import FormNodeString from "./nodes/types/string";
 
 export const FormNode = (props: q20$Node) => {
-  const nodePath = `${props.path}.${props.name}`;
-  switch (props.type) {
+  const { type, path, ...carryThroughProps } = props;
+  const nodePath = `${path}.${props.name}`;
+  switch (type) {
     case "object":
       return <FormNodeObject
-          name={props.name}
-          key={"formNode-"+nodePath}
-          path={nodePath}
-          label={props.label}
-          description={props.description}
-          widget={props.widget}
-          widgets={props.widgets}
-          properties={props.properties}
-          valueManager={props.valueManager}
-          register={props.register}
-        />
+        key={"formNode-"+nodePath}
+        path={nodePath}
+        {...carryThroughProps}
+      />
 
     case "boolean":
       if (props.register) {props.register(nodePath);}
@@ -26,16 +20,11 @@ export const FormNode = (props: q20$Node) => {
 
     case "string":
       if (props.register) {props.register(nodePath);}
-        return <FormNodeString
-          key={"formNode-"+nodePath}
-          name={props.name}
-          path={nodePath}
-          label={props.label}
-          description={props.description}
-          widget={props.widget}
-          widgets={props.widgets}
-          valueManager={props.valueManager}
-        />
+      return <FormNodeString
+        key={"formNode-"+nodePath}
+        path={nodePath}
+        {...carryThroughProps}
+      />
 
     case "array":
       if (props.register) {props.register(nodePath);}

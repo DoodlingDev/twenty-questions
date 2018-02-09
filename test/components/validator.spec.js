@@ -331,7 +331,7 @@ describe("validate all", () => {
     const result = wrapper.props().validate.all({
       "object.one": "1",
       "object.two": "2",
-    });
+    }, ["object.one", "object.two"]);
     expect(result).toBe(true);
   });
 
@@ -361,7 +361,7 @@ describe("validate all", () => {
     const result = wrapper.props().validate.all({
       "object.one": "",
       "object.two": "",
-    });
+    }, ["object.one", "object.two"]);
     expect(result).toBe(false);
   });
 
@@ -391,7 +391,7 @@ describe("validate all", () => {
     const result = wrapper.props().validate.all({
       "object.one": "1",
       "object.two": "",
-    });
+    }, ["object.one", "object.two"]);
     expect(result).toBe(false);
   });
 
@@ -420,7 +420,7 @@ describe("validate all", () => {
     });
     const result = wrapper.props().validate.all({
       "object.one": "1",
-    });
+    }, ["object.one", "object.two"]);
     expect(result).toBe(false);
   });
 });

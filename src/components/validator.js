@@ -93,7 +93,7 @@ export default function withValidation(FormControllerComponent) {
      *   from the FormController
      * @return {boolean} Pass/Fail
      */
-    validateAll(formValues) {
+    validateAll(formValues, registry) {
       // iterate the validationList
       const validationEntryKeys = Object.keys(this.state.validationList);
       const formValueEntryKeys = Object.keys(formValues);
@@ -103,40 +103,18 @@ export default function withValidation(FormControllerComponent) {
         const nameCheckRegExp = new RegExp(`(^|\.)${nameCheck}($|\.)`);
         //
         // for each, comb the values
-        formValueEntryKeys.forEach(valueEntryKey => {
-          if (nameCheckRegExp.test(valueEntryKey)) {
+        registry.forEach(registeredPath => {
+          if (nameCheckRegExp.test(registeredPath)) {
             //
             // any value path that matches the field name (dot to dot)
             //   gets its validations run
             this.validateSingle({
-              path: valueEntryKey,
-              name: nameCheckRegExp.exec(valueEntryKey)[0].replace(".", ""),
-              value: formValues[valueEntryKey],
+              path: registeredPath,
+              name: fieldValidationConfig.name,
+              value: formValues[registeredPath],
             });
           }
         });
-        //
-        // check separately for any requireds that don't exist in the values
-        if(fieldValidationConfig.validates.includes("required")) {
-          let isNotFound = true;
-          const validationStateEntryKeys = Object.keys(this.state.validationState);
-
-          for (let i = 0, l = validationStateEntryKeys.length; i < l; i++) {
-            const validationStateEntry = this.state.validationState[validationStateEntryKeys[i]];
-            if (isNotFound && validationStateEntry.name === fieldValidationConfigName) {
-              isNotFound = false;
-            }
-          }
-
-          if (isNotFound) {
-            this.addErrorResult({
-              label: fieldValidationConfig.label,
-              name: fieldValidationConfigName,
-              path: "notFound:" + fieldValidationConfigName,
-              message: `${fieldValidationConfig.label || fieldValidationConfigName} is required.`
-            });
-          }
-        }
       });
       return this.checkStateForErrors();
     }
