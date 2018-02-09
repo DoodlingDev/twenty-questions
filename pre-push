@@ -1,0 +1,53 @@
+#!/bin/sh
+
+check_exit_code () {
+  if [[ "${1}" -ne "0" ]]; then printf "{$2}"; exit 1; fi
+}
+
+RED=$(tput setaf 1)
+WHITE=$(tput setaf 7)
+GREEN=$(tput setaf 2)
+NORMAL=$(tput sgr0)
+
+printf "\n--------------$GREEN"
+printf "\n running prettier$NORMAL"
+printf "\n--------------\n"
+yarn prettier --no-bracket-spacing --trailing-comma all --write *.js
+
+check_exit_code $? "[31mPrettier failed, commit aborted(B[m\n"
+printf "$GREENsuccess!\n(B[m"
+
+printf "\n--------------$GREEN"
+printf "\n running flow$NORMAL"
+printf "\n--------------\n"
+yarn flow
+
+check_exit_code $? "[31mFlow errors, commit aborted(B[m\n"
+printf "[32msuccess!\n(B[m"
+
+printf "\n-------------------------[37m"
+printf "\n running jest test suite"
+printf "\n-------------------------(B[m\n"
+yarn test
+
+check_exit_code $? "[31mTest failures, commit aborted(B[m\n"
+printf "[32msuccess!\n(B[m"
+
+printf "\n----------------$GREEN"
+printf "\n running eslint$NORMAL"
+printf "\n----------------\n"
+yarn eslint
+
+check_exit_code $? "[31ESlint errors, commit aborted$NORMAL"
+printf "$GREENsuccess!\n$NORMAL"
+
+printf "\n-----------------------------------[37m"
+printf "\n running cypress integration tests"
+printf "\n-----------------------------------(B[m\n"
+yarn run cypress:headless
+
+check_exit_code $? "[31mTest failures, commit aborted(B[m\n"
+printf "[32msuccess!\n(B[m"
+
+printf "[37mSuccess![37m Continuing commit!(B[m"
+exit 0

@@ -5,14 +5,6 @@ import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
 import ErrorHandler from "./errorHandler";
 
-type q20$FormValues = {
-  [key: string]: any,
-};
-
-type q20$FormErrors = {
-  [key: string]: q20$Error,
-};
-
 /**
  * FormController
  *   master component for the q20 forms, holds values and errors

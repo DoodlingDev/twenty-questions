@@ -1,9 +1,7 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
-import FormController from "../../src/components/formController.js";
 import withValidation from "../../src/components/validator.js";
-import renderer from "react-test-renderer";
-import { shallow, mount } from "enzyme";
+import { shallow, /* mount  */} from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 

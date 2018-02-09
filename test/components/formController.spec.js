@@ -2,7 +2,7 @@
 import React from "react";
 import FormController from "../../src/components/formController.js";
 import renderer from "react-test-renderer";
-import { shallow, mount } from "enzyme";
+// import { shallow, mount } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
@@ -35,11 +35,11 @@ it("renders correctly", () => {
   ).toJSON();
   expect(render).toMatchSnapshot();
 });
-
-function setup(renderFn, props = setupProps) {
-  return renderFn(<FormController {...props}/>);
-}
-
+//
+// function setup(renderFn, props = setupProps) {
+//   return renderFn(<FormController {...props}/>);
+// }
+//
 // describe("handles import correctly", () => {
 //   let error;
 //   const notObjectFirstParam = {

@@ -1,9 +1,9 @@
 import React from "react";
 import FormNodeString from "../../../../src/components/nodes/types/string";
-import { shallow, mount } from "enzyme";
+// import { shallow, mount } from "enzyme";
 import renderer from "react-test-renderer";
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Enzyme from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter: new Adapter() });
 
