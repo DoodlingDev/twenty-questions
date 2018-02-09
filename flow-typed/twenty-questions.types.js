@@ -34,7 +34,11 @@ export type q20$RenderedNode = {
   validates?: string[],
 };
 
-export type q20$Node = q20$RenderedNode & { type: q20$NodeType };
+export type q20$RenderedObjectNode = q20$RenderedNode & {
+  register?: (path: string) => typeof undefined,
+}
+
+export type q20$Node = q20$RenderedObjectNode & { type: q20$NodeType };
 
 export type q20$NodeType = "object" | "string" | "array" | "number" | "boolean";
 
@@ -57,6 +61,7 @@ export type q20$FormControllerProps = {
 export type q20$FormControllerState = {
   values: q20$FormValues,
   errors: q20$FormErrors,
+  fieldRegistry: string[],
 };
 
 export type q20$Validator = {};

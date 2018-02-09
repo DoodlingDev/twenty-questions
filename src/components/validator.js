@@ -117,23 +117,26 @@ export default function withValidation(FormControllerComponent) {
         });
         //
         // check separately for any requireds that don't exist in the values
-        // if(fieldValidationConfig.validates.includes("required")) {
-        //   let isNotFound = true;
-        //   const validationStateEntryKeys = Object.keys(this.state.validationState);
-        //   validationStateEntryKeys.forEach(validationStateEntryKey => {
-        //     if (nameCheckRegExp.test(validationStateEntryKey)) {
-        //       isNotFound = false;
-        //     }
-        //   });
-        //   if (isNotFound) {
-        //     addErrorResult({
-        //       label:
-        //       name:
-        //       path:
-        //       message:
-        //     });
-        //   }
-        // }
+        if(fieldValidationConfig.validates.includes("required")) {
+          let isNotFound = true;
+          const validationStateEntryKeys = Object.keys(this.state.validationState);
+
+          for (let i = 0, l = validationStateEntryKeys.length; i < l; i++) {
+            const validationStateEntry = this.state.validationState[validationStateEntryKeys[i]];
+            if (isNotFound && validationStateEntry.name === fieldValidationConfigName) {
+              isNotFound = false;
+            }
+          }
+
+          if (isNotFound) {
+            this.addErrorResult({
+              label: fieldValidationConfig.label,
+              name: fieldValidationConfigName,
+              path: "notFound:" + fieldValidationConfigName,
+              message: `${fieldValidationConfig.label || fieldValidationConfigName} is required.`
+            });
+          }
+        }
       });
       return this.checkStateForErrors();
     }

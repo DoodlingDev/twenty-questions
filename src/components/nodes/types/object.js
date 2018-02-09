@@ -2,7 +2,7 @@
 import React from "react";
 import FormNode from "../../formNode";
 
-export const FormNodeObject = (props: q20$RenderedNode) => {
+export const FormNodeObject = (props: q20$RenderedObjectNode) => {
   let nodeContent = null;
   if (props.properties) {
     nodeContent = props.properties.map((property: q20$Node) => {
@@ -12,6 +12,7 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
           path={`${props.path}`}
           widgets={props.widgets}
           valueManager={props.valueManager}
+          register={props.register}
           {...property}
         />
       );

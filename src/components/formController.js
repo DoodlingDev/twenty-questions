@@ -20,6 +20,7 @@ export class FormController extends Component<
   };
 
   +changeValue: (changeData: q20$ChangeDataParams) => true;
+  +registerField: () => {};
 
   /**
    * constructor
@@ -28,9 +29,11 @@ export class FormController extends Component<
   constructor(props: q20$FormControllerProps) {
     super(props);
     this.changeValue = this.changeValue.bind(this);
+    this.registerField = this.registerField.bind(this);
     this.state = {
       values: {},
       errors: {},
+      fieldRegistry: [],
     };
   }
 
@@ -56,6 +59,23 @@ export class FormController extends Component<
       },
     );
     return true;
+  }
+
+  /**
+   * registerField
+   *   Adds a field's path to the registry, but only once.
+   * @param {string} path the field's path
+   */
+  registerField(path: string) {
+    if (this.state.fieldRegistry.includes(path)) {
+      return;
+    } else {
+      this.setState(oldState => {
+        let newState = Object.assign(oldState);
+        newState.fieldRegistry.push(path);
+        return newState;
+      });
+    }
   }
 
   /**
@@ -92,6 +112,7 @@ export class FormController extends Component<
             values: this.state.values,
             validate: this.props.validate.state,
           }}
+          register={this.registerField}
         />
       </form>
     );

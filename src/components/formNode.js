@@ -17,12 +17,15 @@ export const FormNode = (props: q20$Node) => {
           widgets={props.widgets}
           properties={props.properties}
           valueManager={props.valueManager}
+          register={props.register}
         />
 
     case "boolean":
+      if (props.register) {props.register(nodePath);}
       break;
 
     case "string":
+      if (props.register) {props.register(nodePath);}
         return <FormNodeString
           key={"formNode-"+nodePath}
           name={props.name}
@@ -35,9 +38,11 @@ export const FormNode = (props: q20$Node) => {
         />
 
     case "array":
+      if (props.register) {props.register(nodePath);}
       break;
 
     case "number":
+      if (props.register) {props.register(nodePath);}
       break;
 
     default:
