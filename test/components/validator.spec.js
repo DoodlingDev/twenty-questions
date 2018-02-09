@@ -303,3 +303,124 @@ describe("gatherValidations", () => {
     });
   });
 });
+
+describe("validate all", () => {
+  it("passes as valid when all validations pass", () => {
+    const wrapper = setup(shallow, {
+      schema: {
+        type: "object",
+        name: "object",
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            path: "object.one",
+            label: "ONE",
+            validates: ["required"],
+          },
+          {
+            type: "string",
+            name: "two",
+            path: "object.two",
+            label: "TWO",
+            validates: ["required"],
+          },
+        ],
+      },
+    });
+    const result = wrapper.props().validateAll({
+      "object.one": "1",
+      "object.two": "2",
+    });
+    expect(result).toBe(true);
+  });
+
+  it("fails when all validations fail", () => {
+    const wrapper = setup(shallow, {
+      schema: {
+        type: "object",
+        name: "object",
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            path: "object.one",
+            label: "ONE",
+            validates: ["required"],
+          },
+          {
+            type: "string",
+            name: "two",
+            path: "object.two",
+            label: "TWO",
+            validates: ["required"],
+          },
+        ],
+      },
+    });
+    const result = wrapper.props().validateAll({
+      "object.one": "",
+      "object.two": "",
+    });
+    expect(result).toBe(false);
+  });
+
+  it("fails when only some validations fail", () => {
+    const wrapper = setup(shallow, {
+      schema: {
+        type: "object",
+        name: "object",
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            path: "object.one",
+            label: "ONE",
+            validates: ["required"],
+          },
+          {
+            type: "string",
+            name: "two",
+            path: "object.two",
+            label: "TWO",
+            validates: ["required"],
+          },
+        ],
+      },
+    });
+    const result = wrapper.props().validateAll({
+      "object.one": "1",
+      "object.two": "",
+    });
+    expect(result).toBe(false);
+  });
+
+  it("fails when a required field doesn't exist and hasn't been touched yet", () => {
+    const wrapper = setup(shallow, {
+      schema: {
+        type: "object",
+        name: "object",
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            path: "object.one",
+            label: "ONE",
+            validates: ["required"],
+          },
+          {
+            type: "string",
+            name: "two",
+            path: "object.two",
+            label: "TWO",
+            validates: ["required"],
+          },
+        ],
+      },
+    });
+    const result = wrapper.props().validateAll({
+      "object.one": "1",
+    });
+    expect(result).toBe(false);
+  });
+});
