@@ -24,8 +24,10 @@ export default function withValidation(FormControllerComponent) {
       super(props);
       const customValidationRules = props.validationRules || {};
       this.validateSingle = this.validateSingle.bind(this);
+      this.validateAll = this.validateAll.bind(this);
       this.addValidResult = this.addValidResult.bind(this);
       this.addErrorResult = this.addErrorResult.bind(this);
+      this.checkStateForErrors = this.checkStateForErrors.bind(this);
 
       this.state = {
         validationList: gatherValidations(props.schema),
@@ -74,6 +76,87 @@ export default function withValidation(FormControllerComponent) {
           }
         }
       });
+    }
+
+    /**
+     * validateAll
+     *   Checks validations on all fields in the formValues.
+     *   - Iterates through the validationList and matches any fields in the form values
+     *   whose paths contain the name of the field being validated.
+     *   - If an entry in the form values is found matching the validation entry,
+     *   it will be passed through the validateSingle function.
+     *   - At the end, the validationState is checked for any entries where valid === false.
+     *   If there are no failing validity objects, returns true to indicate all validations
+     *   have passed.
+     *
+     * @param {q20$FormValues} formValues the entire state of the values in the form
+     *   from the FormController
+     * @return {boolean} Pass/Fail
+     */
+    validateAll(formValues) {
+      // iterate the validationList
+      const validationEntryKeys = Object.keys(this.state.validationList);
+      const formValueEntryKeys = Object.keys(formValues);
+      validationEntryKeys.forEach(fieldValidationConfigName => {
+        const fieldValidationConfig = this.state.validationList[fieldValidationConfigName];
+        const nameCheck = fieldValidationConfig.name;
+        const nameCheckRegExp = new RegExp(`(^|\.)${nameCheck}($|\.)`);
+        //
+        // for each, comb the values
+        formValueEntryKeys.forEach(valueEntryKey => {
+          if (nameCheckRegExp.test(valueEntryKey)) {
+            //
+            // any value path that matches the field name (dot to dot)
+            //   gets its validations run
+            this.validateSingle({
+              path: valueEntryKey,
+              name: nameCheckRegExp.exec(valueEntryKey)[0].replace(".", ""),
+              value: formValues[valueEntryKey],
+            });
+          }
+        });
+        //
+        // check separately for any requireds that don't exist in the values
+        // if(fieldValidationConfig.validates.includes("required")) {
+        //   let isNotFound = true;
+        //   const validationStateEntryKeys = Object.keys(this.state.validationState);
+        //   validationStateEntryKeys.forEach(validationStateEntryKey => {
+        //     if (nameCheckRegExp.test(validationStateEntryKey)) {
+        //       isNotFound = false;
+        //     }
+        //   });
+        //   if (isNotFound) {
+        //     addErrorResult({
+        //       label:
+        //       name:
+        //       path:
+        //       message:
+        //     });
+        //   }
+        // }
+      });
+      return this.checkStateForErrors();
+    }
+
+    /**
+     * checkStateForErrors
+     *   iterates the validationState and returns false if it finds any
+     *   failing validation objects.
+     * @return {boolean} true if there are no errors
+     */
+    checkStateForErrors() {
+      const validationStateEntryKeys = Object.keys(this.state.validationState);
+      let isCompletelyValid = true;
+      for (let i = 0, l = validationStateEntryKeys.length; i < l; i++) {
+        const validationStateEntry = this.state.validationState[validationStateEntryKeys[i]];
+        if (isCompletelyValid === false) return false;
+        validationStateEntry.forEach(validationEntry => {
+          if (validationEntry.valid === false) {
+            isCompletelyValid = false;
+          }
+        });
+      }
+      return isCompletelyValid;
     }
 
     /**

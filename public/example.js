@@ -19,6 +19,12 @@ const ExampleApp = props => {
               label: "A String",
               validates: ["required"],
             },
+            {
+              type: "string",
+              name: "b_string",
+              label: "B String",
+              validates: ["required"],
+            },
           ],
         },
       ],

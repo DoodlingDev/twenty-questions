@@ -328,7 +328,7 @@ describe("validate all", () => {
         ],
       },
     });
-    const result = wrapper.props().validateAll({
+    const result = wrapper.props().validate.all({
       "object.one": "1",
       "object.two": "2",
     });
@@ -358,7 +358,7 @@ describe("validate all", () => {
         ],
       },
     });
-    const result = wrapper.props().validateAll({
+    const result = wrapper.props().validate.all({
       "object.one": "",
       "object.two": "",
     });
@@ -388,7 +388,7 @@ describe("validate all", () => {
         ],
       },
     });
-    const result = wrapper.props().validateAll({
+    const result = wrapper.props().validate.all({
       "object.one": "1",
       "object.two": "",
     });
@@ -418,7 +418,7 @@ describe("validate all", () => {
         ],
       },
     });
-    const result = wrapper.props().validateAll({
+    const result = wrapper.props().validate.all({
       "object.one": "1",
     });
     expect(result).toBe(false);
