@@ -18,7 +18,7 @@ describe("rendering", () => {
         valueManager={{
           update: () => {},
           values: {},
-          errors: {},
+          validate: {},
         }}
       />
     ).toJSON();

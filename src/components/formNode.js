@@ -4,11 +4,13 @@ import FormNodeObject from "./nodes/types/object";
 import FormNodeString from "./nodes/types/string";
 
 export const FormNode = (props: q20$Node) => {
+  const nodePath = `${props.path}.${props.name}`;
   switch (props.type) {
     case "object":
       return <FormNodeObject
           name={props.name}
-          path={`${props.path}.${props.name}`}
+          key={"formNode-"+nodePath}
+          path={nodePath}
           label={props.label}
           description={props.description}
           widget={props.widget}
@@ -22,8 +24,9 @@ export const FormNode = (props: q20$Node) => {
 
     case "string":
         return <FormNodeString
+          key={"formNode-"+nodePath}
           name={props.name}
-          path={`${props.path}.${props.name}`}
+          path={nodePath}
           label={props.label}
           description={props.description}
           widget={props.widget}
@@ -39,8 +42,8 @@ export const FormNode = (props: q20$Node) => {
 
     default:
       throw new Error(
-      `FormNode was supplied an invalid type.
-      The type ${props.type} is not valid.`,
+      "FormNode was supplied an invalid type." +
+      ` The type ${props.type} is not valid.`,
       );
   }
 };

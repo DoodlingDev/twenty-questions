@@ -10,13 +10,17 @@ exports[`rendering renders string types correctly 1`] = `
   >
     A simple String
   </span>
-  <input
-    className="q20_nodeString__testString--input"
-    id="undefined.test_string"
-    onChange={[Function]}
-    placeholder={undefined}
-    type="text"
-    value={undefined}
-  />
+  <div
+    className="q20_testString__errorHandler"
+  >
+    <input
+      className="q20_nodeString__testString--input"
+      id="undefined.test_string"
+      onChange={[Function]}
+      placeholder={undefined}
+      type="text"
+      value=""
+    />
+  </div>
 </div>
 `;

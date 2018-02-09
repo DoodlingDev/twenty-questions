@@ -17,7 +17,7 @@ export type q20$widgetList = {
 export type q20$ValueManager = {
   update: (changeData: q20$ChangeDataParams) => boolean,
   values: q20$FormValues,
-  errors: q20$FormErrors,
+  validate: q20$FormErrors,
 };
 
 export type q20$RenderedNode = {
@@ -48,6 +48,8 @@ export type q20$ValidationObject = {
 export type q20$FormControllerProps = {
   schema: q20$Schema,
   title: string,
+  validate: q20$ValidateHOCPassedProps,
+  name: string,
   description?: string,
   widgets?: q20$RenderedNode[],
 };
@@ -74,4 +76,13 @@ export type q20$ValidationParams = {
   path: string,
   name: string,
   label: string,
+};
+
+export type q20$ErrorHandlerProps = {
+  name: string,
+  path: string,
+  value: any,
+  validations: q20$ValidResult | q20$ErrorResult,
+  label: string,
+  children: any
 };

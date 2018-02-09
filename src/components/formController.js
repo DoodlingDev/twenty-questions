@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
+import ErrorHandler from "./errorHandler";
 
 type q20$FormValues = {
   [key: string]: any,
@@ -21,26 +22,24 @@ export class FormController extends Component<
   q20$FormControllerState,
 > {
 
-  /**
-   * state
-   * @param {object} values input values from the form
-   * @param {object} errors error objects created by the validator
-   */
-  state = {
-    values: {},
-    errors: {},
+  static defaultProps = {
+    typeAheadValidation: true,
+    errorHandlerComponent: ErrorHandler,
   };
 
-  validator: q20$Validator;
-
+  +changeValue: (changeData: q20$ChangeDataParams) => true;
 
   /**
    * constructor
-   *
-   * @param {FormControllerProps} props
+   * @param {q20$FormControllerProps} props
    */
   constructor(props: q20$FormControllerProps) {
     super(props);
+    this.changeValue = this.changeValue.bind(this);
+    this.state = {
+      values: {},
+      errors: {},
+    };
   }
 
   /**
@@ -52,11 +51,18 @@ export class FormController extends Component<
    * @return {boolean}
    */
   changeValue(changeData: q20$ChangeDataParams) {
-    this.setState((oldState: q20$FormControllerState): q20$FormControllerState => {
-      let newState = Object.assign(oldState, {});
-      newState.values[changeData.path] = changeData.value;
-      return newState;
-    });
+    this.setState(
+      (oldState: q20$FormControllerState): q20$FormControllerState => {
+        let newState = Object.assign(oldState, {});
+        newState.values[changeData.path] = changeData.value;
+        return newState;
+      },
+      () => {
+        if (this.props.typeAheadValidation) {
+          this.props.validate.single(changeData);
+        }
+      },
+    );
     return true;
   }
 
@@ -71,7 +77,7 @@ export class FormController extends Component<
     const { title, description, properties } = this.props.schema;
     if (properties[0].type !== "object") {
       throw new Error(
-      "The first property in a 20-questions form must be of type object. Set all further fields/data as properties of that object."
+        "The first property in a 20-questions form must be of type object. Set all further fields/data as properties of that object.",
       );
     }
     return (
@@ -80,18 +86,19 @@ export class FormController extends Component<
         {description && <h3>{description}</h3>}
 
         <FormNodeObject
+          key={`top-object-${this.props.name}.${properties[0].name}`}
           name={properties[0].name}
           label={properties[0].label}
           description={properties[0].description}
           type={"object"}
-          path={`${this.props.schema.name}.${properties[0].name}`}
+          path={`${this.props.name}.${properties[0].name}`}
           properties={properties[0].properties}
           widgets={getWidgets(widgets)}
           widget={properties[0].widget ? properties[0].widget : undefined}
           valueManager={{
-            update: this.changeValue.bind(this),
+            update: this.changeValue,
             values: this.state.values,
-            errors: this.state.errors,
+            validate: this.props.validate.state,
           }}
         />
       </form>

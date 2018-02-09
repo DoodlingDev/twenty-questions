@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { gatherValidations } from "../utils/validator";
 import * as builtInValidationRules from "../utils/validationRules";
 import { filter } from "lodash";
+import camelize from "../utils/camelize";
 /* eslint react/prop-types: "off" */
 
 /**
@@ -15,8 +16,9 @@ import { filter } from "lodash";
 export default function withValidation(FormControllerComponent) {
   return class Validator extends Component {
     /**
-     *
-     *
+     * constructor
+     *   class constructor
+     * @param {object} props
      */
     constructor(props) {
       super(props);
@@ -36,8 +38,15 @@ export default function withValidation(FormControllerComponent) {
     }
 
     /**
-     *
-     *
+     * validateSingle
+     *   Runs a validation on a single change. changeData is passed in from
+     *   the form and contains value, name, and path.
+     *   - If there is no entry for the input's name in the validationList,
+     *   it returns right away without any action.
+     *   - Calls to the specified validation rule, and handles the response
+     *   object either error or valid.
+     * @param {q20$ValidationData} changeData the change object as sent up
+     *   from the input entry.
      */
     validateSingle(changeData) {
       const validationListEntry = this.state.validationList[changeData.name];
@@ -106,10 +115,13 @@ export default function withValidation(FormControllerComponent) {
     addErrorResult(result) {
       this.setState(oldState => {
         let newState = Object.assign(oldState, {});
-        const currentInputValidationState = newState.validationState[result.path];
+        const currentInputValidationState =
+          newState.validationState[result.path];
 
-        newState.validationState[result.path] = filter(currentInputValidationState,
-          val => val.validation !== result.validation);
+        newState.validationState[result.path] = filter(
+          currentInputValidationState,
+          val => val.validation !== result.validation,
+        );
 
         if (currentInputValidationState) {
           newState.validationState[result.path].push(result);
@@ -133,6 +145,7 @@ export default function withValidation(FormControllerComponent) {
             all: this.validateAll,
             state: this.state.validationState,
           }}
+          key={"Validated-" + camelize(this.props.title)}
           {...this.props}
         />
       );

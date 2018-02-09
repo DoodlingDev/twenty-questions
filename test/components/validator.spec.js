@@ -11,7 +11,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const defaultFormControllerProps = {
   title: "test form",
-}
+};
 
 const oneValidation = {
   schema: {
@@ -31,7 +31,6 @@ const oneValidation = {
     ],
   },
 };
-
 
 function setup(renderFn, props) {
   const testPropsWithDefault = Object.assign(props, defaultFormControllerProps);
@@ -66,7 +65,7 @@ describe("gatherValidations", () => {
       const wrapper = setup(shallow, oneValidation);
       const validationList = wrapper.state().validationList;
       expect(validationList).toEqual({
-        "one": {
+        one: {
           type: "string",
           label: "ONE",
           name: "one",
@@ -108,13 +107,13 @@ describe("gatherValidations", () => {
       const wrapper = setup(shallow, twoSiblingsToValidate);
       const validationList = wrapper.state().validationList;
       expect(validationList).toEqual({
-        "one": {
+        one: {
           name: "one",
           label: "ONE",
           type: "string",
           validates: ["--one"],
         },
-        "two": {
+        two: {
           name: "two",
           label: "TWO",
           type: "string",
@@ -259,15 +258,17 @@ describe("gatherValidations", () => {
       const wrapper = setup(shallow, {
         schema: {
           type: "string",
-          name:"one",
+          name: "one",
           label: "ONE",
           validates: ["required"],
         },
       });
-      wrapper.instance().state.validationState["one.one"] = [{
-        validation: "required",
-        valid: true,
-      }];
+      wrapper.instance().state.validationState["one.one"] = [
+        {
+          validation: "required",
+          valid: true,
+        },
+      ];
       wrapper.props().validate.single({
         name: "one",
         path: "one.one",
@@ -282,15 +283,17 @@ describe("gatherValidations", () => {
       const wrapper = setup(shallow, {
         schema: {
           type: "string",
-          name:"one",
+          name: "one",
           label: "ONE",
           validates: ["required"],
         },
       });
-      wrapper.instance().state.validationState["one.one"] = [{
-        validation: "required",
-        valid: false,
-      }];
+      wrapper.instance().state.validationState["one.one"] = [
+        {
+          validation: "required",
+          valid: false,
+        },
+      ];
       wrapper.props().validate.single({
         name: "one",
         path: "one.one",

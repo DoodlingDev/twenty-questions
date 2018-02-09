@@ -4,21 +4,20 @@ import Form from "index";
 
 const ExampleApp = props => {
   return <Form
+    title="FORM"
+    description="This is a form"
     schema={{
-      title: "This is a form",
-      description: "Please treat this like a form",
       properties: [
         {
           type: "object",
           name: "form-name",
           label: "A simple form",
-          description: "Please, a form sir",
           properties: [
             {
               type: "string",
               name: "a_string",
               label: "A String",
-              description: "A simple string",
+              validates: ["required"],
             },
           ],
         },

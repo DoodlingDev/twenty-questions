@@ -9,8 +9,8 @@ import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
 const setupProps = {
+  title: "test form title",
   schema: {
-    title: "test form title",
     description: "this is a test form",
     properties: [
       {
