@@ -1,6 +1,9 @@
 // imported from https://www.npmjs.com/package/camelcase
 // was having trouble getting it to be recognized
-
+//
+/* eslint require-jsdoc: "off" */
+/* eslint quotes: "off" */
+/* eslint prefer-rest-params: "off" */
 function preserveCamelCase(str) {
 	let isLastCharLower = false;
 	let isLastCharUpper = false;
