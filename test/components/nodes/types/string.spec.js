@@ -12,13 +12,14 @@ describe("rendering", () => {
     const render = renderer.create(
       <FormNodeString
         name="test_string"
+        label="test string"
         path="test_form.test_string"
         title="string title"
         description="A simple String"
         valueManager={{
           update: () => {},
           values: {},
-          errors: {},
+          validate: {},
         }}
         />
     ).toJSON();

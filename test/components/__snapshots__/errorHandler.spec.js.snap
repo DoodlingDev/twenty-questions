@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders corrrectly 1`] = `
+<div
+  className="q20_testError__errorHandler"
+/>
+`;
