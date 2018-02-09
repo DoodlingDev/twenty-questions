@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { gatherValidations } from "../utils/validator";
+import gatherValidations from "../utils/gatherValidations";
 import * as builtInValidationRules from "../utils/validationRules";
 import { filter } from "lodash";
 import camelize from "../utils/camelize";
