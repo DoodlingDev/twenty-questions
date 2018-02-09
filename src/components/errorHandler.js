@@ -32,9 +32,10 @@ export const ErrorHandler = (props: q20$ErrorHandlerProps) => {
     );
     validityClass = "errorData";
   } else if (valid) {
+    const displayName = props.label || "";
     renderValidation = (
       <span className={cn(props.name, "errorHandler", "validIndicator")}>
-        {`${props.label} ✔︎`}
+        {`${displayName} ✔︎`}
       </span>
     );
     validityClass = "validData";

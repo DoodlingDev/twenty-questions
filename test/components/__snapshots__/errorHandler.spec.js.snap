@@ -1,6 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders corrrectly 1`] = `
+exports[`renders correctly when validation fails 1`] = `
+<div
+  className="q20_testError__errorHandler--errorData"
+>
+  <ul
+    className="q20_testError__errorHandler--errorList"
+  >
+    <li
+      className="q20_testError__errorHandler--errorMessage"
+    >
+      This validation failed!
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`renders correctly when validation passes w/ label 1`] = `
+<div
+  className="q20_testError__errorHandler--validData"
+>
+  <span
+    className="q20_testError__errorHandler--validIndicator"
+  >
+    test Label ✔︎
+  </span>
+</div>
+`;
+
+exports[`renders correctly when validation passes w/o label 1`] = `
+<div
+  className="q20_testError__errorHandler--validData"
+>
+  <span
+    className="q20_testError__errorHandler--validIndicator"
+  >
+     ✔︎
+  </span>
+</div>
+`;
+
+exports[`renders corrrectly before error exists 1`] = `
 <div
   className="q20_testError__errorHandler"
 />
