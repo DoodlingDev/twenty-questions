@@ -96,7 +96,6 @@ export default function withValidation(FormControllerComponent) {
     validateAll(formValues, registry) {
       // iterate the validationList
       const validationEntryKeys = Object.keys(this.state.validationList);
-      const formValueEntryKeys = Object.keys(formValues);
       validationEntryKeys.forEach(fieldValidationConfigName => {
         const fieldValidationConfig = this.state.validationList[fieldValidationConfigName];
         const nameCheck = fieldValidationConfig.name;
