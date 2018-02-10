@@ -91,6 +91,7 @@ export default function withValidation(FormControllerComponent) {
      *
      * @param {q20$FormValues} formValues the entire state of the values in the form
      *   from the FormController
+     * @param {string[]} registry field registry from FromController
      * @return {boolean} Pass/Fail
      */
     validateAll(formValues, registry) {
