@@ -24,6 +24,12 @@ const ExampleApp = props => {
             label: "B String",
             validates: ["required"],
           },
+          {
+            type: "boolean",
+            name: "a_checkbox",
+            label: "A Checkbox",
+            validates: ["required"],
+          },
         ],
       },
     ]}
