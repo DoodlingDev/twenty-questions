@@ -12,22 +12,20 @@ const defaultFormControllerProps = {
 };
 
 const oneValidation = {
-  schema: {
-    name: "row-1",
-    properties: [
-      {
-        type: "string",
-        name: "one",
-        label: "ONE",
-        validates: ["--one"],
-      },
-      {
-        type: "string",
-        name: "two",
-        label: "TWO",
-      },
-    ],
-  },
+  name: "row-1",
+  properties: [
+    {
+      type: "string",
+      name: "one",
+      label: "ONE",
+      validates: ["--one"],
+    },
+    {
+      type: "string",
+      name: "two",
+      label: "TWO",
+    },
+  ],
 };
 
 function setup(renderFn, props) {
@@ -75,24 +73,21 @@ describe("gatherValidations", () => {
 
   describe("given two sibling validations", () => {
     const twoSiblingsToValidate = {
-      schema: {
-        type: "object",
-        name: "parent",
-        properties: [
-          {
-            name: "one",
-            type: "string",
-            label: "ONE",
-            validates: ["--one"],
-          },
-          {
-            name: "two",
-            type: "string",
-            label: "TWO",
-            validates: ["--one", "--two"],
-          },
-        ],
-      },
+      name: "parent",
+      properties: [
+        {
+          name: "one",
+          type: "string",
+          label: "ONE",
+          validates: ["--one"],
+        },
+        {
+          name: "two",
+          type: "string",
+          label: "TWO",
+          validates: ["--one", "--two"],
+        },
+      ],
     };
 
     it("should return two fields to validate", () => {
@@ -123,42 +118,40 @@ describe("gatherValidations", () => {
 
   describe("given nested properties", () => {
     const nestedProperties = {
-      schema: {
-        title: "test schema",
-        type: "object",
-        properties: [
-          {
-            type: "string",
-            name: "one",
-            label: "ONE",
-            validates: ["--one"],
-          },
-          {
-            type: "object",
-            name: "object-1",
-            properties: [
-              {
-                type: "string",
-                name: "two",
-                label: "TWO",
-                validates: ["--two"],
-              },
-              {
-                type: "object",
-                name: "object-2",
-                properties: [
-                  {
-                    type: "number",
-                    name: "three",
-                    label: "THREE",
-                    validates: ["--one", "--two", "--three"],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
+      title: "test schema",
+      type: "object",
+      properties: [
+        {
+          type: "string",
+          name: "one",
+          label: "ONE",
+          validates: ["--one"],
+        },
+        {
+          type: "object",
+          name: "object-1",
+          properties: [
+            {
+              type: "string",
+              name: "two",
+              label: "TWO",
+              validates: ["--two"],
+            },
+            {
+              type: "object",
+              name: "object-2",
+              properties: [
+                {
+                  type: "number",
+                  name: "three",
+                  label: "THREE",
+                  validates: ["--one", "--two", "--three"],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
 
     it("should return three fields to validate", () => {
@@ -196,12 +189,14 @@ describe("gatherValidations", () => {
   describe("validate single", () => {
     it("should error when passed an invalid validationRule", () => {
       const wrapper = setup(shallow, {
-        schema: {
-          type: "string",
-          name: "one",
-          label: "ONE",
-          validates: ["godzilla"],
-        },
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            label: "ONE",
+            validates: ["godzilla"],
+          },
+        ]
       });
       try {
         wrapper.props().validate.single({
@@ -216,12 +211,14 @@ describe("gatherValidations", () => {
 
     it("should create a validation entry in the state when valid", () => {
       const wrapper = setup(shallow, {
-        schema: {
-          type: "string",
-          name: "one",
-          label: "ONE",
-          validates: ["required"],
-        },
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            label: "ONE",
+            validates: ["required"],
+          },
+        ],
       });
       wrapper.props().validate.single({
         name: "one",
@@ -235,12 +232,14 @@ describe("gatherValidations", () => {
 
     it("should create a validation entry in the state when invalid", () => {
       const wrapper = setup(shallow, {
-        schema: {
-          type: "string",
-          name: "one",
-          label: "ONE",
-          validates: ["required"],
-        },
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            label: "ONE",
+            validates: ["required"],
+          },
+        ]
       });
       wrapper.props().validate.single({
         name: "one",
@@ -254,12 +253,14 @@ describe("gatherValidations", () => {
 
     it("should remove a valid entry for the same validation when new invalid is passed", () => {
       const wrapper = setup(shallow, {
-        schema: {
-          type: "string",
-          name: "one",
-          label: "ONE",
-          validates: ["required"],
-        },
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            label: "ONE",
+            validates: ["required"],
+          },
+        ]
       });
       wrapper.instance().state.validationState["one.one"] = [
         {
@@ -279,12 +280,14 @@ describe("gatherValidations", () => {
 
     it("removes an invalid entry for the same validation when new valid is passed", () => {
       const wrapper = setup(shallow, {
-        schema: {
-          type: "string",
-          name: "one",
-          label: "ONE",
-          validates: ["required"],
-        },
+        properties: [
+          {
+            type: "string",
+            name: "one",
+            label: "ONE",
+            validates: ["required"],
+          }
+        ]
       });
       wrapper.instance().state.validationState["one.one"] = [
         {
@@ -307,26 +310,28 @@ describe("gatherValidations", () => {
 describe("validate all", () => {
   it("passes as valid when all validations pass", () => {
     const wrapper = setup(shallow, {
-      schema: {
-        type: "object",
-        name: "object",
-        properties: [
-          {
-            type: "string",
-            name: "one",
-            path: "object.one",
-            label: "ONE",
-            validates: ["required"],
-          },
-          {
-            type: "string",
-            name: "two",
-            path: "object.two",
-            label: "TWO",
-            validates: ["required"],
-          },
-        ],
-      },
+      properties: [
+        {
+          type: "object",
+          name: "object",
+          properties: [
+            {
+              type: "string",
+              name: "one",
+              path: "object.one",
+              label: "ONE",
+              validates: ["required"],
+            },
+            {
+              type: "string",
+              name: "two",
+              path: "object.two",
+              label: "TWO",
+              validates: ["required"],
+            },
+          ],
+        }
+      ]
     });
     const result = wrapper.props().validate.all({
       "object.one": "1",
@@ -337,26 +342,28 @@ describe("validate all", () => {
 
   it("fails when all validations fail", () => {
     const wrapper = setup(shallow, {
-      schema: {
-        type: "object",
-        name: "object",
-        properties: [
-          {
-            type: "string",
-            name: "one",
-            path: "object.one",
-            label: "ONE",
-            validates: ["required"],
-          },
-          {
-            type: "string",
-            name: "two",
-            path: "object.two",
-            label: "TWO",
-            validates: ["required"],
-          },
-        ],
-      },
+      properties: [
+        {
+          type: "object",
+          name: "object",
+          properties: [
+            {
+              type: "string",
+              name: "one",
+              path: "object.one",
+              label: "ONE",
+              validates: ["required"],
+            },
+            {
+              type: "string",
+              name: "two",
+              path: "object.two",
+              label: "TWO",
+              validates: ["required"],
+            },
+          ],
+        }
+      ]
     });
     const result = wrapper.props().validate.all({
       "object.one": "",
@@ -367,26 +374,28 @@ describe("validate all", () => {
 
   it("fails when only some validations fail", () => {
     const wrapper = setup(shallow, {
-      schema: {
-        type: "object",
-        name: "object",
-        properties: [
-          {
-            type: "string",
-            name: "one",
-            path: "object.one",
-            label: "ONE",
-            validates: ["required"],
-          },
-          {
-            type: "string",
-            name: "two",
-            path: "object.two",
-            label: "TWO",
-            validates: ["required"],
-          },
-        ],
-      },
+      properties: [
+        {
+          type: "object",
+          name: "object",
+          properties: [
+            {
+              type: "string",
+              name: "one",
+              path: "object.one",
+              label: "ONE",
+              validates: ["required"],
+            },
+            {
+              type: "string",
+              name: "two",
+              path: "object.two",
+              label: "TWO",
+              validates: ["required"],
+            },
+          ],
+        }
+      ]
     });
     const result = wrapper.props().validate.all({
       "object.one": "1",
@@ -397,26 +406,28 @@ describe("validate all", () => {
 
   it("fails when a required field doesn't exist and hasn't been touched yet", () => {
     const wrapper = setup(shallow, {
-      schema: {
-        type: "object",
-        name: "object",
-        properties: [
-          {
-            type: "string",
-            name: "one",
-            path: "object.one",
-            label: "ONE",
-            validates: ["required"],
-          },
-          {
-            type: "string",
-            name: "two",
-            path: "object.two",
-            label: "TWO",
-            validates: ["required"],
-          },
-        ],
-      },
+      properties: [
+        {
+          type: "object",
+          name: "object",
+          properties: [
+            {
+              type: "string",
+              name: "one",
+              path: "object.one",
+              label: "ONE",
+              validates: ["required"],
+            },
+            {
+              type: "string",
+              name: "two",
+              path: "object.two",
+              label: "TWO",
+              validates: ["required"],
+            },
+          ],
+        }
+      ]
     });
     const result = wrapper.props().validate.all({
       "object.one": "1",
