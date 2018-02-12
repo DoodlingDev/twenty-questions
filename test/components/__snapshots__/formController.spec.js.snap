@@ -2,25 +2,32 @@
 
 exports[`renders correctly 1`] = `
 <form>
-  <h2 />
+  <h2>
+    test form title
+  </h2>
   <h3>
     this is a test form
   </h3>
   <div>
-    <div
-      className="q20_node__string"
-    >
+    <span>
+      this is a test form
+    </span>
+    <div>
       <div
-        className="q20_testString__errorHandler"
+        className="q20_node__string"
       >
-        <input
-          className="q20_nodeString__testString--input"
-          id="undefined.test name.testString"
-          onChange={[Function]}
-          placeholder={undefined}
-          type="text"
-          value=""
-        />
+        <div
+          className="q20_testString__errorHandler"
+        >
+          <input
+            className="q20_nodeString__testString--input"
+            id="testFormTitle.test name.testString"
+            onChange={[Function]}
+            placeholder={undefined}
+            type="text"
+            value=""
+          />
+        </div>
       </div>
     </div>
   </div>

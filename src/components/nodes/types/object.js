@@ -2,7 +2,7 @@
 import React from "react";
 import FormNode from "../../formNode";
 
-export const FormNodeObject = (props: q20$RenderedObjectNode) => {
+export const FormNodeObject = (props: q20$RenderedNode) => {
   let nodeContent = null;
   if (props.properties) {
     nodeContent = props.properties.map((property: q20$Node) => {
