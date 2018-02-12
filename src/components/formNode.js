@@ -2,6 +2,7 @@
 import React from "react";
 import FormNodeObject from "./nodes/types/object";
 import FormNodeString from "./nodes/types/string";
+import FormNodeBoolean from "./nodes/types/boolean";
 
 export const FormNode = (props: q20$Node) => {
   const { type, path, ...carryThroughProps } = props;
@@ -16,7 +17,12 @@ export const FormNode = (props: q20$Node) => {
 
     case "boolean":
       if (props.register) {props.register(nodePath);}
-      break;
+      return (<FormNodeBoolean
+        key={`formNode-${nodePath}`}
+        path={nodePath}
+        {...carryThroughProps}
+      />
+      )
 
     case "string":
       if (props.register) {props.register(nodePath);}
