@@ -4,6 +4,7 @@ import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
 import ErrorHandler from "./errorHandler";
+import camelize from "../utils/camelize";
 
 /**
  * FormController
@@ -64,6 +65,7 @@ export class FormController extends Component<
   /**
    * registerField
    *   Adds a field's path to the registry, but only once.
+   *
    * @param {string} path the field's path
    */
   registerField(path: string) {
@@ -85,28 +87,22 @@ export class FormController extends Component<
    * @return {React$Element} FormBuilder
    */
   render() {
-    const { widgets } = this.props;
-    const { title, description, properties } = this.props.schema;
-    if (properties[0].type !== "object") {
-      throw new Error(
-        "The first property in a 20-questions form must be of type object. Set all further fields/data as properties of that object.",
-      );
-    }
+    const { widgets, widget, title, description, properties, label } = this.props;
     return (
       <form>
         <h2>{title}</h2>
         {description && <h3>{description}</h3>}
 
         <FormNodeObject
-          key={`top-object-${this.props.name}.${properties[0].name}`}
-          name={properties[0].name}
-          label={properties[0].label}
-          description={properties[0].description}
+          key={`top-object-${camelize(title)}`}
+          name={camelize(title)}
+          label={label ? label : undefined}
+          description={description}
           type={"object"}
-          path={`${this.props.name}.${properties[0].name}`}
-          properties={properties[0].properties}
+          path={`${camelize(title)}`}
+          properties={properties}
           widgets={getWidgets(widgets)}
-          widget={properties[0].widget ? properties[0].widget : undefined}
+          widget={widget ? widget : undefined}
           valueManager={{
             update: this.changeValue,
             values: this.state.values,

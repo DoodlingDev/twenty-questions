@@ -10,21 +10,19 @@ Enzyme.configure({ adapter: new Adapter() });
 
 const setupProps = {
   title: "test form title",
-  schema: {
-    description: "this is a test form",
-    properties: [
-      {
-        name: "test name",
-        type: "object",
-        properties: [
-          {
-            type: "string",
-            name: "testString",
-          },
-        ],
-      },
-    ],
-  },
+  description: "this is a test form",
+  properties: [
+    {
+      name: "test name",
+      type: "object",
+      properties: [
+        {
+          type: "string",
+          name: "testString",
+        },
+      ],
+    },
+  ],
 }
 
 it("renders correctly", () => {
