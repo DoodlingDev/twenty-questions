@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders string types correctly 1`] = `
+<div
+  className="q20_node__number"
+>
+  <label
+    className="q20_nodeNumber__testNumber--label"
+    htmlFor="test.test_number"
+  >
+    test number
+    <span
+      className="q20_nodeNumber__testNumber--description"
+      htmlFor="test.test_number"
+    >
+      this is a test number
+    </span>
+  </label>
+  <div
+    className="q20_testNumber__errorHandler"
+  >
+    <input
+      className="q20_nodeNumber__testNumber--input"
+      id="test.test_number"
+      onChange={[Function]}
+      placeholder={undefined}
+      type="number"
+      value=""
+    />
+  </div>
+</div>
+`;

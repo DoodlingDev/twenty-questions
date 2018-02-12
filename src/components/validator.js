@@ -30,7 +30,7 @@ export default function withValidation(FormControllerComponent) {
       this.checkStateForErrors = this.checkStateForErrors.bind(this);
 
       this.state = {
-        validationList: gatherValidations(props.schema),
+        validationList: gatherValidations(props.properties),
         validationRules: Object.assign(
           customValidationRules,
           builtInValidationRules,
