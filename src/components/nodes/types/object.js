@@ -3,7 +3,7 @@ import React from "react";
 import FormNodeString from "./string";
 import FormNodeBoolean from "./boolean";
 import FormNodeNumber from "./number";
-//import FormNodeArray from "./array";
+import FormNodeArray from "./array";
 
 export const FormNodeObject = (props: q20$RenderedNode) => {
   if (props.register) {
@@ -13,13 +13,13 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
     string: FormNodeString,
     boolean: FormNodeBoolean,
     number: FormNodeNumber,
-    // array: FormNodeArray,
+    array: FormNodeArray,
     object: FormNodeObject,
   };
 
   let nodeContent = null;
   if (props.properties) {
-    nodeContent = props.properties.map((property: q20$Node) => {
+    nodeContent = props.properties.map((property: q20$RenderedNode) => {
       if (!Object.keys(nodeTypes).includes(property.type)) {
         throw new Error(
           "FormNode was supplied an invalid type." +

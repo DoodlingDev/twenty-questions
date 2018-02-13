@@ -25,15 +25,18 @@ export type q20$RenderedNode = {
   path: string,
   valueManager: q20$ValueManager,
   register: (path: string) => typeof undefined,
+  type: q20$NodeType,
   label?: string,
   description?: string,
-  properties?: q20$Node[],
   widget?: string,
   widgets: q20$widgetList,
   layoutStyle?: string,
   placeholder?: string,
   validates?: string[],
+  properties?: Array<q20$Property>,
 };
+
+export type q20$Property = q20$RenderedNode | q20$RenderedNodeWithChildren;
 
 export type q20$Node = q20$RenderedNode & { type: q20$NodeType };
 

@@ -46,7 +46,7 @@ export class FormController extends Component<
    *   required data sent from the form field
    * @return {boolean}
    */
-  changeValue(changeData: q20$ChangeDataParams) {
+  changeValue(changeData: q20$ChangeDataParams): boolean {
     this.setState(
       (oldState: q20$FormControllerState): q20$FormControllerState => {
         let newState = Object.assign(oldState, {});
