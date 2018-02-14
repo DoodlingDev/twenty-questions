@@ -6,6 +6,7 @@ import FormNodeObject from "./object";
 
 type q20$FormNodeArrayState = {
   directChildsName: string,
+  childFields: number,
 };
 
 /**
@@ -19,8 +20,11 @@ export class FormNodeArray extends Component<
 > {
   +renderChildren: () => React$Element<*>[];
   +numberOfChildrenWithMatchingPath: () => number;
+  +addRow: () => typeof undefined;
+  +deleteRow: ({path: number, index: string}) => typeof undefined;
 
   directChildsName: string;
+  childFields: number;
   /**
    * constructor
    * @param {object} props
@@ -42,9 +46,14 @@ export class FormNodeArray extends Component<
     this.numberOfChildrenWithMatchingPath = this.numberOfChildrenWithMatchingPath.bind(
       this,
     );
+    this.addRow = this.addRow.bind(this);
     this.renderChildren = this.renderChildren.bind(this);
     if (this.props.properties) {
       this.directChildsName = this.props.properties[0].name;
+    }
+    this.childFields = this.numberOfChildrenWithMatchingPath();
+    if (this.childFields < 1) {
+      this.addRow();
     }
   }
 
@@ -68,10 +77,6 @@ export class FormNodeArray extends Component<
         count++;
       }
     });
-    if (count < 1) {
-      count++;
-    }
-    console.log(count)
     return count;
   }
 
@@ -92,17 +97,47 @@ export class FormNodeArray extends Component<
 
     for (let i = 0, l = childrenCount; i < l; i++) {
       outputBuffer.push(
-        <FormNodeObject
-          key={`array-node-${this.props.path}-${i}`}
-          path={`${this.props.path}.${i}.${this.directChildsName}`}
-          widgets={this.props.widgets}
-          valueManager={this.props.valueManager}
-          register={this.props.register}
-          {...passThruProps}
-        />,
+        <div
+          key={`wrapperFor-${this.props.path}.${i}.${this.directChildsName}`}
+        >
+          <FormNodeObject
+            key={`array-node-${this.props.path}-${i}`}
+            path={`${this.props.path}.${i}.${this.directChildsName}`}
+            widgets={this.props.widgets}
+            valueManager={this.props.valueManager}
+            register={this.props.register}
+            {...passThruProps}
+          />
+          <button
+            type="delete"
+            onClick={event => {
+              event.preventDefault();
+              this.props.valueManager.deleteRow({
+                path: this.props.path,
+                index: i
+              });
+            }}
+          >
+            delete
+          </button>
+        </div>,
       );
     }
     return outputBuffer;
+  }
+
+  /**
+   * addRow
+   */
+  addRow(): typeof undefined {
+    debugger
+    this.props.valueManager.update({
+      path: `${this.props.path}.${this.numberOfChildrenWithMatchingPath()}.${
+        this.directChildsName
+      }`,
+      name: this.directChildsName,
+      value: {},
+    });
   }
 
   /**
@@ -175,6 +210,15 @@ export class FormNodeArray extends Component<
                 this.props.layoutStyle,
               )}
             >
+              <button
+                type="add"
+                onClick={event => {
+                  event.preventDefault();
+                  this.addRow();
+                }}
+              >
+                add
+              </button>
               {this.renderChildren()}
             </fieldset>
           </ErrorHandler>

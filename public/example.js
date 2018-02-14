@@ -38,6 +38,7 @@ const ExampleApp = props => {
                     type: "string",
                     name: "c_string",
                     label: "C String",
+                    validates: ["required"],
                   }
                 ]
               }

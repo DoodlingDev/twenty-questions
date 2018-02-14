@@ -17,6 +17,7 @@ export type q20$widgetList = {
 export type q20$ValueManager = {
   update: (changeData: q20$ChangeDataParams) => boolean,
   values: q20$FormValues,
+  deleteRow: ({path: string, index: number}) => typeof undefined,
   validate: q20$FormErrors,
 };
 
@@ -93,4 +94,10 @@ export type q20$ErrorHandlerProps = {
   validations: q20$ValidResult | q20$ErrorResult,
   label: string,
   children: any
+};
+
+
+export type q20$DeleteRowValues = {
+  path: string,
+  index: number,
 };

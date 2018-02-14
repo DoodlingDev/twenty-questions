@@ -60,9 +60,10 @@ const defaultProps = {
     },
   ],
   valueManager: {
-    update: () => {},
+    update: jest.fn(),
     values: {},
     validate: {},
+    deleteRow: jest.fn(),
   },
 };
 
@@ -70,11 +71,23 @@ function setup(renderFn, testProps = defaultProps) {
   return renderFn(<FormNodeArray {...testProps} />);
 }
 
+// It's kind of gross, but I didn't find a more elegant
+// solution to this async setState call's updating the
+// component on loading with no values to begin with.
+//
+// ..that is, without changing the component just to fit
+// the test case.
+// hence the setTimeout.
 describe("# of rows", () => {
   describe("given no values", () => {
-    it("renders one row", () => {
+    it("adds one row", () => {
       const wrapper = setup(mount);
-      expect(wrapper.find("FormNodeObject").length).toBe(1);
+      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([{
+        path: "test_form.test_array.0.child",
+        name: "child",
+        value: {},
+      }]);
+      wrapper.props().valueManager.update.mockClear()
     });
   });
 
@@ -110,9 +123,13 @@ describe("# of rows", () => {
         "test_form.test_array.0.child": {},
       };
       const wrapper = setup(mount, oneValue);
-      wrapper.find("button").simulate("click");
-      wrapper.update();
-      expect(wrapper.find("FormNodeObject").length).toBe(2);
+      wrapper.find("button[type='add']").simulate("click");
+      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([{
+        path: "test_form.test_array.1.child",
+        name: "child",
+        value: {},
+      }]);
+      wrapper.props().valueManager.update.mockClear()
     });
 
     it("given multiple, adds one", () => {
@@ -123,9 +140,41 @@ describe("# of rows", () => {
         "test_form.test_array.2.child": {},
       };
       const wrapper = setup(mount, oneValue);
-      wrapper.find("button").simulate("click");
-      wrapper.update();
-      expect(wrapper.find("FormNodeObject").length).toBe(4);
+      wrapper.find("button[type='add']").simulate("click");
+      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([{
+        path: "test_form.test_array.3.child",
+        name: "child",
+        value: {},
+      }]);
+      wrapper.props().valueManager.update.mockClear()
+    });
+  });
+
+  describe("deleting rows", () => {
+    it("should delete only one row on button", () => {
+      const oneValue = { ...defaultProps };
+      oneValue.valueManager.values = {
+        "test_form.test_array.0.child": {},
+        "test_form.test_array.1.child": {},
+        "test_form.test_array.2.child": {},
+      };
+      const wrapper = setup(mount, oneValue);
+      wrapper.find("button[type='delete']").first().simulate("click");
+      expect(wrapper.props().valueManager.deleteRow.mock.calls[0]).toEqual([{
+        path: "test_form.test_array",
+        index: 0,
+      }]);
+      wrapper.props().valueManager.update.mockClear()
+    });
+
+    it("should not delete the last input", () => {
+      const oneValue = { ...defaultProps };
+      oneValue.valueManager.values = {
+        "test_form.test_array.0.child": {},
+      };
+      const wrapper = setup(mount, oneValue);
+      wrapper.find("button[type='delete']").simulate("click");
+      wrapper.props().valueManager.update.mockClear()
     });
   });
 });
