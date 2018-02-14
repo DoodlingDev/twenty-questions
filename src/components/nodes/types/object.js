@@ -4,11 +4,9 @@ import FormNodeString from "./string";
 import FormNodeBoolean from "./boolean";
 import FormNodeNumber from "./number";
 import FormNodeArray from "./array";
+import camelize from "../../../utils/camelize"
 
 export const FormNodeObject = (props: q20$RenderedNode) => {
-  if (props.register) {
-    props.register(props.path);
-  }
   const nodeTypes = {
     string: FormNodeString,
     boolean: FormNodeBoolean,
@@ -27,14 +25,14 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
         );
       }
 
-      const nodePath = `${props.path}.${property.name}`;
+      const nodePath = `${props.path}.${camelize(property.name)}`;
       if (props.register) {
         props.register(nodePath);
       }
       const NodeComponent = nodeTypes[property.type];
       return (
         <NodeComponent
-          key={`node-${props.path}.${property.name}`}
+          key={`node-${nodePath}`}
           path={nodePath}
           widgets={props.widgets}
           valueManager={props.valueManager}

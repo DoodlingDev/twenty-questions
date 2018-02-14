@@ -1,10 +1,8 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
-import {
-  FormController,
-} from "../../src/components/formController.js";
+import { FormController } from "../../src/components/formController.js";
 import renderer from "react-test-renderer";
-import { /*  shallow,  */mount } from "enzyme";
+import { /*  shallow,  */ mount } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
@@ -19,6 +17,8 @@ const setupProps = {
   },
   properties: [
     {
+      // this name is left with a space specifically to
+      // test that names get camelized
       name: "test name",
       type: "object",
       properties: [
@@ -95,31 +95,104 @@ describe("changeValue", () => {
   });
 });
 
-describe("registerField", () => {});
+describe("registerField", () => {
+  it("should register each field when they are rendered", () => {
+    const wrapper = setup(mount);
+    wrapper.update();
+    expect(wrapper.state().fieldRegistry.length).toEqual(2);
+    expect(wrapper.state().fieldRegistry).toContain(
+      "testFormTitle.testName.testString",
+    );
+  });
 
-describe("deleteRowValue", () => {});
-//
-// function setup(renderFn, props = setupProps) {
-//   return renderFn(<FormController {...props}/>);
-// }
-//
-// describe("handles import correctly", () => {
-//   let error;
-//   const notObjectFirstParam = {
-//     title: "setup without first param object",
-//     description: "this should throw an error",
-//     properties: [
-//       {
-//         type: "string",
-//         name: "blow-up",
-//         properties: [{}],
-//       }
-//     ]
-//   };
-//   try {
-//     setup(shallow, notObjectFirstParam);
-//   } catch(err) {
-//     error = err;
-//   }
-//   expect(error).toBeTruthy();
-// });
+  it("should update with unique paths", () => {
+    const wrapper = setup(mount);
+    const n = wrapper.state().fieldRegistry.length;
+    wrapper.instance().registerField("purple.people.eater");
+    wrapper.update();
+    expect(wrapper.state().fieldRegistry.length).toEqual(n + 1);
+  });
+
+  it("should not update with non-unique paths", () => {
+    const wrapper = setup(mount);
+    const n = wrapper.state().fieldRegistry.length;
+    wrapper.instance().registerField(wrapper.state().fieldRegistry[0]);
+    wrapper.update();
+    expect(wrapper.state().fieldRegistry.length).toEqual(n);
+  });
+});
+
+describe("deleteRowValue", () => {
+  const arrayValue = {
+    "testFormTitle.testName.testArray": {},
+    "testFormTitle.testName.testArray.0.a": {},
+    "testFormTitle.testName.testArray.0.a.one": "A",
+    "testFormTitle.testName.testArray.0.a.two": "B",
+    "testFormTitle.testName.testArray.1.a": {},
+    "testFormTitle.testName.testArray.1.a.one": "AA",
+    "testFormTitle.testName.testArray.1.a.two": "BB",
+    "testFormTitle.testName.testArray.2.a": {},
+    "testFormTitle.testName.testArray.2.a.one": "AAA",
+    "testFormTitle.testName.testArray.2.a.two": "BBB",
+    "testFormTitle.testName.testArray.3.a": {},
+    "testFormTitle.testName.testArray.3.a.one": "AAAA",
+    "testFormTitle.testName.testArray.3.a.two": "BBBB",
+  };
+
+  it("should remove the row in question", () => {
+    const wrapper = setup(mount);
+    wrapper.instance().state.values = { ...arrayValue };
+    const valueLength = Object.keys(wrapper.state().values).length;
+    wrapper.instance().deleteRowValue({
+      path: "testFormTitle.testName.testArray",
+      index: 1,
+    });
+    wrapper.update();
+    expect(Object.keys(wrapper.state().values).length).toBe(valueLength - 3);
+  });
+
+  it("should preserve data", () => {
+    const wrapper = setup(mount);
+    wrapper.instance().state.values = { ...arrayValue };
+    wrapper.instance().deleteRowValue({
+      path: "testFormTitle.testName.testArray",
+      index: 1,
+    });
+    wrapper.update();
+    const allCorrect = (function() {
+      const values = wrapper.state().values;
+
+      for (let i = 0, l = 3; i < l; i++) {
+        if (
+          values[`testFormTitle.testName.testArray.${i}.a.one`].length !==
+          values[`testFormTitle.testName.testArray.${i}.a.two`].length
+        ) return false;
+
+        if (
+          !/A+/.test(values[`testFormTitle.testName.testArray.${i}.a.one`]) ||
+          !/B+/.test(values[`testFormTitle.testName.testArray.${i}.a.two`])
+        ) return false;
+      }
+      return true;
+    })();
+    expect(allCorrect).toBeTruthy();
+  });
+
+  it("should decrement the numbers properly", () => {
+    const wrapper = setup(mount);
+    wrapper.instance().state.values = { ...arrayValue };
+    wrapper.instance().deleteRowValue({
+      path: "testFormTitle.testName.testArray",
+      index: 1,
+    });
+    wrapper.update();
+    const hasNoThrees = (function(){
+      for (let keyName in wrapper.state().values) {
+        if (/3/.test(keyName)) return false;
+      }
+      return true;
+    })();
+    expect(hasNoThrees).toBeTruthy();
+  });
+});
+
