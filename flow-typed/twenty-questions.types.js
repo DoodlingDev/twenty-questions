@@ -2,6 +2,12 @@ export type q20$Error = {
   [fieldName: string]: string[],
 };
 
+export type q20$Value = {
+  [fieldPath: string]: any;
+}
+
+export type q20$FormValues = q20$Value;
+
 export type q20$Schema = {
   title: string,
   name: string,
