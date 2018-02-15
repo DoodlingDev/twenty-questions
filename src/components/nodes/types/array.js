@@ -130,7 +130,6 @@ export class FormNodeArray extends Component<
    * addRow
    */
   addRow(): typeof undefined {
-    debugger
     this.props.valueManager.update({
       path: `${this.props.path}.${this.numberOfChildrenWithMatchingPath()}.${
         this.directChildsName
