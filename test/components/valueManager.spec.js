@@ -10,10 +10,6 @@ Enzyme.configure({ adapter: new Adapter() });
 const setupProps = {
   title: "test form title",
   description: "this is a test form",
-  validate: {
-    single: jest.fn(),
-    state: {},
-  },
   properties: [
     {
       // this name is left with a space specifically to
@@ -61,32 +57,23 @@ describe("changeValue", () => {
     });
   });
 
-  it("should call validate single when typeAhead is true", () => {
-    const wrapper = setup(shallow, { typeAheadValidation: true, ...setupProps });
-    wrapper.instance().props.validate.single = jest.fn();
+  it("should call callback after changing", () => {
+    const wrapper = setup(shallow);
+    const mockCallback = jest.fn();
     wrapper.instance().changeValue({
       path: "test.path",
       name: "test_name",
       value: "boop",
-    });
+    }, mockCallback);
     wrapper.update();
-    expect(wrapper.instance().props.validate.single).toHaveBeenCalledWith({
-      path: "test.path",
-      name: "test_name",
-      value: "boop",
-    });
-  });
-
-  it("should not call validate single when typeAhead is false", () => {
-    const wrapper = setup(shallow, { typeAheadValidation: false, ...setupProps });
-    wrapper.instance().props.validate.single = jest.fn();
-    wrapper.instance().changeValue({
-      path: "test.path",
-      name: "test_name",
-      value: "boop",
-    });
-    wrapper.update();
-    expect(wrapper.instance().props.validate.single).not.toHaveBeenCalled();
+    // timeout is for the async actions taking place here to complete
+    setTimeout(()=>{
+      expect(mockCallback).toHaveBeenCalledWith({
+        path: "test.path",
+        name: "test_name",
+        value: "boop",
+      });
+    }, 10)
   });
 });
 

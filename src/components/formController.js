@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from "react";
+import React from "react";
 import withValueManager from "./valueManager";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
@@ -7,81 +7,60 @@ import withValidation from "./validator";
 import ErrorHandler from "./errorHandler";
 import camelize from "../utils/camelize";
 
-type q20$DeleteSelectedRow = {
-  changeIndex: number,
-  changePath: string,
-  newState: q20$FormValues,
-};
-
-type q20$SortedValues = {
-  [index: string]: q20$FormValues,
-};
-
-type q20$ObsoleteRowParams = {
-  changePath: string,
-  sortedNamedValues: q20$SortedValues,
-  newState: q20$FormValues,
-};
-
 /**
  * FormController
- *   master component for the q20 forms, holds values and errors
+ *   master component for twenty-questions. Responsible for rendering
+ *   the first object from the passed in schema, as well as being
+ *   wrapped with other components that handle state and validation.
+ * @return {Component} rendered React Component
  */
-export class FormController extends Component<q20$FormControllerProps> {
-  static defaultProps = {
-    typeAheadValidation: true,
-    errorHandlerComponent: ErrorHandler,
-  };
+export const FormController = ({
+  widgets,
+  widget,
+  title,
+  description,
+  properties,
+  label,
+  validate,
+  deleteRow,
+  values,
+  changeValue,
+  registerField,
+  typeAheadValidation = true,
+  errorHandlerComponent = ErrorHandler,
+}: q20$FormControllerProps) => {
 
-  /**
-   * constructor
-   * @param {q20$FormControllerProps} props
-   */
-  constructor(props: q20$FormControllerProps) {
-    super(props);
-  }
+  return (
+    <form>
+      <h2>{title}</h2>
+      {description && <h3>{description}</h3>}
 
-  /**
-   * render
-   *   react render function
-   *   renders the FormBuilder to make the markup
-   * @return {React$Element} FormBuilder
-   */
-  render() {
-    const {
-      widgets,
-      widget,
-      title,
-      description,
-      properties,
-      label,
-    } = this.props;
-    return (
-      <form>
-        <h2>{title}</h2>
-        {description && <h3>{description}</h3>}
-
-        <FormNodeObject
-          key={`top-object-${camelize(title)}`}
-          name={camelize(title)}
-          label={label ? label : undefined}
-          description={description}
-          type={"object"}
-          path={`${camelize(title)}`}
-          properties={properties}
-          widgets={getWidgets(widgets)}
-          widget={widget ? widget : undefined}
-          valueManager={{
-            update: this.props.changeValue,
-            values: this.props.values,
-            validate: this.props.validate.state,
-            deleteRow: this.props.deleteRow,
-          }}
-          register={this.props.registerField}
-        />
-      </form>
-    );
-  }
-}
+      <FormNodeObject
+        key={`top-object-${camelize(title)}`}
+        name={camelize(title)}
+        label={label ? label : undefined}
+        description={description}
+        type={"object"}
+        path={`${camelize(title)}`}
+        properties={properties}
+        widgets={getWidgets(widgets)}
+        widget={widget ? widget : undefined}
+        valueManager={{
+          update: changeParams => {
+            changeValue(changeParams, () => {
+              if (typeAheadValidation) {
+                validate.single(changeParams);
+              }
+            });
+          },
+          values: values,
+          validate: validate.state,
+          deleteRow: deleteRow,
+        }}
+        register={registerField}
+      />
+    </form>
+  );
+};
 
 export default withValueManager(withValidation(FormController));

@@ -34,7 +34,7 @@ export default function withValueManager(ComponentToWrap) {
     *   required data sent from the form field
     * @return {boolean}
     */
-    changeValue(changeData: q20$ChangeDataParams): boolean {
+    changeValue(changeData: q20$ChangeDataParams, callback: () => {}): boolean {
       if (
         changeData.path === undefined ||
         changeData.value === undefined ||
@@ -47,11 +47,7 @@ export default function withValueManager(ComponentToWrap) {
           newState.values[changeData.path] = changeData.value;
           return newState;
         },
-        () => {
-          if (this.props.typeAheadValidation) {
-            this.props.validate.single(changeData);
-          }
-        },
+        callback
       );
       return true;
     }

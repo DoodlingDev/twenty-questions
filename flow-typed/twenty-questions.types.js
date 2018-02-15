@@ -21,7 +21,7 @@ export type q20$widgetList = {
 };
 
 export type q20$ValueManager = {
-  update: (changeData: q20$ChangeDataParams) => boolean,
+  update: (changeData: q20$ChangeDataParams) => typeof undefined,
   values: q20$FormValues,
   deleteRow: ({path: string, index: number}) => typeof undefined,
   validate: q20$FormErrors,
@@ -62,7 +62,7 @@ export type q20$FormControllerProps = {
   validate: q20$ValidateHOCPassedProps,
   name: string,
   properties: q20$Node[],
-  changeValue: (changeData: q20$ChangeDataParams) => boolean,
+  changeValue: (changeData: q20$ChangeDataParams, callback: () => typeof undefined) => boolean,
   registerField: (fieldName: string) => typeof undefined,
   values: q20$FormValues,
   deleteRow: (q20$DeleteRowValues) => typeof undefined,
@@ -70,6 +70,8 @@ export type q20$FormControllerProps = {
   widgets?: q20$RenderedNode[],
   widget?: string,
   label?: string,
+  errorHandlerComponent: React$Element<*>,
+  typeAheadValidation: boolean,
 };
 
 export type q20$FormControllerState = {
