@@ -140,6 +140,11 @@ export default function withValidation(FormControllerComponent) {
       return isCompletelyValid;
     }
 
+    deleteValidationResult(path, index) {
+
+
+    }
+
     /**
      * addValidResult
      *   - Removes any reference to the current input path's listing

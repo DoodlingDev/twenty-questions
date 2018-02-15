@@ -148,6 +148,7 @@ describe("deleteRowValue", () => {
       const values = wrapper.state().values;
 
       for (let i = 0, l = 3; i < l; i++) {
+        if (!values[`testFormTitle.testName.testArray.${i}.a.one`]) continue;
         if (
           values[`testFormTitle.testName.testArray.${i}.a.one`].length !==
           values[`testFormTitle.testName.testArray.${i}.a.two`].length
