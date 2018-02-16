@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import reorderBasedOnPath, {
   deleteSelectedRowFromValues,
 } from "../utils/reorderBasedOnPath";
+import submitShape from "../utils/submitShape";
 /* eslint react/prop-types: "off" */
 
 /**
@@ -22,6 +23,7 @@ export default function withValueManager(ComponentToWrap) {
       this.changeValue = this.changeValue.bind(this);
       this.registerField = this.registerField.bind(this);
       this.deleteRowValue = this.deleteRowValue.bind(this);
+      this.submitShape = submitShape(props.properties);
       this.state = {
         values: {},
         errors: {},
@@ -110,6 +112,7 @@ export default function withValueManager(ComponentToWrap) {
           changeValue={this.changeValue}
           values={this.state.values}
           deleteRow={this.deleteRowValue}
+          submitableFields={this.submitableFields}
           {...this.props}
         />
       );

@@ -31,5 +31,11 @@ exports[`renders correctly 1`] = `
       </div>
     </div>
   </div>
+  <button
+    onClick={[Function]}
+    type="submit"
+  >
+    Submit
+  </button>
 </form>
 `;

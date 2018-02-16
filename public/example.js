@@ -6,6 +6,7 @@ const ExampleApp = props => {
   return <Form
     title="FORM"
     description="This is a form"
+    submitButton={<button type="submit">Submit me</button>}
     properties={[
       {
         type: "object",
