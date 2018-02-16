@@ -2,10 +2,13 @@
 
 type q20$SubmitField = {
   name: string,
-  validates: string[],
-  type?: q20$NodeType,
-  children?: q20$RenderedNode[],
+  validates: Array<string>,
 };
+
+type q20$SubmitFieldWithChildren = q20$SubmitField & {
+  type: q20$NodeType,
+  children: Array<*>,
+}
 
 /**
  * createShapeMap
@@ -21,7 +24,7 @@ type q20$SubmitField = {
  */
 export default function createShapeMap(
   formProperties: q20$RenderedNode[],
-): q20$SubmitField[] {
+): ?Array<q20$SubmitField | q20$SubmitFieldWithChildren> {
   return recurse(formProperties);
 }
 
@@ -32,8 +35,9 @@ export default function createShapeMap(
  * @param {q20$RenderedNode[]} formProperties
  * @return {q20$SubmitField[]} Array of submit field objects
  */
-function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
-  let outputBuffer = [];
+function recurse(formProperties: q20$RenderedNode[]): ?Array<q20$SubmitField | q20$SubmitFieldWithChildren> {
+  let outputBuffer: Array<q20$SubmitField> = [];
+  if (formProperties.length < 1) return null;
   for (let i = 0, l = formProperties.length; i < l; i++) {
     const propertyObject = formProperties[i];
     switch (propertyObject.type) {
@@ -41,8 +45,8 @@ function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
       case "number":
       case "boolean":
         outputBuffer.push({
-          name: propertyObject.name,
-          validates: propertyObject.validates,
+          name: propertyObject.name || "",
+          validates: propertyObject.validates || [],
         });
 
         break;
@@ -56,8 +60,8 @@ function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
           );
         }
         let propertyArray = {
-          name: propertyObject.name,
-          validates: propertyObject.validates,
+          name: propertyObject.name || "",
+          validates: propertyObject.validates || [],
           type: propertyObject.type,
           children: recurse(propertyObject.properties),
         };
@@ -73,7 +77,9 @@ function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
           );
         }
         let recurseInto = recurse(propertyObject.properties);
-        outputBuffer = outputBuffer.concat(recurseInto);
+        if (recurseInto != null) {
+          outputBuffer = outputBuffer.concat(recurseInto);
+        }
 
         break;
       default:
