@@ -1,40 +1,27 @@
 // @flow
 
 /**
- * of
- * @param {object} props path (string) and index(number) being
- *   passed from the field that is being deleted.
+ * reorderBasedOnPath
+ *   Given an object of paths and values, will reorder them to fill
+ *   in any gaps because of rows being deleted.
+ * @param {object} arguments
+ *   @param {string} path the path of the array which all reordered pairs
+ *     will have
+ *   @param {object} state the current state of the form values
+ * @return {object} newState, the updated and reordered state object
  */
-// function deleteRowValue(props: q20$DeleteRowValues): typeof undefined {
-//   const { path: changePath, index: changeIndex } = props;
-//   this.setState(oldState => {
-//     let newState = { ...oldState };
-//     const changesAndState = { changePath, changeIndex, newState };
-//
-//     this.deleteSelectedRowFromValues(changesAndState);
-//     const sortedNamedValues = this.sortSelectedValuesByIndex(changesAndState);
-//     this.renumberValuesIntoNewState({ sortedNamedValues, newState });
-//     this.removeObsoleteRowEntries({
-//       sortedNamedValues,
-//       changePath,
-//       newState,
-//     });
-//
-//     return newState;
-//   });
-// }
 export default function reorderBasedOnPath({
-path, index, state }: {
+  path,
+  state,
+}: {
   path: string,
-  index: number,
   state: {},
 }) {
   const newState = { ...state };
-  const changesAndState = { path, index, newState};
+  const changesAndState = { path, newState };
 
-  //  deleteSelectedRowFromValues(changesAndState);
   const sortedNamedValues = sortSelectedValuesByIndex(changesAndState);
-  renumberValuesIntoNewState({ sortedNamedValues, newState});
+  renumberValuesIntoNewState({ sortedNamedValues, newState });
   removeObsoleteRowEntries({
     sortedNamedValues,
     path,
@@ -52,7 +39,15 @@ path, index, state }: {
  *   that is found, it is removed.
  * @param {object} pathValuesAndState path, sorted values and newState
  */
-function removeObsoleteRowEntries({ path, sortedNamedValues, newState }: { path: string, sortedNamedValues: {}, newState: {} }) {
+function removeObsoleteRowEntries({
+  path,
+  sortedNamedValues,
+  newState,
+}: {
+  path: string,
+  sortedNamedValues: {},
+  newState: {},
+}) {
   const sortedIndexes = Object.keys(sortedNamedValues);
   const obsoleteRowRegex = new RegExp(
     "^" + path + "\\." + sortedIndexes[sortedIndexes.length - 1],
@@ -72,9 +67,13 @@ function removeObsoleteRowEntries({ path, sortedNamedValues, newState }: { path:
  * @param {object} sortedListAndState Sorted Named Values by index, and
  *   the current state, soon to be the new state.
  */
-function renumberValuesIntoNewState(
-  { sortedNamedValues, newState }: { sortedNamedValues: {}, newState: {} }
-) {
+function renumberValuesIntoNewState({
+  sortedNamedValues,
+  newState,
+}: {
+  sortedNamedValues: {},
+  newState: {},
+}) {
   const sortedIndexes = Object.keys(sortedNamedValues);
 
   for (let i = 0, l = sortedIndexes.length; i < l; i++) {
@@ -104,22 +103,26 @@ function renumberValuesIntoNewState(
  *   being manipulated
  * @return {object} the sorted object of pairs by index
  */
-function sortSelectedValuesByIndex(props){
+function sortSelectedValuesByIndex({
+  path,
+  newState,
+}: {
+  path: string,
+  newState: {},
+}) {
   const sortedNamedValues = {};
-  const pathTestCapturingIndex = new RegExp("^" + props.path + "\\.(\\d)");
-  for (let thisPath: string in props.newState) {
-
-    if (props.newState.hasOwnProperty(thisPath)) {
+  const pathTestCapturingIndex = new RegExp("^" + path + "\\.(\\d)");
+  for (let thisPath: string in newState) {
+    if (newState.hasOwnProperty(thisPath)) {
       let doesMatchWithCapturedIndex = pathTestCapturingIndex.exec(thisPath);
 
       if (doesMatchWithCapturedIndex) {
-
         let index = doesMatchWithCapturedIndex[1];
         if (!sortedNamedValues[index]) {
           sortedNamedValues[index] = [];
         }
         sortedNamedValues[index].push({
-          [thisPath]: props.newState[thisPath],
+          [thisPath]: newState[thisPath],
         });
       }
     }
@@ -135,14 +138,23 @@ function sortSelectedValuesByIndex(props){
  * @param {object} values Index & Path of the row to be deleted,
  *   newState is the current state of the form values as they are
  *   being manipulated
+ * @return {object} modified state that does not include the deleted
+ *   items
  */
-function deleteSelectedRowFromValues(values: q20$DeleteSelectedRow) {
-  const { changeIndex, changePath, newState: destinationState } = values;
-  const deletedRowRegex = new RegExp("^" + changePath + "\\." + changeIndex);
-
-  for (let valuePair in destinationState.values) {
+export function deleteSelectedRowFromValues({
+  path,
+  index,
+  state,
+}: {
+  path: string,
+  index: number,
+  state: {},
+}) {
+  const deletedRowRegex = new RegExp("^" + path + "\\." + index);
+  for (let valuePair in state) {
     if (deletedRowRegex.test(valuePair)) {
-      delete destinationState.values[valuePair];
+      delete state[valuePair];
     }
   }
+  return state;
 }

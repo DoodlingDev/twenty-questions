@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import reorderBasedOnPath from "../utils/reorderBasedOnPath";
+import reorderBasedOnPath, { deleteSelectedRowFromValues } from "../utils/reorderBasedOnPath";
 /* eslint react/prop-types: "off" */
 
 /**
@@ -63,10 +63,10 @@ export default function withValueManager(ComponentToWrap) {
       const { path: changePath, index: changeIndex } = props;
       this.setState(oldState => {
         const valueState = { ...oldState.values };
-        const valueAfterDelete = this.deleteSelectedRowFromValues({
-          changePath,
-          changeIndex,
-          valueState,
+        const valueAfterDelete = deleteSelectedRowFromValues({
+          path: changePath,
+          index: changeIndex,
+          state: valueState,
         });
 
         const newValueState = reorderBasedOnPath({
@@ -78,30 +78,6 @@ export default function withValueManager(ComponentToWrap) {
         newState.values = newValueState;
         return newState;
       });
-    }
-
-    /**
-     * deleteSelectedRowFromValues
-     *   Removes any fields from values which match the path and index
-     *   supplied by the Array field that called Delete.
-     * @param {object} values Index & Path of the row to be deleted,
-     *   newState is the current state of the form values as they are
-     *   being manipulated
-     * @return {object} new set of values with the index in question removed
-     */
-    deleteSelectedRowFromValues(values: q20$DeleteSelectedRow) {
-      const { changeIndex, changePath, valueState: destinationState } = values;
-      const deletedRowRegex = new RegExp(
-        "^" + changePath + "\\." + changeIndex,
-      );
-
-      for (let valuePair in destinationState) {
-        if (deletedRowRegex.test(valuePair)) {
-          delete destinationState[valuePair];
-        }
-      }
-
-      return destinationState;
     }
 
     /**

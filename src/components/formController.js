@@ -55,7 +55,10 @@ export const FormController = ({
           },
           values: values,
           validate: validate.state,
-          deleteRow: deleteRow,
+          deleteRow: changeParams => {
+            validate.deleteRow(changeParams);
+            deleteRow(changeParams);
+          },
         }}
         register={registerField}
       />

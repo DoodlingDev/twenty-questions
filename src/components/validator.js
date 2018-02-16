@@ -3,6 +3,7 @@ import gatherValidations from "../utils/gatherValidations";
 import * as builtInValidationRules from "../utils/validationRules";
 import { filter } from "lodash";
 import camelize from "../utils/camelize";
+import reorderBasedOnPath, { deleteSelectedRowFromValues } from "../utils/reorderBasedOnPath";
 /* eslint react/prop-types: "off" */
 
 /**
@@ -28,6 +29,7 @@ export default function withValidation(FormControllerComponent) {
       this.addValidResult = this.addValidResult.bind(this);
       this.addErrorResult = this.addErrorResult.bind(this);
       this.checkStateForErrors = this.checkStateForErrors.bind(this);
+      this.deleteValidationResultRow = this.deleteValidationResultRow.bind(this);
 
       this.state = {
         validationList: gatherValidations(props.properties),
@@ -140,9 +142,24 @@ export default function withValidation(FormControllerComponent) {
       return isCompletelyValid;
     }
 
-    deleteValidationResult(path, index) {
+    deleteValidationResultRow({path, index}) {
+      this.setState(oldState => {
+        const valueState = { ...oldState.validationState };
+        const valueAfterDelete = deleteSelectedRowFromValues({
+          path: path,
+          index: index,
+          state: valueState,
+        });
 
-
+        const newValueState = reorderBasedOnPath({
+          path: path,
+          index: index,
+          state: valueAfterDelete,
+        });
+        const newState = { ...oldState };
+        newState.validationState = newValueState;
+        return newState;
+      });
     }
 
     /**
@@ -213,6 +230,7 @@ export default function withValidation(FormControllerComponent) {
             single: this.validateSingle,
             all: this.validateAll,
             state: this.state.validationState,
+            deleteRow: this.deleteValidationResultRow,
           }}
           key={"Validated-" + camelize(this.props.title)}
           {...this.props}
