@@ -21,7 +21,7 @@ exports[`renders correctly 1`] = `
         >
           <input
             className="q20_nodeString__testString--input"
-            id="testFormTitle.test name.testString"
+            id="testFormTitle.testName.testString"
             onChange={[Function]}
             placeholder={undefined}
             type="text"

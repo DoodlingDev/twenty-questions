@@ -15,11 +15,14 @@ export const ErrorHandler = (props: q20$ErrorHandlerProps) => {
    * @return {array} Array of errors
    */
   function mapErrors() {
-    return errors.map((err, i) =>
-      <li className={cn(props.name, "errorHandler", "errorMessage")} key={`error-${props.path}-${i}`}>
+    return errors.map((err, i) => (
+      <li
+        className={cn(props.name, "errorHandler", "errorMessage")}
+        key={`error-${props.path}-${i}`}
+      >
         {err.message}
       </li>
-    );
+    ));
   }
 
   let renderValidation = null;
@@ -46,7 +49,7 @@ export const ErrorHandler = (props: q20$ErrorHandlerProps) => {
       {props.children}
       {renderValidation}
     </div>
-  )
+  );
 };
 
 export default ErrorHandler;

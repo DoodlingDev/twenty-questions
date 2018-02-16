@@ -22,16 +22,14 @@ describe("gatherValidations", () => {
     });
 
     it("should return a properly formatted object", () => {
-      expect(gatherValidations(form)).toEqual(
-        {
-          "name": {
-            type: "string",
-            name: "name",
-            label: "label-string",
-            validates: ["one"],
-          },
-        }
-      );
+      expect(gatherValidations(form)).toEqual({
+        name: {
+          type: "string",
+          name: "name",
+          label: "label-string",
+          validates: ["one"],
+        },
+      });
     });
   });
 

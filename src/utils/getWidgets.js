@@ -5,12 +5,15 @@
  * @return {object} Combination
  *   passed widgets and registry
  */
-export default function getWidgets(passedWidgets?: q20$widgetList): q20$widgetList {
+export default function getWidgets(
+  passedWidgets?: q20$widgetList,
+): q20$widgetList {
   let widgetList = {};
-  if (passedWidgets) { widgetList = passedWidgets };
+  if (passedWidgets) {
+    widgetList = passedWidgets;
+  }
 
-  const widgetRegistry = {
-  };
+  const widgetRegistry = {};
 
   return Object.assign(widgetRegistry, widgetList);
 }

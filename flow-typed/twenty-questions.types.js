@@ -2,6 +2,12 @@ export type q20$Error = {
   [fieldName: string]: string[],
 };
 
+export type q20$Value = {
+  [fieldPath: string]: any;
+}
+
+export type q20$FormValues = q20$Value;
+
 export type q20$Schema = {
   title: string,
   name: string,
@@ -15,8 +21,9 @@ export type q20$widgetList = {
 };
 
 export type q20$ValueManager = {
-  update: (changeData: q20$ChangeDataParams) => boolean,
+  update: (changeData: q20$ChangeDataParams) => typeof undefined,
   values: q20$FormValues,
+  deleteRow: ({path: string, index: number}) => typeof undefined,
   validate: q20$FormErrors,
 };
 
@@ -25,15 +32,18 @@ export type q20$RenderedNode = {
   path: string,
   valueManager: q20$ValueManager,
   register: (path: string) => typeof undefined,
+  type: q20$NodeType,
   label?: string,
   description?: string,
-  properties?: q20$Node[],
   widget?: string,
   widgets: q20$widgetList,
   layoutStyle?: string,
   placeholder?: string,
   validates?: string[],
+  properties?: Array<q20$Property>,
 };
+
+export type q20$Property = q20$RenderedNode | q20$RenderedNodeWithChildren;
 
 export type q20$Node = q20$RenderedNode & { type: q20$NodeType };
 
@@ -52,10 +62,16 @@ export type q20$FormControllerProps = {
   validate: q20$ValidateHOCPassedProps,
   name: string,
   properties: q20$Node[],
+  changeValue: (changeData: q20$ChangeDataParams, callback: () => typeof undefined) => boolean,
+  registerField: (fieldName: string) => typeof undefined,
+  values: q20$FormValues,
+  deleteRow: (q20$DeleteRowValues) => typeof undefined,
   description?: string,
   widgets?: q20$RenderedNode[],
   widget?: string,
   label?: string,
+  errorHandlerComponent: React$Element<*>,
+  typeAheadValidation: boolean,
 };
 
 export type q20$FormControllerState = {
@@ -90,4 +106,10 @@ export type q20$ErrorHandlerProps = {
   validations: q20$ValidResult | q20$ErrorResult,
   label: string,
   children: any
+};
+
+
+export type q20$DeleteRowValues = {
+  path: string,
+  index: number,
 };

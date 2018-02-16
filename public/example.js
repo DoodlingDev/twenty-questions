@@ -25,10 +25,24 @@ const ExampleApp = props => {
             validates: ["required"],
           },
           {
-            type: "boolean",
-            name: "a_checkbox",
-            label: "A Checkbox",
-            validates: ["required"],
+            type: "array",
+            name: "an_array",
+            label: "An Array",
+            properties: [
+              {
+                type: "object",
+                name: "array_row",
+                label: "In Array",
+                properties: [
+                  {
+                    type: "string",
+                    name: "c_string",
+                    label: "C String",
+                    validates: ["required"],
+                  }
+                ]
+              }
+            ]
           },
         ],
       },

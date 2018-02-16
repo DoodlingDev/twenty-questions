@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders array types correctly 1`] = `
+<div
+  className="q20_node__array"
+>
+  <label
+    className="q20_nodeArray__testArray--label"
+    htmlFor="test_form.test_array"
+  >
+    test array
+    <span
+      className="q20_nodeArray__testArray--description"
+      htmlFor="test_form.test_array"
+    >
+      A simple array
+    </span>
+  </label>
+  <div
+    className="q20_testArray__errorHandler"
+  >
+    <fieldset
+      className="q20_nodeArray__testArray--fieldset"
+    >
+      <button
+        onClick={[Function]}
+        type="add"
+      >
+        add
+      </button>
+    </fieldset>
+  </div>
+</div>
+`;
