@@ -31,18 +31,6 @@ export class FormNodeArray extends Component<
    */
   constructor(props: q20$RenderedNode) {
     super(props);
-    if (
-      process.env.NODE_ENV != "production" &&
-      process.env.NODE_ENV != "test"
-    ) {
-      if (!props.label) {
-        console.warn(
-          `Consider adding a label to the field ${
-            props.path
-          }. Labels are an important accessibilty feature for screen readers and other assistive devices. If you don't want the label to display, pass this input the "no-label" layoutStyle. Placeholders are not substitutes for label elements.`,
-        );
-      }
-    }
     this.numberOfChildrenWithMatchingPath = this.numberOfChildrenWithMatchingPath.bind(
       this,
     );
@@ -112,6 +100,7 @@ export class FormNodeArray extends Component<
             type="delete"
             onClick={event => {
               event.preventDefault();
+              this.props.valueManager
               this.props.valueManager.deleteRow({
                 path: this.props.path,
                 index: i
