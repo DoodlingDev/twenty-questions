@@ -8,7 +8,7 @@ type q20$SubmitField = {
 type q20$SubmitFieldWithChildren = q20$SubmitField & {
   type: q20$NodeType,
   children: Array<*>,
-}
+};
 
 /**
  * createShapeMap
@@ -35,7 +35,9 @@ export default function createShapeMap(
  * @param {q20$RenderedNode[]} formProperties
  * @return {q20$SubmitField[]} Array of submit field objects
  */
-function recurse(formProperties: q20$RenderedNode[]): ?Array<q20$SubmitField | q20$SubmitFieldWithChildren> {
+function recurse(
+  formProperties: q20$RenderedNode[],
+): ?Array<q20$SubmitField | q20$SubmitFieldWithChildren> {
   let outputBuffer: Array<q20$SubmitField> = [];
   if (formProperties.length < 1) return null;
   for (let i = 0, l = formProperties.length; i < l; i++) {
