@@ -65,7 +65,6 @@ export const FormController = ({
       {React.cloneElement(submitButton, {
         onClick: event => {
           event.preventDefault();
-          submitFn(submitableFields());
         }
       })}
     </form>

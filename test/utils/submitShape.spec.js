@@ -93,7 +93,7 @@ describe("createShapeMap", () => {
     let objectResult;
     for (let i = 0, l = result.length; i < l; i++) {
       if (result[i].type === "object") {
-        objectResult = result[i]
+        objectResult = result[i];
         break;
       }
     }

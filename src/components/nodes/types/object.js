@@ -13,6 +13,7 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
     number: FormNodeNumber,
     array: FormNodeArray,
     object: FormNodeObject,
+    "object:nosubmit": FormNodeObject,
   };
 
   let nodeContent = null;

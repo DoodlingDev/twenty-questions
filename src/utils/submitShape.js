@@ -1,13 +1,36 @@
 // @flow
 
-export default function createShapeMap(formProperties: q20$RenderedNode[]) {
-  let submitShape = [];
-  const result = recurse(formProperties);
-  submitShape = submitShape.concat(recurse(formProperties));
-  return submitShape;
+type q20$SubmitField = {
+  name: string,
+  validates: string[],
+  type?: q20$NodeType,
+  children?: q20$RenderedNode[],
 }
 
-function recurse(formProperties: q20$RenderedNode[]) {
+/**
+ * createShapeMap
+ *   is a function that will scan through a form's object schema
+ *   and return an array of what fields need to be added to the params for
+ *   submit. Each field is represented by an object that holds the field's
+ *   name and validations. Extra properties are added for arrays and objects:
+ *   their type and children.
+ *
+ * @param {q20$RenderedNode[]} formProperties
+ * @return {q20$SubmitField[]} Array of names and validations for the fields
+ *   in question.
+ */
+export default function createShapeMap(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
+  return recurse(formProperties);
+}
+
+/**
+ * recurse
+ *   see createShapeMap
+ *
+ * @param {q20$RenderedNode[]} formProperties
+ * @return {q20$SubmitField[]} Array of submit field objects
+ */
+function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
   let outputBuffer = [];
   for (let i = 0, l = formProperties.length; i < l; i++) {
     const propertyObject = formProperties[i];
@@ -15,7 +38,6 @@ function recurse(formProperties: q20$RenderedNode[]) {
       case "string":
       case "number":
       case "boolean":
-        // add to array
         outputBuffer.push({
           name: propertyObject.name,
           validates: propertyObject.validates,
