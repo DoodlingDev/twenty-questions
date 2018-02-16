@@ -20,7 +20,7 @@ export default function(
   block: string,
   element?: string,
   modifier?: string,
-  layoutStyle?: string
+  layoutStyle?: string,
 ): string {
   let className = "q20_";
   if (block) {
@@ -37,7 +37,7 @@ export default function(
     className += "--" + camelcase(modifier);
   } else if (modifier && !element) {
     throw new Error(
-      "className funciton was supplied a modifier but no element"
+      "className funciton was supplied a modifier but no element",
     );
   }
 

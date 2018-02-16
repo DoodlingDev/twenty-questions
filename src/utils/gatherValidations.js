@@ -10,7 +10,7 @@
  * @return {q20$ValidationList} an array built of validation objects
  */
 export default function gatherValidations(
-  formNode: q20$Node
+  formNode: q20$Node,
 ): q20$ValidationList {
   let outputBuffer = {};
 
@@ -23,7 +23,7 @@ export default function gatherValidations(
           name: formNode.name,
           label: formNode.label || formNode.name,
           validates: formNode.validates,
-          type: formNode.type
+          type: formNode.type,
         };
       }
 

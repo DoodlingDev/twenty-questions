@@ -19,7 +19,7 @@
     "cypress:open": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress open",
     "cypress:run": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress run --headed",
     "cypress:headless": "/Users/aji/dev/twenty-questions/node_modules/.bin/cypress run",
-    "lint": "yarn eslint ."
+    "lint": "yarn eslint src/*"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js"

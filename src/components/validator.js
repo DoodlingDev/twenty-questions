@@ -4,7 +4,7 @@ import * as builtInValidationRules from "../utils/validationRules";
 import { filter } from "lodash";
 import camelize from "../utils/camelize";
 import reorderBasedOnPath, {
-  deleteSelectedRowFromValues
+  deleteSelectedRowFromValues,
 } from "../utils/reorderBasedOnPath";
 /* eslint react/prop-types: "off" */
 
@@ -32,16 +32,16 @@ export default function withValidation(FormControllerComponent) {
       this.addErrorResult = this.addErrorResult.bind(this);
       this.checkStateForErrors = this.checkStateForErrors.bind(this);
       this.deleteValidationResultRow = this.deleteValidationResultRow.bind(
-        this
+        this,
       );
 
       this.state = {
         validationList: gatherValidations(props.properties),
         validationRules: Object.assign(
           customValidationRules,
-          builtInValidationRules
+          builtInValidationRules,
         ),
-        validationState: {}
+        validationState: {},
       };
     }
 
@@ -68,12 +68,12 @@ export default function withValidation(FormControllerComponent) {
               "is registered in the Validator with an invalid validation " +
               `rule: ${validationRule}. Check the form schema for mistakes, ` +
               "or if it is a custom validation, that it is being passed to " +
-              "the Validator properly."
+              "the Validator properly.",
           );
         } else {
           const validationResult = this.state.validationRules[validationRule]({
             label: this.state.validationList[changeData.name].label,
-            ...changeData
+            ...changeData,
           });
           if (validationResult.valid) {
             this.addValidResult(validationResult);
@@ -119,7 +119,7 @@ export default function withValidation(FormControllerComponent) {
             this.validateSingle({
               path: registeredPath,
               name: fieldValidationConfig.name,
-              value: formValues[registeredPath]
+              value: formValues[registeredPath],
             });
           }
         });
@@ -150,19 +150,31 @@ export default function withValidation(FormControllerComponent) {
       return isCompletelyValid;
     }
 
+    /**
+     * deleteValidationResultRow
+     *   Removes all validation entries whose paths match the given path and
+     *   cointain the given index.
+     *   Fields with higher number indexes are shifted down to keep 0, 1, 2+
+     *   ordering in tact
+     *   Updates to the validationState with new index order
+     * @param {string} path path of the array field that is deleting a line,
+     *   from the beginning to the index.
+     * @param {number} index index of the row being removed
+     *
+     */
     deleteValidationResultRow({ path, index }) {
       this.setState(oldState => {
         const valueState = { ...oldState.validationState };
         const valueAfterDelete = deleteSelectedRowFromValues({
           path: path,
           index: index,
-          state: valueState
+          state: valueState,
         });
 
         const newValueState = reorderBasedOnPath({
           path: path,
           index: index,
-          state: valueAfterDelete
+          state: valueAfterDelete,
         });
         const newState = { ...oldState };
         newState.validationState = newValueState;
@@ -190,7 +202,7 @@ export default function withValidation(FormControllerComponent) {
           ? []
           : filter(
               currentInputValidationState,
-              val => val.validation === result.validation
+              val => val.validation === result.validation,
             );
         newState.validationState[result.path].push(result);
         return newState;
@@ -214,7 +226,7 @@ export default function withValidation(FormControllerComponent) {
 
         newState.validationState[result.path] = filter(
           currentInputValidationState,
-          val => val.validation !== result.validation
+          val => val.validation !== result.validation,
         );
 
         if (currentInputValidationState) {
@@ -238,7 +250,7 @@ export default function withValidation(FormControllerComponent) {
             single: this.validateSingle,
             all: this.validateAll,
             state: this.state.validationState,
-            deleteRow: this.deleteValidationResultRow
+            deleteRow: this.deleteValidationResultRow,
           }}
           key={"Validated-" + camelize(this.props.title)}
           {...this.props}

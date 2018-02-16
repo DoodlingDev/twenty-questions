@@ -26,12 +26,14 @@ describe("reorderBasedOnPath", () => {
         if (
           result[`testFormTitle.testName.testArray.${i}.a.one`].length !==
           result[`testFormTitle.testName.testArray.${i}.a.two`].length
-        ) return false;
+        )
+          return false;
 
         if (
           !/A+/.test(result[`testFormTitle.testName.testArray.${i}.a.one`]) ||
           !/B+/.test(result[`testFormTitle.testName.testArray.${i}.a.two`])
-        ) return false;
+        )
+          return false;
       }
       return true;
     })();
@@ -45,7 +47,7 @@ describe("reorderBasedOnPath", () => {
       index: 1,
       state: arrayValue,
     });
-    const hasNoThrees = (function(){
+    const hasNoThrees = (function() {
       for (let keyName in result) {
         if (/3/.test(keyName)) return false;
       }
@@ -55,4 +57,3 @@ describe("reorderBasedOnPath", () => {
     expect(hasNoThrees).toBeTruthy();
   });
 });
-

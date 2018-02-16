@@ -12,7 +12,7 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
     boolean: FormNodeBoolean,
     number: FormNodeNumber,
     array: FormNodeArray,
-    object: FormNodeObject
+    object: FormNodeObject,
   };
 
   let nodeContent = null;
@@ -21,7 +21,7 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
       if (!Object.keys(nodeTypes).includes(property.type)) {
         throw new Error(
           "FormNode was supplied an invalid type." +
-            ` The type ${property.type} is not valid.`
+            ` The type ${property.type} is not valid.`,
         );
       }
 
@@ -43,7 +43,7 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
     });
   } else {
     throw new Error(
-      `The node ${props.name} with type "object" has no properties.`
+      `The node ${props.name} with type "object" has no properties.`,
     );
   }
   return (

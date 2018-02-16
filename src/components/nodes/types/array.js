@@ -6,7 +6,7 @@ import FormNodeObject from "./object";
 
 type q20$FormNodeArrayState = {
   directChildsName: string,
-  childFields: number
+  childFields: number,
 };
 
 /**
@@ -16,7 +16,7 @@ type q20$FormNodeArrayState = {
  */
 export class FormNodeArray extends Component<
   q20$RenderedNode,
-  q20$FormNodeArrayState
+  q20$FormNodeArrayState,
 > {
   +renderChildren: () => React$Element<*>[];
   +numberOfChildrenWithMatchingPath: () => number;
@@ -32,7 +32,7 @@ export class FormNodeArray extends Component<
   constructor(props: q20$RenderedNode) {
     super(props);
     this.numberOfChildrenWithMatchingPath = this.numberOfChildrenWithMatchingPath.bind(
-      this
+      this,
     );
     this.addRow = this.addRow.bind(this);
     this.renderChildren = this.renderChildren.bind(this);
@@ -57,7 +57,7 @@ export class FormNodeArray extends Component<
     const escapedDotsPath = this.props.path.replace(/\./, ".");
 
     const pathRegex = new RegExp(
-      `^${escapedDotsPath}\\.\\d+\\.${this.directChildsName}$`
+      `^${escapedDotsPath}\\.\\d+\\.${this.directChildsName}$`,
     );
     let count = 0;
     valuesPaths.forEach((fieldPath: string) => {
@@ -103,13 +103,13 @@ export class FormNodeArray extends Component<
               this.props.valueManager;
               this.props.valueManager.deleteRow({
                 path: this.props.path,
-                index: i
+                index: i,
               });
             }}
           >
             delete
           </button>
-        </div>
+        </div>,
       );
     }
     return outputBuffer;
@@ -124,7 +124,7 @@ export class FormNodeArray extends Component<
         this.directChildsName
       }`,
       name: this.directChildsName,
-      value: {}
+      value: {},
     });
   }
 
@@ -147,7 +147,7 @@ export class FormNodeArray extends Component<
                 "nodeArray",
                 this.props.name,
                 "label",
-                this.props.layoutStyle
+                this.props.layoutStyle,
               )}
             >
               {this.props.label}
@@ -158,7 +158,7 @@ export class FormNodeArray extends Component<
                     "nodeArray",
                     this.props.name,
                     "description",
-                    this.props.layoutStyle
+                    this.props.layoutStyle,
                   )}
                 >
                   {this.props.description}
@@ -175,7 +175,7 @@ export class FormNodeArray extends Component<
                   "nodeArray",
                   this.props.name,
                   "description",
-                  this.props.layoutStyle
+                  this.props.layoutStyle,
                 )}
               >
                 {this.props.description}
@@ -195,7 +195,7 @@ export class FormNodeArray extends Component<
                 "nodeArray",
                 this.props.name,
                 "fieldset",
-                this.props.layoutStyle
+                this.props.layoutStyle,
               )}
             >
               <button

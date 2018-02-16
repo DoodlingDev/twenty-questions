@@ -6,7 +6,7 @@
  *   passed widgets and registry
  */
 export default function getWidgets(
-  passedWidgets?: q20$widgetList
+  passedWidgets?: q20$widgetList,
 ): q20$widgetList {
   let widgetList = {};
   if (passedWidgets) {

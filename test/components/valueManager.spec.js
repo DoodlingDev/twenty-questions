@@ -1,11 +1,11 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import withValueManager from "../../src/components/valueManager";
-import { shallow, mount } from "enzyme";
+import {shallow, mount} from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({adapter: new Adapter()});
 
 const setupProps = {
   title: "test form title",
@@ -60,20 +60,23 @@ describe("changeValue", () => {
   it("should call callback after changing", () => {
     const wrapper = setup(shallow);
     const mockCallback = jest.fn();
-    wrapper.instance().changeValue({
-      path: "test.path",
-      name: "test_name",
-      value: "boop",
-    }, mockCallback);
+    wrapper.instance().changeValue(
+      {
+        path: "test.path",
+        name: "test_name",
+        value: "boop",
+      },
+      mockCallback,
+    );
     wrapper.update();
     // timeout is for the async actions taking place here to complete
-    setTimeout(()=>{
+    setTimeout(() => {
       expect(mockCallback).toHaveBeenCalledWith({
         path: "test.path",
         name: "test_name",
         value: "boop",
       });
-    }, 10)
+    }, 10);
   });
 });
 
@@ -126,7 +129,7 @@ describe("deleteRowValue", () => {
 
   it("should remove the row in question", () => {
     const wrapper = setup(shallow);
-    wrapper.instance().state.values = { ...arrayValue };
+    wrapper.instance().state.values = {...arrayValue};
     const valueLength = Object.keys(wrapper.state().values).length;
     wrapper.instance().deleteRowValue({
       path: "testFormTitle.testName.testArray",
@@ -138,7 +141,7 @@ describe("deleteRowValue", () => {
 
   it("should preserve data", () => {
     const wrapper = setup(shallow);
-    wrapper.instance().state.values = { ...arrayValue };
+    wrapper.instance().state.values = {...arrayValue};
     wrapper.instance().deleteRowValue({
       path: "testFormTitle.testName.testArray",
       index: 1,
@@ -152,12 +155,14 @@ describe("deleteRowValue", () => {
         if (
           values[`testFormTitle.testName.testArray.${i}.a.one`].length !==
           values[`testFormTitle.testName.testArray.${i}.a.two`].length
-        ) return false;
+        )
+          return false;
 
         if (
           !/A+/.test(values[`testFormTitle.testName.testArray.${i}.a.one`]) ||
           !/B+/.test(values[`testFormTitle.testName.testArray.${i}.a.two`])
-        ) return false;
+        )
+          return false;
       }
       return true;
     })();
@@ -166,13 +171,13 @@ describe("deleteRowValue", () => {
 
   it("should decrement the numbers properly", () => {
     const wrapper = setup(shallow);
-    wrapper.instance().state.values = { ...arrayValue };
+    wrapper.instance().state.values = {...arrayValue};
     wrapper.instance().deleteRowValue({
       path: "testFormTitle.testName.testArray",
       index: 1,
     });
     wrapper.update();
-    const hasNoThrees = (function(){
+    const hasNoThrees = (function() {
       for (let keyName in wrapper.state().values) {
         if (/3/.test(keyName)) return false;
       }
@@ -181,4 +186,3 @@ describe("deleteRowValue", () => {
     expect(hasNoThrees).toBeTruthy();
   });
 });
-

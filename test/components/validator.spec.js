@@ -1,11 +1,11 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import withValidation from "../../src/components/validator.js";
-import { shallow, /* mount  */} from "enzyme";
+import {shallow /* mount  */} from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({ adapter: new Adapter() });
+Enzyme.configure({adapter: new Adapter()});
 
 const defaultFormControllerProps = {
   title: "test form",
@@ -196,7 +196,7 @@ describe("gatherValidations", () => {
             label: "ONE",
             validates: ["godzilla"],
           },
-        ]
+        ],
       });
       try {
         wrapper.props().validate.single({
@@ -239,7 +239,7 @@ describe("gatherValidations", () => {
             label: "ONE",
             validates: ["required"],
           },
-        ]
+        ],
       });
       wrapper.props().validate.single({
         name: "one",
@@ -260,7 +260,7 @@ describe("gatherValidations", () => {
             label: "ONE",
             validates: ["required"],
           },
-        ]
+        ],
       });
       wrapper.instance().state.validationState["one.one"] = [
         {
@@ -286,8 +286,8 @@ describe("gatherValidations", () => {
             name: "one",
             label: "ONE",
             validates: ["required"],
-          }
-        ]
+          },
+        ],
       });
       wrapper.instance().state.validationState["one.one"] = [
         {
@@ -330,13 +330,16 @@ describe("validate all", () => {
               validates: ["required"],
             },
           ],
-        }
-      ]
+        },
+      ],
     });
-    const result = wrapper.props().validate.all({
-      "object.one": "1",
-      "object.two": "2",
-    }, ["object.one", "object.two"]);
+    const result = wrapper.props().validate.all(
+      {
+        "object.one": "1",
+        "object.two": "2",
+      },
+      ["object.one", "object.two"],
+    );
     expect(result).toBe(true);
   });
 
@@ -362,13 +365,16 @@ describe("validate all", () => {
               validates: ["required"],
             },
           ],
-        }
-      ]
+        },
+      ],
     });
-    const result = wrapper.props().validate.all({
-      "object.one": "",
-      "object.two": "",
-    }, ["object.one", "object.two"]);
+    const result = wrapper.props().validate.all(
+      {
+        "object.one": "",
+        "object.two": "",
+      },
+      ["object.one", "object.two"],
+    );
     expect(result).toBe(false);
   });
 
@@ -394,13 +400,16 @@ describe("validate all", () => {
               validates: ["required"],
             },
           ],
-        }
-      ]
+        },
+      ],
     });
-    const result = wrapper.props().validate.all({
-      "object.one": "1",
-      "object.two": "",
-    }, ["object.one", "object.two"]);
+    const result = wrapper.props().validate.all(
+      {
+        "object.one": "1",
+        "object.two": "",
+      },
+      ["object.one", "object.two"],
+    );
     expect(result).toBe(false);
   });
 
@@ -426,12 +435,15 @@ describe("validate all", () => {
               validates: ["required"],
             },
           ],
-        }
-      ]
+        },
+      ],
     });
-    const result = wrapper.props().validate.all({
-      "object.one": "1",
-    }, ["object.one", "object.two"]);
+    const result = wrapper.props().validate.all(
+      {
+        "object.one": "1",
+      },
+      ["object.one", "object.two"],
+    );
     expect(result).toBe(false);
   });
 });
