@@ -47,7 +47,7 @@ export type q20$Property = q20$RenderedNode | q20$RenderedNodeWithChildren;
 
 export type q20$Node = q20$RenderedNode & { type: q20$NodeType };
 
-export type q20$NodeType = "object" | "string" | "array" | "number" | "boolean";
+export type q20$NodeType = "object" | "string" | "array" | "number" | "boolean" | "object:nosubmit";
 
 export type q20$ValidationObject = {
   name: string,
@@ -66,6 +66,7 @@ export type q20$FormControllerProps = {
   registerField: (fieldName: string) => typeof undefined,
   values: q20$FormValues,
   deleteRow: (q20$DeleteRowValues) => typeof undefined,
+  submitButton?: React$Element<*>,
   description?: string,
   widgets?: q20$RenderedNode[],
   widget?: string,

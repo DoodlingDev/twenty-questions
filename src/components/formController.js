@@ -26,6 +26,7 @@ export const FormController = ({
   values,
   changeValue,
   registerField,
+  submitButton = <button type="submit">Submit</button>,
   typeAheadValidation = true,
   errorHandlerComponent = ErrorHandler,
 }: q20$FormControllerProps) => {
@@ -61,6 +62,11 @@ export const FormController = ({
         }}
         register={registerField}
       />
+      {React.cloneElement(submitButton, {
+        onClick: event => {
+          event.preventDefault();
+        },
+      })}
     </form>
   );
 };
