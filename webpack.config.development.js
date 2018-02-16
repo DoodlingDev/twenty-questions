@@ -3,7 +3,7 @@ const path = require("path"),
   HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
     template: "./public/index.html",
     filename: "index.html",
-    inject: "body",
+    inject: "body"
   });
 
 module.exports = {
@@ -11,26 +11,26 @@ module.exports = {
   target: "web",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "lib"),
+    path: path.resolve(__dirname, "lib")
   },
   module: {
     loaders: [
       {
         test: /.js/,
         loader: "babel-loader",
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
   devServer: {
     watchOptions: {
       aggregateTimeout: 600,
       poll: 1000,
-      ignored: /node_modules/,
-    },
+      ignored: /node_modules/
+    }
   },
   plugins: [HtmlWebpackPluginConfig],
   resolve: {
-    modules: [path.resolve("./src"), path.resolve("./node_modules")],
-  },
+    modules: [path.resolve("./src"), path.resolve("./node_modules")]
+  }
 };

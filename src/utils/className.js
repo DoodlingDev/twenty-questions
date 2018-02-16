@@ -16,14 +16,17 @@ import camelcase from "./camelize";
  * @param {string} layoutStyle extra className to be appended as 2nd class
  * @return {string} built className
  */
-export default function(block: string, element?: string, modifier?: string, layoutStyle?: string): string {
+export default function(
+  block: string,
+  element?: string,
+  modifier?: string,
+  layoutStyle?: string
+): string {
   let className = "q20_";
   if (block) {
     className += camelcase(block);
   } else {
-    throw new Error(
-      "className function not supplied with a block string"
-    );
+    throw new Error("className function not supplied with a block string");
   }
 
   if (element) {

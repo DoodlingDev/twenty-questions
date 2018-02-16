@@ -12,10 +12,10 @@
  */
 export default function reorderBasedOnPath({
   path,
-  state,
+  state
 }: {
   path: string,
-  state: {},
+  state: {}
 }) {
   const newState = { ...state };
   const changesAndState = { path, newState };
@@ -25,7 +25,7 @@ export default function reorderBasedOnPath({
   removeObsoleteRowEntries({
     sortedNamedValues,
     path,
-    newState,
+    newState
   });
 
   return newState;
@@ -42,15 +42,15 @@ export default function reorderBasedOnPath({
 function removeObsoleteRowEntries({
   path,
   sortedNamedValues,
-  newState,
+  newState
 }: {
   path: string,
   sortedNamedValues: {},
-  newState: {},
+  newState: {}
 }) {
   const sortedIndexes = Object.keys(sortedNamedValues);
   const obsoleteRowRegex = new RegExp(
-    "^" + path + "\\." + sortedIndexes[sortedIndexes.length - 1],
+    "^" + path + "\\." + sortedIndexes[sortedIndexes.length - 1]
   );
   for (let valuePair in newState) {
     if (obsoleteRowRegex.test(valuePair)) {
@@ -69,10 +69,10 @@ function removeObsoleteRowEntries({
  */
 function renumberValuesIntoNewState({
   sortedNamedValues,
-  newState,
+  newState
 }: {
   sortedNamedValues: {},
-  newState: {},
+  newState: {}
 }) {
   const sortedIndexes = Object.keys(sortedNamedValues);
 
@@ -86,7 +86,7 @@ function renumberValuesIntoNewState({
         let oldValue = sortedValueObjects[valuePairIndex][valuePath];
         let newPath = valuePath.replace(
           new RegExp("\\." + oldIndex + "\\."),
-          "." + i + ".",
+          "." + i + "."
         );
         newState[newPath] = oldValue;
       }
@@ -105,10 +105,10 @@ function renumberValuesIntoNewState({
  */
 function sortSelectedValuesByIndex({
   path,
-  newState,
+  newState
 }: {
   path: string,
-  newState: {},
+  newState: {}
 }) {
   const sortedNamedValues = {};
   const pathTestCapturingIndex = new RegExp("^" + path + "\\.(\\d)");
@@ -122,7 +122,7 @@ function sortSelectedValuesByIndex({
           sortedNamedValues[index] = [];
         }
         sortedNamedValues[index].push({
-          [thisPath]: newState[thisPath],
+          [thisPath]: newState[thisPath]
         });
       }
     }
@@ -144,11 +144,11 @@ function sortSelectedValuesByIndex({
 export function deleteSelectedRowFromValues({
   path,
   index,
-  state,
+  state
 }: {
   path: string,
   index: number,
-  state: {},
+  state: {}
 }) {
   const deletedRowRegex = new RegExp("^" + path + "\\." + index);
   for (let valuePair in state) {

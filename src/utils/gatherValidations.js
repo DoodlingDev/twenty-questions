@@ -9,7 +9,9 @@
  * @param {q20$Node[]} formNode the passed in schema from FormController
  * @return {q20$ValidationList} an array built of validation objects
  */
-export default function gatherValidations(formNode: q20$Node): q20$ValidationList {
+export default function gatherValidations(
+  formNode: q20$Node
+): q20$ValidationList {
   let outputBuffer = {};
 
   for (let property in formNode) {
@@ -21,7 +23,7 @@ export default function gatherValidations(formNode: q20$Node): q20$ValidationLis
           name: formNode.name,
           label: formNode.label || formNode.name,
           validates: formNode.validates,
-          type: formNode.type,
+          type: formNode.type
         };
       }
 

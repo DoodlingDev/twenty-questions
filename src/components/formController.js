@@ -27,9 +27,8 @@ export const FormController = ({
   changeValue,
   registerField,
   typeAheadValidation = true,
-  errorHandlerComponent = ErrorHandler,
+  errorHandlerComponent = ErrorHandler
 }: q20$FormControllerProps) => {
-
   return (
     <form>
       <h2>{title}</h2>
@@ -58,7 +57,7 @@ export const FormController = ({
           deleteRow: changeParams => {
             validate.deleteRow(changeParams);
             deleteRow(changeParams);
-          },
+          }
         }}
         register={registerField}
       />

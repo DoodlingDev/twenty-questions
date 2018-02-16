@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import reorderBasedOnPath, { deleteSelectedRowFromValues } from "../utils/reorderBasedOnPath";
+import reorderBasedOnPath, {
+  deleteSelectedRowFromValues
+} from "../utils/reorderBasedOnPath";
 /* eslint react/prop-types: "off" */
 
 /**
@@ -23,7 +25,7 @@ export default function withValueManager(ComponentToWrap) {
       this.state = {
         values: {},
         errors: {},
-        fieldRegistry: [],
+        fieldRegistry: []
       };
     }
 
@@ -49,7 +51,7 @@ export default function withValueManager(ComponentToWrap) {
           newState.values[changeData.path] = changeData.value;
           return newState;
         },
-        callback,
+        callback
       );
       return true;
     }
@@ -66,13 +68,13 @@ export default function withValueManager(ComponentToWrap) {
         const valueAfterDelete = deleteSelectedRowFromValues({
           path: changePath,
           index: changeIndex,
-          state: valueState,
+          state: valueState
         });
 
         const newValueState = reorderBasedOnPath({
           path: changePath,
           index: changeIndex,
-          state: valueAfterDelete,
+          state: valueAfterDelete
         });
         const newState = { ...oldState };
         newState.values = newValueState;

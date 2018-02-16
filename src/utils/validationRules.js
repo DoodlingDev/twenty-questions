@@ -2,20 +2,20 @@
 
 type q20$ValidValidationData = {
   path: string,
-  validation: string,
+  validation: string
 };
 
 type q20$InvalidValidationData = {
   path: string,
   validation: string,
   label: string,
-  message: string,
+  message: string
 };
 
 type q20$ValidResult = {
   path: string,
   validation: string,
-  valid: true,
+  valid: true
 };
 
 /**
@@ -34,7 +34,7 @@ function ValidResult(validationData: q20$ValidValidationData): q20$ValidResult {
   return Object.freeze({
     path: path,
     validation: validation,
-    valid: true,
+    valid: true
   });
 }
 
@@ -42,7 +42,7 @@ type q20$ErrorResult = {
   path: string,
   validation: string,
   valid: false,
-  message: string,
+  message: string
 };
 
 /**
@@ -57,7 +57,7 @@ type q20$ErrorResult = {
  * @return {q20$ErrorResult} frozen object describing a validation failure
  */
 function ErrorResult(
-  validationData: q20$InvalidValidationData,
+  validationData: q20$InvalidValidationData
 ): q20$ErrorResult {
   const { path, validation, message, label } = validationData;
   const completeMessage = `${label} ${message}`;
@@ -66,7 +66,7 @@ function ErrorResult(
     path: path,
     validation: validation,
     valid: false,
-    message: completeMessage,
+    message: completeMessage
   });
 }
 
@@ -84,7 +84,7 @@ function ErrorResult(
  *   validation and pass/fail
  */
 export function required(
-  validationParams: q20$ValidationParams,
+  validationParams: q20$ValidationParams
 ): q20$ValidResult | q20$ErrorResult {
   const valid =
     validationParams.value !== undefined &&
@@ -94,14 +94,14 @@ export function required(
   if (valid) {
     return new ValidResult({
       path: validationParams.path,
-      validation: "required",
+      validation: "required"
     });
   } else {
     return new ErrorResult({
       path: validationParams.path,
       validation: "required",
       message: "is required",
-      label: validationParams.label,
+      label: validationParams.label
     });
   }
 }

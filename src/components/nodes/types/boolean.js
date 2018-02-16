@@ -9,7 +9,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
       console.warn(
         `Consider adding a label to the field ${
           props.path
-        }. Labels are an important accessibilty feature for screen readers and other assistive devices. If you don't want the label to display, pass this input the "no-label" layoutStyle. Placeholders are not substitutes for label elements.`,
+        }. Labels are an important accessibilty feature for screen readers and other assistive devices. If you don't want the label to display, pass this input the "no-label" layoutStyle. Placeholders are not substitutes for label elements.`
       );
     }
   }
@@ -27,7 +27,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
               "nodeBoolean",
               props.name,
               "label",
-              props.layoutStyle,
+              props.layoutStyle
             )}
           >
             {props.label}
@@ -38,7 +38,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
                   "nodeBoolean",
                   props.name,
                   "description",
-                  props.layoutStyle,
+                  props.layoutStyle
                 )}
               >
                 {props.description}
@@ -55,7 +55,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
                 "nodeBoolean",
                 props.name,
                 "description",
-                props.layoutStyle,
+                props.layoutStyle
               )}
             >
               {props.description}
@@ -76,7 +76,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
               "nodeBoolean",
               props.name,
               "input",
-              props.layoutStyle,
+              props.layoutStyle
             )}
             id={props.path}
             type="checkbox"
@@ -86,7 +86,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
               props.valueManager.update({
                 path: props.path,
                 name: props.name,
-                value: !thisValue,
+                value: !thisValue
               });
             }}
           />
