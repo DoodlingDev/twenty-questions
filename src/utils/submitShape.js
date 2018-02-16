@@ -5,7 +5,7 @@ type q20$SubmitField = {
   validates: string[],
   type?: q20$NodeType,
   children?: q20$RenderedNode[],
-}
+};
 
 /**
  * createShapeMap
@@ -19,7 +19,9 @@ type q20$SubmitField = {
  * @return {q20$SubmitField[]} Array of names and validations for the fields
  *   in question.
  */
-export default function createShapeMap(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
+export default function createShapeMap(
+  formProperties: q20$RenderedNode[],
+): q20$SubmitField[] {
   return recurse(formProperties);
 }
 
@@ -48,7 +50,9 @@ function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
       case "object":
         if (!propertyObject.properties) {
           throw new Error(
-            `${propertyObject.type} type named ${propertyObject.name} has no properties.`,
+            `${propertyObject.type} type named ${
+              propertyObject.name
+            } has no properties.`,
           );
         }
         let propertyArray = {
@@ -63,7 +67,9 @@ function recurse(formProperties: q20$RenderedNode[]): q20$SubmitField[] {
       case "object:nosubmit":
         if (!propertyObject.properties) {
           throw new Error(
-            `${propertyObject.type} type named ${propertyObject.name} has no properties.`,
+            `${propertyObject.type} type named ${
+              propertyObject.name
+            } has no properties.`,
           );
         }
         let recurseInto = recurse(propertyObject.properties);
