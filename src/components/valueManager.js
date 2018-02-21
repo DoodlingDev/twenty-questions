@@ -3,6 +3,7 @@ import reorderBasedOnPath, {
   deleteSelectedRowFromValues,
 } from "../utils/reorderBasedOnPath";
 import submitShape from "../utils/submitShape";
+import arrangeValues from "../utils/arrangeValues";
 /* eslint react/prop-types: "off" */
 
 /**
@@ -23,6 +24,7 @@ export default function withValueManager(ComponentToWrap) {
       this.changeValue = this.changeValue.bind(this);
       this.registerField = this.registerField.bind(this);
       this.deleteRowValue = this.deleteRowValue.bind(this);
+      this.mapValuesForSubmit = this.mapValuesForSubmit.bind(this);
       this.submitShape = submitShape(props.properties);
       this.state = {
         values: {},
@@ -84,6 +86,12 @@ export default function withValueManager(ComponentToWrap) {
       });
     }
 
+    mapValuesForSubmit() {
+      arrangeValues(this.state.values, this.submitShape)
+
+
+    }
+
     /**
      * registerField
      *   Adds a field's path to the registry, but only once.
@@ -110,9 +118,10 @@ export default function withValueManager(ComponentToWrap) {
       return (
         <ComponentToWrap
           changeValue={this.changeValue}
+          fieldRegistry={this.state.fieldRegistry}
           values={this.state.values}
           deleteRow={this.deleteRowValue}
-          submitableFields={this.submitableFields}
+          submitValues={this.mapValuesForSubmit}
           {...this.props}
         />
       );
