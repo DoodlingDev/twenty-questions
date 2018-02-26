@@ -29,43 +29,69 @@ export const FormController = ({
   registerField,
   submitFn,
   submitValues,
+  tabs,
   fieldRegistry,
   submitButton = <button type="submit">Submit</button>,
   typeAheadValidation = true,
   errorHandlerComponent = ErrorHandler,
 }: q20$FormControllerProps) => {
+  function mapProperties() {
+    return properties.map(property => {
+      console.log(tabs.tabLabels);
+      return (
+        <FormNodeObject
+          key={`top-object-${camelize(title)}`}
+          name={camelize(title)}
+          label={label ? label : undefined}
+          description={description}
+          type={"object"}
+          path={`${camelize(title)}`}
+          properties={property.properties}
+          widgets={getWidgets(widgets)}
+          widget={widget ? widget : undefined}
+          valueManager={{
+            update: changeParams => {
+              changeValue(changeParams, () => {
+                if (typeAheadValidation) {
+                  validate.single(changeParams);
+                }
+              });
+            },
+            values: values,
+            validate: validate.state,
+            deleteRow: changeParams => {
+              validate.deleteRow(changeParams);
+              deleteRow(changeParams);
+            },
+          }}
+          register={registerField}
+        />
+      );
+    });
+  }
+
+  const tabButtons = (() => {
+    return tabs.tabLabels.map((label, index) => {
+      return <button
+        key={label}
+        onClick={event => {
+          event.preventDefault();
+          tabs.setTab(index);
+        }}
+        >
+          {label}
+        </button>
+    });
+  })()
+
   return (
     <form>
-      <h2>{title}</h2>
+      {tabs.tabbed && tabButtons}
+
+      {title && <h2>{title}</h2>}
       {description && <h3>{description}</h3>}
 
-      <FormNodeObject
-        key={`top-object-${camelize(title)}`}
-        name={camelize(title)}
-        label={label ? label : undefined}
-        description={description}
-        type={"object"}
-        path={`${camelize(title)}`}
-        properties={properties}
-        widgets={getWidgets(widgets)}
-        widget={widget ? widget : undefined}
-        valueManager={{
-          update: changeParams => {
-            changeValue(changeParams, () => {
-              if (typeAheadValidation) {
-                validate.single(changeParams);
-              }
-            });
-          },
-          values: values,
-          validate: validate.state,
-          deleteRow: changeParams => {
-            validate.deleteRow(changeParams);
-            deleteRow(changeParams);
-          },
-        }}
-        register={registerField}
-      />
+      {mapProperties()[tabs.activeTab]}
       {React.cloneElement(submitButton, {
         onClick: event => {
           event.preventDefault();
@@ -78,4 +104,6 @@ export const FormController = ({
   );
 };
 
-export default withTabbedNavigation(withValueManager(withValidation(FormController)));
+export default withTabbedNavigation(
+  withValueManager(withValidation(FormController)),
+);

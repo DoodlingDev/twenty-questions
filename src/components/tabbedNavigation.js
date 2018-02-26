@@ -71,6 +71,8 @@ export default function withTabbedNavigation(WrappedComponent) {
         <WrappedComponent
           tabs={{
             activeTab: this.state.activeIndex,
+            tabbed: this.state.tabLength > 0,
+            tabLabels: this.state.labelArray,
             setTab: this.setIndex,
             nextTab: () => this.setIndex(this.state.activeIndex + 1),
             prevTab: () => this.setIndex(this.state.activeIndex - 1),
