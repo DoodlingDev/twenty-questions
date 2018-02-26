@@ -6,6 +6,7 @@ import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
 import ErrorHandler from "./errorHandler";
 import camelize from "../utils/camelize";
+import withTabbedNavigation from "./tabbedNavigation";
 
 /**
  * FormController
@@ -77,4 +78,4 @@ export const FormController = ({
   );
 };
 
-export default withValueManager(withValidation(FormController));
+export default withTabbedNavigation(withValueManager(withValidation(FormController)));
