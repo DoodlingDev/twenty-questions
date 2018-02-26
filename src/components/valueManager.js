@@ -87,9 +87,7 @@ export default function withValueManager(ComponentToWrap) {
     }
 
     mapValuesForSubmit() {
-      arrangeValues(this.state.values, this.submitShape)
-
-
+      arrangeValues(this.state.values, this.submitShape);
     }
 
     /**
