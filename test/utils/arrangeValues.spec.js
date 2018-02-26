@@ -124,7 +124,6 @@ describe("arrangeValues", () => {
       },
     ];
     const result = arrangeValues({ values: testValues, submitShape: shape });
-    console.log(result);
     expect(Object.keys(result).length).toBe(1);
     expect(Object.keys(result["object"]).length).toBe(2);
   });

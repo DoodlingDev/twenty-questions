@@ -86,6 +86,10 @@ export default function withValueManager(ComponentToWrap) {
       });
     }
 
+    /**
+     * mapValuesForSubmit
+     *   calls to the arrangeValues function.
+     */
     mapValuesForSubmit() {
       arrangeValues(this.state.values, this.submitShape);
     }
