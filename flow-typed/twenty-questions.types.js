@@ -64,15 +64,18 @@ export type q20$FormControllerProps = {
   properties: q20$Node[],
   changeValue: (changeData: q20$ChangeDataParams, callback: () => typeof undefined) => boolean,
   registerField: (fieldName: string) => typeof undefined,
+  fieldRegistry: string[],
   values: q20$FormValues,
   deleteRow: (q20$DeleteRowValues) => typeof undefined,
   submitButton?: React$Element<*>,
   description?: string,
   widgets?: q20$RenderedNode[],
   widget?: string,
+  submitValues: () => {},
   label?: string,
   errorHandlerComponent: React$Element<*>,
   typeAheadValidation: boolean,
+  submitFn: ({}) => {},
 };
 
 export type q20$FormControllerState = {
@@ -114,3 +117,12 @@ export type q20$DeleteRowValues = {
   path: string,
   index: number,
 };
+
+export type q20$SubmitField = {
+  name: string,
+  validates: Array<string>,
+  type?: q20$NodeType,
+  children?: Array<*>,
+};
+
+
