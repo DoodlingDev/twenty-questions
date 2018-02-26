@@ -4,7 +4,6 @@
     "transform-object-rest-spread",
     "transform-class-properties",
     "babel-plugin-inline-import-graphql-ast",
-    "transform-react-pug",
     "transform-react-jsx"
   ]
 }

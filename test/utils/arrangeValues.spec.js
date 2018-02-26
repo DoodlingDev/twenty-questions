@@ -20,6 +20,13 @@ const testValues = {
   "in.aDifferent._array.2.object": {},
   "in.aDifferent._array.2.object.string": "string",
   "in.aDifferent._array.2.object.number": 2,
+  "in.an.object": {},
+  "in.an.object.object1": "one",
+  "in.an.object.object2": "two",
+  "in.another.objectType": {},
+  "in.another.objectType.childObject": {},
+  "in.another.objectType.childObject.object1": "one",
+  "in.another.objectType.childObject.object2": "two",
 };
 
 describe("arrangeValues", () => {
@@ -45,7 +52,7 @@ describe("arrangeValues", () => {
       if (typeof result[key] === "object") {
         foundNested = true;
       }
-    };
+    }
     expect(foundNested).toBe(false);
   });
 
@@ -96,5 +103,65 @@ describe("arrangeValues", () => {
       }
     });
     expect(foundDots).toBe(false);
+  });
+
+  it("returns object properties correctly", () => {
+    const shape = [
+      {
+        name: "object",
+        validates: undefined,
+        type: "object",
+        children: [
+          {
+            name: "object1",
+            validates: undefined,
+          },
+          {
+            name: "object2",
+            validates: undefined,
+          },
+        ],
+      },
+    ];
+    const result = arrangeValues({ values: testValues, submitShape: shape });
+    console.log(result);
+    expect(Object.keys(result).length).toBe(1);
+    expect(Object.keys(result["object"]).length).toBe(2);
+  });
+
+  it("returns proper objects even when double nested", () => {
+    const shape = [
+      {
+        name: "objectType",
+        validates: undefined,
+        type: "object",
+        children: [
+          {
+            name: "childObject",
+            validates: undefined,
+            type: "object",
+            children: [
+              {
+                name: "object1",
+                validates: undefined,
+              },
+              {
+                name: "object2",
+                validates: undefined,
+              },
+            ],
+          },
+        ],
+      },
+    ];
+    const result = arrangeValues({ values: testValues, submitShape: shape });
+    expect(result).toMatchObject({
+      objectType: {
+        childObject: {
+          object1: "one",
+          object2: "two",
+        },
+      },
+    });
   });
 });
