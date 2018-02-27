@@ -1,12 +1,12 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
-import {FormController} from "../../src/components/formController.js";
+import { FormController } from "../../src/components/formController.js";
 import renderer from "react-test-renderer";
 // import { shallow, mount } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 const setupProps = {
   title: "test form title",
@@ -17,6 +17,9 @@ const setupProps = {
   validate: {
     single: jest.fn(),
     state: {},
+  },
+  tabs: {
+    tabLabels: [],
   },
   properties: [
     {

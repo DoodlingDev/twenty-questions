@@ -1,12 +1,12 @@
 // @flow
-import React from "react";
+import React, { Component } from "react";
 import withValueManager from "./valueManager";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
-import ErrorHandler from "./errorHandler";
 import camelize from "../utils/camelize";
 import withTabbedNavigation from "./tabbedNavigation";
+import FormBuilder from "./formBuilder";
 
 /**
  * FormController
@@ -15,94 +15,132 @@ import withTabbedNavigation from "./tabbedNavigation";
  *   wrapped with other components that handle state and validation.
  * @return {Component} rendered React Component
  */
-export const FormController = ({
-  widgets,
-  widget,
-  title,
-  description,
-  properties,
-  label,
-  validate,
-  deleteRow,
-  values,
-  changeValue,
-  registerField,
-  submitFn,
-  submitValues,
-  tabs,
-  fieldRegistry,
-  submitButton = <button type="submit">Submit</button>,
-  typeAheadValidation = true,
-  errorHandlerComponent = ErrorHandler,
-}: q20$FormControllerProps) => {
-  function mapProperties() {
-    return properties.map(property => {
-      console.log(tabs.tabLabels);
+export class FormController extends Component<
+  q20$FormControllerProps,
+  q20$FormControllerState,
+> {
+  +mapProperties: () => Array<React$Node>;
+  +createTabButtons: () => Array<?React$Element<*>>;
+  +submitHandler: (Object) => typeof undefined;
+
+  /**
+   * constructor
+   * @param {q20$FormControllerProps} props
+   */
+  constructor(props: q20$FormControllerProps) {
+    super(props);
+    this.mapProperties = this.mapProperties.bind(this);
+    this.createTabButtons = this.createTabButtons.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.state = {
+      propertyObjects: this.mapProperties(),
+      tabButtons: this.createTabButtons(),
+    };
+  }
+
+  static defaultProps = {
+    submitButton: <button>Submit Me</button>,
+  };
+
+  /**
+   * mapProperties
+   *   Iterates through the top-level object types in the form schema
+   *   and assigns them each an element in an array. This is the array
+   *   that will be used to display the Form's tabs.
+   * @return {array} Array of Form Node Objects
+   */
+  mapProperties() {
+    return this.props.properties.map(property => {
+      let propertyTitle = property.label || "";
       return (
         <FormNodeObject
-          key={`top-object-${camelize(title)}`}
-          name={camelize(title)}
-          label={label ? label : undefined}
-          description={description}
-          type={"object"}
-          path={`${camelize(title)}`}
+          key={`tab-object-${camelize(propertyTitle)}`}
+          name={property.name}
+          label={property.label ? property.label : undefined}
+          description={property.description}
+          type="object"
+          path={`${camelize(propertyTitle)}`}
           properties={property.properties}
-          widgets={getWidgets(widgets)}
-          widget={widget ? widget : undefined}
+          widgets={getWidgets(this.props.widgets)}
+          widget={property.widget ? property.widget : undefined}
           valueManager={{
             update: changeParams => {
-              changeValue(changeParams, () => {
-                if (typeAheadValidation) {
-                  validate.single(changeParams);
+              this.props.changeValue(changeParams, () => {
+                if (this.props.typeAheadValidation) {
+                  this.props.validate.single(changeParams);
                 }
               });
             },
-            values: values,
-            validate: validate.state,
+            values: this.props.values,
+            validate: this.props.validate.state,
             deleteRow: changeParams => {
-              validate.deleteRow(changeParams);
-              deleteRow(changeParams);
+              this.props.validate.deleteRow(changeParams);
+              this.props.deleteRow(changeParams);
             },
           }}
-          register={registerField}
+          register={this.props.registerField}
         />
       );
     });
   }
 
-  const tabButtons = (() => {
-    return tabs.tabLabels.map((label, index) => {
-      return <button
-        key={label}
-        onClick={event => {
-          event.preventDefault();
-          tabs.setTab(index);
-        }}
+  /**
+   * createTabButtons
+   *   iterates through the top-level object types in the form schema
+   *   and creates a button for each with the label field being the
+   *   text on the button.
+   * @return {array} the array of buttons
+   */
+  createTabButtons() {
+    if (this.props.tabs.tabLabels.length < 2) {
+      return null;
+    }
+    return this.props.tabs.tabLabels.map((label, index) => {
+      return (
+        <button
+          key={label}
+          onClick={event => {
+            event.preventDefault();
+            this.props.tabs.setTab(index);
+          }}
         >
           {label}
         </button>
+      );
     });
-  })()
+  }
 
-  return (
-    <form>
-      {tabs.tabbed && tabButtons}
+  submitHandler(event: Object): typeof undefined {
+    event.preventDefault();
+    if (
+      this.props.validate.all(
+        this.props.values,
+        this.props.fieldRegistry,
+      )
+    ) {
+      this.props.submitFn(this.props.submitValues());
+    }
+  }
 
-      {title && <h2>{title}</h2>}
-      {description && <h3>{description}</h3>}
-
-      {mapProperties()[tabs.activeTab]}
-      {React.cloneElement(submitButton, {
-        onClick: event => {
-          event.preventDefault();
-          if (validate.all(values, fieldRegistry)) {
-            submitFn(submitValues());
-          }
-        },
-      })}
-    </form>
-  );
-};
+  /**
+   * render - React render function
+   * @return {ReactElement} React representation of dom elements for
+   *   this component.
+   */
+  render() {
+    return (
+      <FormBuilder
+        tabButtons={this.state.tabButtons}
+        title={this.props.title}
+        description={this.props.description}
+        propertyObjects={this.state.propertyObjects}
+        submitButton={this.props.submitButton}
+        submitHandler={this.submitHandler}
+        tabs={this.props.tabs}
+      />
+    );
+  }
+}
 
 export default withTabbedNavigation(
   withValueManager(withValidation(FormController)),

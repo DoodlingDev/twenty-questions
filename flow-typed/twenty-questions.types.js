@@ -67,7 +67,8 @@ export type q20$FormControllerProps = {
   fieldRegistry: string[],
   values: q20$FormValues,
   deleteRow: (q20$DeleteRowValues) => typeof undefined,
-  submitButton?: React$Element<*>,
+  submitButton: React$Element<*>,
+  tabs: q20$TabNavigationProps,
   description?: string,
   widgets?: q20$RenderedNode[],
   widget?: string,
@@ -78,10 +79,21 @@ export type q20$FormControllerProps = {
   submitFn: ({}) => {},
 };
 
+type q20$TabNavigationProps = {
+  activeTab: number,
+  tabbed: boolean,
+  tabLabels: string[],
+  setTab: (number) => typeof undefined,
+  nextTab: () => typeof undefined,
+  prevTab: () => typeof undefined,
+};
+
 export type q20$FormControllerState = {
-  values: q20$FormValues,
-  errors: q20$FormErrors,
-  fieldRegistry: string[],
+  propertyObjects: Array<React$Element<*>>,
+  tabButtons: ?React$Element<*>[],
+  // values: q20$FormValues,
+  // errors: q20$FormErrors,
+  // fieldRegistry: string[],
 };
 
 export type q20$Validator = {};

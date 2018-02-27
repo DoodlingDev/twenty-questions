@@ -1,5 +1,5 @@
 import React from "react";
-import FormNodeObject from "../../../src/components/nodes/types/object";
+import FormNodeObject from "./object";
 // import { shallow, mount } from "enzyme";
 import renderer from "react-test-renderer";
 import Enzyme from "enzyme";

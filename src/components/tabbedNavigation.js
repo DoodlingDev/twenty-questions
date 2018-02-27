@@ -8,8 +8,9 @@ import React, { Component } from "react";
  *   Exposes the index for the current active tab and functions for
  *   changing the number.
  *
- * @param {React Component} WrappedComponent The component that will be wrapped
+ * @param {Component} WrappedComponent The component that will be wrapped
  *   with the tab navigation HOC
+ * @return {class} Wrapper class
  */
 export default function withTabbedNavigation(WrappedComponent) {
   return class WithTabbedNavigation extends Component {

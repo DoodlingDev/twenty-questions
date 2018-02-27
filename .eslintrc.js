@@ -26,6 +26,7 @@ module.exports = {
   },
   "rules": {
     "react/jsx-uses-vars": 1,
+    "react/prop-types": "off",
     "ignoreStrings": "off",
     "ignoreComments": "off",
     "no-multi-spaces": "off",

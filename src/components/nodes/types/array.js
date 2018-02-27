@@ -89,6 +89,8 @@ export class FormNodeArray extends Component<
           key={`wrapperFor-${this.props.path}.${i}.${this.directChildsName}`}
         >
           <FormNodeObject
+            type="object"
+            name={this.directChildsName}
             key={`array-node-${this.props.path}-${i}`}
             path={`${this.props.path}.${i}.${this.directChildsName}`}
             widgets={this.props.widgets}
