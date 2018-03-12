@@ -7,6 +7,7 @@ import withValidation from "./validator";
 import camelize from "../utils/camelize";
 import withTabbedNavigation from "./tabbedNavigation";
 import FormBuilder from "./formBuilder";
+import TabButton from "./tabButton";
 
 /**
  * FormController
@@ -33,7 +34,6 @@ export class FormController extends Component<
     this.createTabButtons = this.createTabButtons.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
     this.state = {
-      propertyObjects: this.mapProperties(),
       tabButtons: this.createTabButtons(),
     };
   }
@@ -97,19 +97,24 @@ export class FormController extends Component<
     }
     return this.props.tabs.tabLabels.map((label, index) => {
       return (
-        <button
-          key={label}
-          onClick={event => {
+        <TabButton
+          key={`tabButton-${label}-${index}`}
+          label={label}
+          handleClick={event => {
             event.preventDefault();
             this.props.tabs.setTab(index);
           }}
-        >
-          {label}
-        </button>
+        />
       );
     });
   }
 
+  /**
+   * submitHandler
+   *   runs validations for all the inputs in the form, and then
+   *   submits them with the passed-in submit function from props.
+   * @param {object} event DOM event that triggered this fn
+   */
   submitHandler(event: Object): typeof undefined {
     event.preventDefault();
     if (
@@ -133,7 +138,7 @@ export class FormController extends Component<
         tabButtons={this.state.tabButtons}
         title={this.props.title}
         description={this.props.description}
-        propertyObjects={this.state.propertyObjects}
+        propertyObjects={this.mapProperties()}
         submitButton={this.props.submitButton}
         submitHandler={this.submitHandler}
         tabs={this.props.tabs}

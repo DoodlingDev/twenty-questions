@@ -46,6 +46,20 @@ export class FormNodeArray extends Component<
   }
 
   /**
+   * componentDidUpdate
+   *   React component lifycycle method for post-update
+   *   Checks how many children values exist for this array type input. If the
+   *   number of children is below one, it adds an empty row back, because arrays
+   *   cannot have 0 instances of child objects.
+   */
+  componentDidUpdate() {
+    this.childFields = this.numberOfChildrenWithMatchingPath();
+    if (this.childFields < 1) {
+      this.addRow();
+    }
+  }
+
+  /**
    * numberOfChildrenWithMatchingPath
    *   Collects a count of the number of objects in the store that
    *   are direct decendants of this array object.

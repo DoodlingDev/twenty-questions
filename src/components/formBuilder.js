@@ -2,7 +2,7 @@
 import React from "react";
 
 type Props = {
-  tabButtons: ?Array<?React$Element<*>>,
+  tabButtons: ?Array<React$Node>,
   title: string,
   propertyObjects: Array<React$Node>,
   submitButton: React$Element<*>,

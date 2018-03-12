@@ -174,7 +174,9 @@ describe("# of rows", () => {
       };
       const wrapper = setup(mount, oneValue);
       wrapper.find("button[type='delete']").simulate("click");
-      wrapper.props().valueManager.update.mockClear()
+      wrapper.update();
+      expect(wrapper.find("FormNodeObject").length).toBe(1);
+      wrapper.props().valueManager.update.mockClear();
     });
   });
 });
