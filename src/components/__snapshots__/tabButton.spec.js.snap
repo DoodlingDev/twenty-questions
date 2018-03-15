@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders array types correctly 1`] = `
+<button
+  className="q20_tabbedForm__button"
+  onClick={undefined}
+/>
+`;

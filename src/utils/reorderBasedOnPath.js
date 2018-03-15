@@ -22,12 +22,13 @@ export default function reorderBasedOnPath({
 
   const sortedNamedValues = sortSelectedValuesByIndex(changesAndState);
   renumberValuesIntoNewState({ sortedNamedValues, newState });
-  removeObsoleteRowEntries({
-    sortedNamedValues,
-    path,
-    newState,
-  });
-
+  if (!areConsecutive(Object.keys(sortedNamedValues))) {
+    removeObsoleteRowEntries({
+      sortedNamedValues,
+      path,
+      newState,
+    });
+  }
   return newState;
 }
 
@@ -57,6 +58,28 @@ function removeObsoleteRowEntries({
       delete newState[valuePair];
     }
   }
+}
+
+/**
+ * areConsecutive
+ *   takes in an array of numbers as strings.
+ *   Returns true/false based on whether the numbers in the array are consecutive.
+ *
+ * @param {array} listOfNumbers
+ * @return {boolean} true/false based on whether the numbers are consecutive.
+ */
+export function areConsecutive(listOfNumbers: Array<string>) {
+  if (listOfNumbers.length <= 1) return false;
+  let sortedListOfNumbers = listOfNumbers.map(n => parseInt(n)).sort();
+  for (let i = 1, l = sortedListOfNumbers.length; i < l; i++) {
+    let currentNumber = sortedListOfNumbers[i];
+    if (currentNumber - 1 == sortedListOfNumbers[i - 1]) {
+      continue;
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**

@@ -9,20 +9,22 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe("rendering", () => {
   it("renders string types correctly", () => {
-    const render = renderer.create(
-      <FormNodeString
-        name="test_string"
-        label="test string"
-        path="test_form.test_string"
-        title="string title"
-        description="A simple String"
-        valueManager={{
-          update: () => {},
-          values: {},
-          validate: {},
-        }}
-        />
-    ).toJSON();
+    const render = renderer
+      .create(
+        <FormNodeString
+          name="test_string"
+          label="test string"
+          path="test_form.test_string"
+          title="string title"
+          description="A simple String"
+          valueManager={{
+            update: () => {},
+            values: {},
+            validate: {},
+          }}
+        />,
+      )
+      .toJSON();
     expect(render).toMatchSnapshot();
   });
 });

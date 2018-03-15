@@ -47,6 +47,25 @@ const ExampleApp = props => {
           },
         ],
       },
+      {
+        type: "object",
+        name: "second-tab",
+        label: "a simple second tab",
+        properties: [
+          {
+            type: "string",
+            name: "next_string",
+            label: "A String",
+            validates: ["required"],
+          },
+          {
+            type: "string",
+            name: "next_next_string",
+            label: "B String",
+            validates: ["required"],
+          },
+        ],
+      },
     ]}
   />
 };

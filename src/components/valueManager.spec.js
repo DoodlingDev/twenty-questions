@@ -1,11 +1,11 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import withValueManager from "../../src/components/valueManager";
-import {shallow, mount} from "enzyme";
+import { shallow } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 const setupProps = {
   title: "test form title",
@@ -129,7 +129,7 @@ describe("deleteRowValue", () => {
 
   it("should remove the row in question", () => {
     const wrapper = setup(shallow);
-    wrapper.instance().state.values = {...arrayValue};
+    wrapper.instance().state.values = { ...arrayValue };
     const valueLength = Object.keys(wrapper.state().values).length;
     wrapper.instance().deleteRowValue({
       path: "testFormTitle.testName.testArray",
@@ -141,7 +141,7 @@ describe("deleteRowValue", () => {
 
   it("should preserve data", () => {
     const wrapper = setup(shallow);
-    wrapper.instance().state.values = {...arrayValue};
+    wrapper.instance().state.values = { ...arrayValue };
     wrapper.instance().deleteRowValue({
       path: "testFormTitle.testName.testArray",
       index: 1,
@@ -171,7 +171,7 @@ describe("deleteRowValue", () => {
 
   it("should decrement the numbers properly", () => {
     const wrapper = setup(shallow);
-    wrapper.instance().state.values = {...arrayValue};
+    wrapper.instance().state.values = { ...arrayValue };
     wrapper.instance().deleteRowValue({
       path: "testFormTitle.testName.testArray",
       index: 1,

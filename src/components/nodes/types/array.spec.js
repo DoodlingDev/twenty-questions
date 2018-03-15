@@ -82,12 +82,14 @@ describe("# of rows", () => {
   describe("given no values", () => {
     it("adds one row", () => {
       const wrapper = setup(mount);
-      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([{
-        path: "test_form.test_array.0.child",
-        name: "child",
-        value: {},
-      }]);
-      wrapper.props().valueManager.update.mockClear()
+      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([
+        {
+          path: "test_form.test_array.0.child",
+          name: "child",
+          value: {},
+        },
+      ]);
+      wrapper.props().valueManager.update.mockClear();
     });
   });
 
@@ -124,12 +126,14 @@ describe("# of rows", () => {
       };
       const wrapper = setup(mount, oneValue);
       wrapper.find("button[type='add']").simulate("click");
-      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([{
-        path: "test_form.test_array.1.child",
-        name: "child",
-        value: {},
-      }]);
-      wrapper.props().valueManager.update.mockClear()
+      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([
+        {
+          path: "test_form.test_array.1.child",
+          name: "child",
+          value: {},
+        },
+      ]);
+      wrapper.props().valueManager.update.mockClear();
     });
 
     it("given multiple, adds one", () => {
@@ -141,12 +145,14 @@ describe("# of rows", () => {
       };
       const wrapper = setup(mount, oneValue);
       wrapper.find("button[type='add']").simulate("click");
-      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([{
-        path: "test_form.test_array.3.child",
-        name: "child",
-        value: {},
-      }]);
-      wrapper.props().valueManager.update.mockClear()
+      expect(wrapper.props().valueManager.update.mock.calls[0]).toEqual([
+        {
+          path: "test_form.test_array.3.child",
+          name: "child",
+          value: {},
+        },
+      ]);
+      wrapper.props().valueManager.update.mockClear();
     });
   });
 
@@ -159,12 +165,17 @@ describe("# of rows", () => {
         "test_form.test_array.2.child": {},
       };
       const wrapper = setup(mount, oneValue);
-      wrapper.find("button[type='delete']").first().simulate("click");
-      expect(wrapper.props().valueManager.deleteRow.mock.calls[0]).toEqual([{
-        path: "test_form.test_array",
-        index: 0,
-      }]);
-      wrapper.props().valueManager.update.mockClear()
+      wrapper
+        .find("button[type='delete']")
+        .first()
+        .simulate("click");
+      expect(wrapper.props().valueManager.deleteRow.mock.calls[0]).toEqual([
+        {
+          path: "test_form.test_array",
+          index: 0,
+        },
+      ]);
+      wrapper.props().valueManager.update.mockClear();
     });
 
     it("should not delete the last input", () => {
@@ -174,7 +185,9 @@ describe("# of rows", () => {
       };
       const wrapper = setup(mount, oneValue);
       wrapper.find("button[type='delete']").simulate("click");
-      wrapper.props().valueManager.update.mockClear()
+      wrapper.update();
+      expect(wrapper.find("FormNodeObject").length).toBe(1);
+      wrapper.props().valueManager.update.mockClear();
     });
   });
 });
