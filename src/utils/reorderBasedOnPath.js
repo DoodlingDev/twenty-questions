@@ -1,5 +1,4 @@
 // @flow
-
 /**
  * reorderBasedOnPath
  *   Given an object of paths and values, will reorder them to fill
@@ -17,69 +16,49 @@ export default function reorderBasedOnPath({
   path: string,
   state: {},
 }) {
-  const newState = { ...state };
-  const changesAndState = { path, newState };
+  const changesAndState = { path, state };
 
   const sortedNamedValues = sortSelectedValuesByIndex(changesAndState);
-  renumberValuesIntoNewState({ sortedNamedValues, newState });
-  if (!areConsecutive(Object.keys(sortedNamedValues))) {
-    removeObsoleteRowEntries({
-      sortedNamedValues,
-      path,
-      newState,
-    });
-  }
+  // renumbered values into their own object
+  const newValuesMatchingPath = renumberValuesIntoNewState({
+    sortedNamedValues,
+  });
+  // filter out any entries that match the path, as they are now obsolete data
+  let newState = deleteEntriesThatMatchPathWithNumber(changesAndState);
+
+  // combine filtered state with updated array value state
+  newState = Object.assign(newState, newValuesMatchingPath);
   return newState;
 }
 
 /**
- * removeObsoleteRowEntries
- *   After shifting everything down one index value, there will be a leftover
- *   row, a duplicate of the one before it in order.
- *   Looking for the last index in sorted named values, when a path matching
- *   that is found, it is removed.
- * @param {object} pathValuesAndState path, sorted values and newState
+ * deleteEntriesThatMatchPath
+ *   Filters out any value entries that match the path with an index in the path string
+ *
+ * @param {object} arguments
+ * @param {string} path the path to match for deletion
+ * @param {object} state the state being filtered
+ * @return {object} the filtered state
  */
-function removeObsoleteRowEntries({
+function deleteEntriesThatMatchPathWithNumber({
   path,
-  sortedNamedValues,
-  newState,
+  state,
 }: {
   path: string,
-  sortedNamedValues: {},
-  newState: {},
+  state: {},
 }) {
-  const sortedIndexes = Object.keys(sortedNamedValues);
-  const obsoleteRowRegex = new RegExp(
-    "^" + path + "\\." + sortedIndexes[sortedIndexes.length - 1],
-  );
-  for (let valuePair in newState) {
-    if (obsoleteRowRegex.test(valuePair)) {
-      delete newState[valuePair];
-    }
-  }
-}
+  const matchPathRegexp = new RegExp(path + "\\.");
+  const outputBuffer = {};
 
-/**
- * areConsecutive
- *   takes in an array of numbers as strings.
- *   Returns true/false based on whether the numbers in the array are consecutive.
- *
- * @param {array} listOfNumbers
- * @return {boolean} true/false based on whether the numbers are consecutive.
- */
-export function areConsecutive(listOfNumbers: Array<string>) {
-  if (listOfNumbers.length <= 1) return false;
-  let sortedListOfNumbers = listOfNumbers.map(n => parseInt(n)).sort();
-  for (let i = 1, l = sortedListOfNumbers.length; i < l; i++) {
-    let currentNumber = sortedListOfNumbers[i];
-    if (currentNumber - 1 == sortedListOfNumbers[i - 1]) {
-      continue;
-    } else {
-      return false;
+  for (let value in state) {
+    if (state.hasOwnProperty(value)) {
+      if (!matchPathRegexp.test(value)) {
+        outputBuffer[value] = state[value];
+      }
     }
   }
-  return true;
+
+  return outputBuffer;
 }
 
 /**
@@ -87,17 +66,16 @@ export function areConsecutive(listOfNumbers: Array<string>) {
  *   Iterates through the paths based on their old index and changes it
  *   to the number of times through the loop.
  *   Ensures 0, 1, 2... order no matter their original index.
- * @param {object} sortedListAndState Sorted Named Values by index, and
- *   the current state, soon to be the new state.
- */
+ * @param {object} sortedListAndState Sorted Named Values by index
+ * @return {object} an object containing the new paths and values
+ * */
 function renumberValuesIntoNewState({
   sortedNamedValues,
-  newState,
 }: {
   sortedNamedValues: {},
-  newState: {},
 }) {
   const sortedIndexes = Object.keys(sortedNamedValues);
+  const outputBuffer = {};
 
   for (let i = 0, l = sortedIndexes.length; i < l; i++) {
     let oldIndex = sortedIndexes[i];
@@ -111,10 +89,11 @@ function renumberValuesIntoNewState({
           new RegExp("\\." + oldIndex + "\\."),
           "." + i + ".",
         );
-        newState[newPath] = oldValue;
+        outputBuffer[newPath] = oldValue;
       }
     }
   }
+  return outputBuffer;
 }
 
 /**
@@ -128,15 +107,15 @@ function renumberValuesIntoNewState({
  */
 function sortSelectedValuesByIndex({
   path,
-  newState,
+  state,
 }: {
   path: string,
-  newState: {},
+  state: {},
 }) {
   const sortedNamedValues = {};
   const pathTestCapturingIndex = new RegExp("^" + path + "\\.(\\d)");
-  for (let thisPath: string in newState) {
-    if (newState.hasOwnProperty(thisPath)) {
+  for (let thisPath: string in state) {
+    if (state.hasOwnProperty(thisPath)) {
       let doesMatchWithCapturedIndex = pathTestCapturingIndex.exec(thisPath);
 
       if (doesMatchWithCapturedIndex) {
@@ -145,7 +124,7 @@ function sortSelectedValuesByIndex({
           sortedNamedValues[index] = [];
         }
         sortedNamedValues[index].push({
-          [thisPath]: newState[thisPath],
+          [thisPath]: state[thisPath],
         });
       }
     }
