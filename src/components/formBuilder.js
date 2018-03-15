@@ -1,5 +1,6 @@
 // @flow
 import React from "react";
+import Tabbar from "./tabbar";
 
 type Props = {
   tabButtons: ?Array<React$Node>,
@@ -27,7 +28,9 @@ const FormBuilder = ({
 }: Props) => {
   return (
     <form>
-      {tabButtons && tabButtons}
+      {tabButtons &&
+        <Tabbar tabs={tabButtons} />
+      }
 
       {title && <h2>{title}</h2>}
       {description && <h3>{description}</h3>}
