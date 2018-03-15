@@ -20,7 +20,9 @@ export default function reorderBasedOnPath({
 
   const sortedNamedValues = sortSelectedValuesByIndex(changesAndState);
   // renumbered values into their own object
-  const newValuesMatchingPath = renumberValuesIntoNewState({ sortedNamedValues });
+  const newValuesMatchingPath = renumberValuesIntoNewState({
+    sortedNamedValues,
+  });
   // filter out any entries that match the path, as they are now obsolete data
   let newState = deleteEntriesThatMatchPathWithNumber(changesAndState);
 
@@ -38,8 +40,14 @@ export default function reorderBasedOnPath({
  * @param {object} state the state being filtered
  * @return {object} the filtered state
  */
-function deleteEntriesThatMatchPathWithNumber({ path, state }: {path: string, state: {}}) {
-  const matchPathRegexp = new RegExp( path + "\\." );
+function deleteEntriesThatMatchPathWithNumber({
+  path,
+  state,
+}: {
+  path: string,
+  state: {},
+}) {
+  const matchPathRegexp = new RegExp(path + "\\.");
   const outputBuffer = {};
 
   for (let value in state) {
