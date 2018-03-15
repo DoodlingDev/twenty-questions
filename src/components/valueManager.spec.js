@@ -1,7 +1,7 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import withValueManager from "../../src/components/valueManager";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
