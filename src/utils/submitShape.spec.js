@@ -17,7 +17,7 @@ describe("createShapeMap", () => {
         type: "boolean",
         name: "test_bool",
         label: "Test Boolean",
-      }
+      },
     ];
     const result = submitShape(testShape);
     expect(result.length).toBe(3);
@@ -67,7 +67,7 @@ describe("createShapeMap", () => {
           {
             type: "string",
             name: "inner_string_b",
-          }
+          },
         ],
       },
       {

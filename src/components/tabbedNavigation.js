@@ -38,7 +38,7 @@ export default function withTabbedNavigation(WrappedComponent) {
       let outputBuffer = [];
       this.props.properties.forEach(formObject => {
         if (formObject.label) {
-          outputBuffer.push(formObject.label)
+          outputBuffer.push(formObject.label);
         }
       });
       return outputBuffer;
@@ -82,5 +82,5 @@ export default function withTabbedNavigation(WrappedComponent) {
         />
       );
     }
-  }
+  };
 }

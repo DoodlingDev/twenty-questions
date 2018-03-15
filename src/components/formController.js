@@ -22,7 +22,7 @@ export class FormController extends Component<
 > {
   +mapProperties: () => Array<React$Node>;
   +createTabButtons: () => Array<?React$Element<*>>;
-  +submitHandler: (Object) => typeof undefined;
+  +submitHandler: Object => typeof undefined;
 
   /**
    * constructor
@@ -117,12 +117,7 @@ export class FormController extends Component<
    */
   submitHandler(event: Object): typeof undefined {
     event.preventDefault();
-    if (
-      this.props.validate.all(
-        this.props.values,
-        this.props.fieldRegistry,
-      )
-    ) {
+    if (this.props.validate.all(this.props.values, this.props.fieldRegistry)) {
       this.props.submitFn(this.props.submitValues());
     }
   }

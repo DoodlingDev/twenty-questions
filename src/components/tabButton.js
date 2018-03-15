@@ -16,6 +16,6 @@ export const TabButton = ({ handleClick, label }: Props) => {
       {label}
     </button>
   );
-}
+};
 
 export default TabButton;

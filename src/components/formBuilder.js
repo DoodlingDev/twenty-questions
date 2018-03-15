@@ -7,7 +7,7 @@ type Props = {
   title: string,
   propertyObjects: Array<React$Node>,
   submitButton: React$Element<*>,
-  submitHandler: (Object) => typeof undefined,
+  submitHandler: Object => typeof undefined,
   tabs: Object,
   description?: string,
   children?: any,
@@ -28,9 +28,7 @@ const FormBuilder = ({
 }: Props) => {
   return (
     <form>
-      {tabButtons &&
-        <Tabbar tabs={tabButtons} />
-      }
+      {tabButtons && <Tabbar tabs={tabButtons} />}
 
       {title && <h2>{title}</h2>}
       {description && <h3>{description}</h3>}

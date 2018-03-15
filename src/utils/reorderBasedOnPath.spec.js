@@ -1,4 +1,6 @@
-import reorderBasedOnPath, { areConsecutive } from "../../src/utils/reorderBasedOnPath";
+import reorderBasedOnPath, {
+  areConsecutive,
+} from "../../src/utils/reorderBasedOnPath";
 
 describe("reorderBasedOnPath", () => {
   const arrayValue = {

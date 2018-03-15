@@ -24,26 +24,28 @@ const defaultTestProps = {
 };
 
 function setup(renderFn, testProps = defaultTestProps) {
-  return renderFn(<FormNodeNumber {...testProps}/>);
+  return renderFn(<FormNodeNumber {...testProps} />);
 }
 
 describe("rendering", () => {
   it("renders string types correctly", () => {
-    const render = renderer.create(
-      <FormNodeNumber
-        name="test_number"
-        path="test.test_number"
-        valueManager={{
-          values: {
-            "test.test_boolean": false,
-          },
-          validate: {}
-        }}
-        register={() => {}}
-        label="test number"
-        description="this is a test number"
-      />
-    ).toJSON();
+    const render = renderer
+      .create(
+        <FormNodeNumber
+          name="test_number"
+          path="test.test_number"
+          valueManager={{
+            values: {
+              "test.test_boolean": false,
+            },
+            validate: {},
+          }}
+          register={() => {}}
+          label="test number"
+          description="this is a test number"
+        />,
+      )
+      .toJSON();
     expect(render).toMatchSnapshot();
   });
 });

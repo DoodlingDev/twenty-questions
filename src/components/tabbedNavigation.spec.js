@@ -1,20 +1,24 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import withTabbedNavigation from "./tabbedNavigation";
-import { shallow, /* mount */ } from "enzyme";
+import { shallow /* mount */ } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 const setupProps = {
-  properties: [{
-    label: "one",
-  }, {
-    label: "two",
-  }, {
-    label: "three",
-  }],
+  properties: [
+    {
+      label: "one",
+    },
+    {
+      label: "two",
+    },
+    {
+      label: "three",
+    },
+  ],
 };
 
 function setup(renderFn, testProps = setupProps) {

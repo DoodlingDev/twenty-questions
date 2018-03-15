@@ -1,11 +1,11 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import withValidation from "../../src/components/validator.js";
-import {shallow /* mount  */} from "enzyme";
+import { shallow /* mount  */ } from "enzyme";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({adapter: new Adapter()});
+Enzyme.configure({ adapter: new Adapter() });
 
 const defaultFormControllerProps = {
   title: "test form",
