@@ -34,6 +34,7 @@ const ExampleApp = props => {
                 type: "object",
                 name: "array_row",
                 label: "In Array",
+                widget: "onFocus",
                 properties: [
                   {
                     type: "string",
