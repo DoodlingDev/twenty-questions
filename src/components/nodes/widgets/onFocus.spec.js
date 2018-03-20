@@ -74,7 +74,7 @@ describe("with existing data", () => {
   };
 
   it("should render the input view", () => {
-    const wrapper = setup(mount);
+    const wrapper = setup(mount, existingDataProps);
     expect(wrapper.find("input").length >= 1).toBe(true);
   });
 });

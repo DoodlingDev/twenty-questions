@@ -17,6 +17,7 @@ type $state = {
  */
 export default class OnFocus extends Component<q20$Node, $state> {
   +_toggleFocus: () => typeof undefined;
+  +_hasChildDataBeenEntered: () => boolean;
   /**
    * constructor
    * @param {object} props passed in props
@@ -24,10 +25,31 @@ export default class OnFocus extends Component<q20$Node, $state> {
   constructor(props: q20$Node): typeof undefined {
     super(props);
     this._toggleFocus = this._toggleFocus.bind(this);
+    this._hasChildDataBeenEntered = this._hasChildDataBeenEntered.bind(this);
     this.state = {
-      focused: false,
+      focused: this._hasChildDataBeenEntered(),
     };
-    // check for child data existing
+  }
+
+  /**
+   * _hasChildDataBeenEntered
+   *   Checks the value manager's list of values and returns true if any values
+   *   therein hold any data.
+   *
+   * @return {boolean} true/false result
+   */
+  _hasChildDataBeenEntered() {
+    const pathMatchRegexp = new RegExp("^" + this.props.path + ".?")
+    for (let fieldName in this.props.valueManager.values) {
+      if (this.props.valueManager.values.hasOwnProperty(fieldName)) {
+        let fieldValue = this.props.valueManager.values[fieldName];
+        if (pathMatchRegexp.test(fieldName) &&
+          (fieldValue != undefined && fieldValue != "")) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**
