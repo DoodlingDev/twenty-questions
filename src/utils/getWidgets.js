@@ -1,3 +1,5 @@
+import OnFocus from "../components/nodes/widgets/onFocus";
+
 /**
  * getWidgets
  *
@@ -13,7 +15,9 @@ export default function getWidgets(
     widgetList = passedWidgets;
   }
 
-  const widgetRegistry = {};
+  const widgetRegistry = {
+    OnFocus,
+  };
 
   return Object.assign(widgetRegistry, widgetList);
 }

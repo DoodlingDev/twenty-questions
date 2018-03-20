@@ -30,7 +30,10 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
       if (props.register) {
         props.register(nodePath);
       }
-      const NodeComponent = nodeTypes[property.type];
+      let NodeComponent = nodeTypes[property.type];
+      if (props.widget) {
+        NodeComponent = props.widgets[props.widget];
+      }
       return (
         <NodeComponent
           key={`node-${nodePath}`}

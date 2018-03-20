@@ -34,12 +34,21 @@ const ExampleApp = props => {
                 type: "object",
                 name: "array_row",
                 label: "In Array",
+                widget: "OnFocus",
                 properties: [
                   {
-                    type: "string",
-                    name: "c_string",
-                    label: "C String",
-                    validates: ["required"],
+                    type: "object",
+                    name: "onFocus_array_row",
+                    placeholder: "Click here for more",
+                    label: "on foc",
+                    properties: [
+                      {
+                        type: "string",
+                        name: "c_string",
+                        label: "C String",
+                        validates: ["required"],
+                      },
+                    ],
                   }
                 ]
               }
