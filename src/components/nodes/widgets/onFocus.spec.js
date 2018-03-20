@@ -1,7 +1,7 @@
 /* eslint require-jsdoc: "off" */
 import React from "react";
 import OnFocus from "./onFocus";
-import /* shallow,  mount */ "enzyme";
+import { /* shallow,*/ mount } from "enzyme";
 import renderer from "react-test-renderer";
 import Enzyme from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
@@ -9,7 +9,18 @@ import Adapter from "enzyme-adapter-react-16";
 Enzyme.configure({ adapter: new Adapter() });
 
 const defaultTestProps = {
-
+  name: "test_onfocus",
+  path: "test_path",
+  properties: [
+    {
+      type: "string",
+      name: "test_string",
+    },
+  ],
+  valueManager: {
+    values: {},
+    validate: {},
+  },
 };
 
 function setup(renderFn, testProps = defaultTestProps) {
@@ -18,7 +29,7 @@ function setup(renderFn, testProps = defaultTestProps) {
 
 describe("rendering", () => {
   it("renders correctly", () => {
-    const render = renderer.create(<OnFocus />).toJSON();
+    const render = renderer.create(<OnFocus {...defaultTestProps}/>).toJSON();
     expect(render).toMatchSnapshot();
   });
 });
@@ -34,13 +45,36 @@ describe("mounted component", () => {
     wrapper.state.focused = false;
     wrapper.update();
     expect(wrapper.find("input").length < 1).toBe(true);
-  })
+  });
 
   it("should render the inputs view if focused", () => {
     const wrapper = setup(mount);
-    wrapper.state.focused = true;
+    wrapper.setState({ focused: true });
     wrapper.update();
     expect(wrapper.find("input").length < 1).toBe(false);
-  })
+  });
 });
 
+describe("with existing data", () => {
+  const existingDataProps = {
+    name: "test_onfocus",
+    path: "test_path",
+    properties: [
+      {
+        type: "string",
+        name: "test_string",
+      },
+    ],
+    valueManager: {
+      values: {
+        "test_path.test_string": "existing data",
+      },
+      validate: {},
+    },
+  };
+
+  it("should render the input view", () => {
+    const wrapper = setup(mount);
+    expect(wrapper.find("input").length >= 1).toBe(true);
+  });
+});

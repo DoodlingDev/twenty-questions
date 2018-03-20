@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div
+  className="q20_focusField__testPath--awaitingFocus"
+  onFocus={[Function]}
+  tabIndex="0"
+>
+  test_onfocus
+</div>
+`;
