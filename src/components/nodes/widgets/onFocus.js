@@ -39,12 +39,14 @@ export default class OnFocus extends Component<q20$Node, $state> {
    * @return {boolean} true/false result
    */
   _hasChildDataBeenEntered() {
-    const pathMatchRegexp = new RegExp("^" + this.props.path + ".?")
+    const pathMatchRegexp = new RegExp("^" + this.props.path + ".?");
     for (let fieldName in this.props.valueManager.values) {
       if (this.props.valueManager.values.hasOwnProperty(fieldName)) {
         let fieldValue = this.props.valueManager.values[fieldName];
-        if (pathMatchRegexp.test(fieldName) &&
-          (fieldValue != undefined && fieldValue != "")) {
+        if (
+          pathMatchRegexp.test(fieldName) &&
+          (fieldValue != undefined && fieldValue != "")
+        ) {
           return true;
         }
       }

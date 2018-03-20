@@ -29,7 +29,7 @@ function setup(renderFn, testProps = defaultTestProps) {
 
 describe("rendering", () => {
   it("renders correctly", () => {
-    const render = renderer.create(<OnFocus {...defaultTestProps}/>).toJSON();
+    const render = renderer.create(<OnFocus {...defaultTestProps} />).toJSON();
     expect(render).toMatchSnapshot();
   });
 });
