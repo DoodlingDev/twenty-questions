@@ -17,12 +17,7 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
     props.valueManager.values[props.path] || props.defaultValue || false;
   if (props.widget) {
     let NodeComponent = props.widgets[props.widget];
-    return (
-      <NodeComponent
-        key={`node-${props.path}`}
-        {...props}
-      />
-    );
+    return <NodeComponent key={`node-${props.path}`} {...props} />;
     // do a thing with a widget
   } else {
     return (

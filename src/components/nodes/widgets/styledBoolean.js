@@ -15,12 +15,7 @@ const StyledBoolean = (props: q20$RenderedNode) => {
       {props.label && (
         <label
           htmlFor={props.path}
-          className={cn(
-            "nodeBoolean",
-            props.name,
-            "label",
-            props.layoutStyle,
-          )}
+          className={cn("nodeBoolean", props.name, "label", props.layoutStyle)}
         >
           {props.label}
           {props.description && (
@@ -62,26 +57,28 @@ const StyledBoolean = (props: q20$RenderedNode) => {
         label={props.label || props.name}
         validations={props.valueManager.validate[props.path]}
       >
-        <div
-          className={cn("styled-boolean-widget", props.path, "container")}
-        >
+        <div className={cn("styled-boolean-widget", props.path, "container")}>
           <button
-            className={cn("styled-boolean-widget", props.path, "box", checkedValue)}
+            className={cn(
+              "styled-boolean-widget",
+              props.path,
+              "box",
+              checkedValue,
+            )}
             name={props.name}
             onClick={event => {
-                event.preventDefault();
-                props.valueManager.update({
-                  path: props.path,
-                  name: props.name,
-                  value: !props.valueManager.values[props.path],
-                });
-              }
-            }
+              event.preventDefault();
+              props.valueManager.update({
+                path: props.path,
+                name: props.name,
+                value: !props.valueManager.values[props.path],
+              });
+            }}
           />
         </div>
       </ErrorHandler>
     </div>
   );
-}
+};
 
 export default StyledBoolean;
