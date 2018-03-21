@@ -28,7 +28,7 @@ function setup(renderFn, testProps = defaultTestProps) {
 }
 
 describe("rendering", () => {
-  it("renders string types correctly", () => {
+  it("renders correctly", () => {
     const render = renderer
       .create(
         <FormNodeBoolean

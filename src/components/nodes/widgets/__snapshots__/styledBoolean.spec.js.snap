@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div
+  className="q20_node__boolean"
+>
+  <div
+    className="q20_testBool__errorHandler"
+  >
+    <div
+      className="q20_styledBooleanWidget__thisTestPath--container"
+    >
+      <button
+        className="q20_styledBooleanWidget__thisTestPath--box"
+        name="testBool"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

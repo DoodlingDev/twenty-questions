@@ -62,7 +62,8 @@ const ExampleApp = props => {
         label: "a simple second tab",
         properties: [
           {
-            type: "string",
+            type: "boolean",
+            widget: "StyledBoolean",
             name: "next_string",
             label: "A String",
             validates: ["required"],
