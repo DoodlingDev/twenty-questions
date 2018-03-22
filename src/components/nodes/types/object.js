@@ -32,7 +32,8 @@ export const FormNodeObject = (props: q20$RenderedNode) => {
       }
       let NodeComponent = nodeTypes[property.type];
       if (props.widget) {
-        NodeComponent = props.widgets[props.widget];
+        const downcasedWidgetName = props.widget.toLowerCase();
+        NodeComponent = props.widgets[downcasedWidgetName];
       }
       return (
         <NodeComponent

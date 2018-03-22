@@ -41,6 +41,7 @@ export type q20$RenderedNode = {
   placeholder?: string,
   validates?: string[],
   properties?: Array<q20$Property>,
+  options?: Array<string>,
 };
 
 export type q20$Property = q20$RenderedNode | q20$RenderedNodeWithChildren;

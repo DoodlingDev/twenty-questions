@@ -48,8 +48,19 @@ const ExampleApp = props => {
                         label: "C String",
                         validates: ["required"],
                       },
+                      {
+                        type: "string",
+                        name: "test_dropdown",
+                        label: "dropdown",
+                        widget: "Dropdown",
+                        options: [
+                          "one",
+                          "two",
+                          "three"
+                        ],
+                      }
                     ],
-                  }
+                  },
                 ]
               }
             ]

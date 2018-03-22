@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import cn from "../../../utils/className";
 import ErrorHandler from "../../errorHandler";
 import FormNodeObject from "./object";
+import LabelAndDescription from "../../common/labelAndDescription";
 
 type q20$FormNodeArrayState = {
   directChildsName: string,
@@ -151,53 +152,19 @@ export class FormNodeArray extends Component<
    */
   render() {
     if (this.props.widget) {
-      const WidgetTag = this.props.widgets[this.props.widget];
+      const downcasedWidgetName = this.props.widgets.toLowerCase();
+      const WidgetTag = this.props.widgets[downcasedWidgetName];
       return <WidgetTag {...this.props} />;
     } else {
       return (
         <div className={cn("node", "array")}>
-          {this.props.label && (
-            <label
-              htmlFor={this.props.path}
-              className={cn(
-                "nodeArray",
-                this.props.name,
-                "label",
-                this.props.layoutStyle,
-              )}
-            >
-              {this.props.label}
-              {this.props.description && (
-                <span
-                  htmlFor={this.props.path}
-                  className={cn(
-                    "nodeArray",
-                    this.props.name,
-                    "description",
-                    this.props.layoutStyle,
-                  )}
-                >
-                  {this.props.description}
-                </span>
-              )}
-            </label>
-          )}
-
-          {!this.props.label &&
-            this.props.description && (
-              <span
-                htmlFor={this.props.path}
-                className={cn(
-                  "nodeArray",
-                  this.props.name,
-                  "description",
-                  this.props.layoutStyle,
-                )}
-              >
-                {this.props.description}
-              </span>
-            )}
-
+          <LabelAndDescription
+            label={this.props.label}
+            path={this.props.path}
+            name={this.props.name}
+            layoutStyle={this.props.layoutStyle}
+            description={this.props.description}
+          />
           <ErrorHandler
             key={`errorHandler-${this.props.path}`}
             name={this.props.name}

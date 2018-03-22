@@ -4,18 +4,22 @@ exports[`rendering renders correctly 1`] = `
 <div
   className="q20_node__boolean"
 >
-  <label
-    className="q20_nodeBoolean__testBoolean--label"
-    htmlFor="test.test_boolean"
+  <div
+    className="q20_node__testBoolean--labelAndDescription"
   >
-    test boolean
-    <span
-      className="q20_nodeBoolean__testBoolean--description"
+    <label
+      className="q20_node__testBoolean--label"
       htmlFor="test.test_boolean"
     >
-      this is a test boolean
-    </span>
-  </label>
+      test boolean
+      <span
+        className="q20_node__testBoolean--description"
+        htmlFor="test.test_boolean"
+      >
+        this is a test boolean
+      </span>
+    </label>
+  </div>
   <div
     className="q20_testBoolean__errorHandler"
   >
