@@ -11,7 +11,14 @@ type Props = {
 
 const LabelAndDescription = (props: Props) => {
   return (
-    <div className={cn("node", props.name, "labelAndDescription", props.layoutStyle)}>
+    <div
+      className={cn(
+        "node",
+        props.name,
+        "labelAndDescription",
+        props.layoutStyle,
+      )}
+    >
       {props.label && (
         <label
           htmlFor={props.path}
@@ -34,21 +41,17 @@ const LabelAndDescription = (props: Props) => {
         </label>
       )}
 
-      {!props.label && props.description && (
-        <span
-          htmlFor={props.path}
-          className={cn(
-            "node",
-            props.name,
-            "description",
-            props.layoutStyle,
-          )}
-        >
-          {props.description}
-        </span>
-      )}
+      {!props.label &&
+        props.description && (
+          <span
+            htmlFor={props.path}
+            className={cn("node", props.name, "description", props.layoutStyle)}
+          >
+            {props.description}
+          </span>
+        )}
     </div>
-  )
+  );
 };
 
 export default LabelAndDescription;
