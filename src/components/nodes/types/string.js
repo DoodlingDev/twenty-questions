@@ -2,6 +2,7 @@
 import React from "react";
 import cn from "../../../utils/className";
 import ErrorHandler from "../../errorHandler";
+import LabelAndDescription from "../../common/labelAndDescription";
 
 export const FormNodeString = (props: q20$RenderedNode) => {
   if (process.env.NODE_ENV != "production" && process.env.NODE_ENV != "test") {
@@ -18,44 +19,14 @@ export const FormNodeString = (props: q20$RenderedNode) => {
     return <WidgetTag {...props} />;
   } else {
     return (
-      <div className={cn("node", "string")}>
-        {props.label && (
-          <label
-            htmlFor={props.path}
-            className={cn("nodeString", props.name, "label", props.layoutStyle)}
-          >
-            {props.label}
-            {props.description && (
-              <span
-                htmlFor={props.path}
-                className={cn(
-                  "nodeString",
-                  props.name,
-                  "description",
-                  props.layoutStyle,
-                )}
-              >
-                {props.description}
-              </span>
-            )}
-          </label>
-        )}
-
-        {!props.label &&
-          props.description && (
-            <span
-              htmlFor={props.path}
-              className={cn(
-                "nodeString",
-                props.name,
-                "description",
-                props.layoutStyle,
-              )}
-            >
-              {props.description}
-            </span>
-          )}
-
+      <div className={cn("node", "string", props.layoutStyle)}>
+        <LabelAndDescription
+          label={props.label}
+          path={props.path}
+          name={props.name}
+          layoutStyle={props.layoutStyle}
+          description={props.description}
+        />
         <ErrorHandler
           key={`errorHandler-${props.path}`}
           name={props.name}

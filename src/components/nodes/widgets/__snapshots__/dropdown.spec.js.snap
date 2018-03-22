@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+<div
+  className="q20_node__string--dropdownWidget"
+>
+  <div
+    className="q20_node__testDropdown--labelAndDescription"
+  >
+    <label
+      className="q20_node__testDropdown--label"
+      htmlFor="this.test.dropdown"
+    >
+      test label
+    </label>
+  </div>
+  <div
+    className="q20_testDropdown__errorHandler"
+  >
+    <select
+      className="q20_node__thisTestDropdown--dropdownField"
+      onChange={[Function]}
+      type="select"
+      value={undefined}
+    >
+      <option
+        value=""
+      >
+        test label
+      </option>
+      <option
+        value="hello"
+      >
+        hello
+      </option>
+      <option
+        value="world"
+      >
+        world
+      </option>
+    </select>
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly with no label supplied 1`] = `
+<div
+  className="q20_node__string--dropdownWidget"
+>
+  <div
+    className="q20_node__testDropdown--labelAndDescription"
+  />
+  <div
+    className="q20_testDropdown__errorHandler"
+  >
+    <select
+      className="q20_node__thisTestDropdown--dropdownField"
+      onChange={[Function]}
+      type="select"
+      value={undefined}
+    >
+      <option
+        value="hello"
+      >
+        hello
+      </option>
+      <option
+        value="world"
+      >
+        world
+      </option>
+    </select>
+  </div>
+</div>
+`;
+
+exports[`rendering renders correctly with no options supplied 1`] = `
+<div
+  className="q20_node__string--dropdownWidget"
+>
+  <div
+    className="q20_node__testDropdown--labelAndDescription"
+  >
+    <label
+      className="q20_node__testDropdown--label"
+      htmlFor="this.test.dropdown"
+    >
+      test label
+    </label>
+  </div>
+  <div
+    className="q20_testDropdown__errorHandler"
+  >
+    <select
+      className="q20_node__thisTestDropdown--dropdownField"
+      onChange={[Function]}
+      type="select"
+      value={undefined}
+    >
+      <option
+        value=""
+      >
+        test label
+      </option>
+    </select>
+  </div>
+</div>
+`;

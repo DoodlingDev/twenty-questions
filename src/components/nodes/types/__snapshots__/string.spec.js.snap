@@ -4,18 +4,22 @@ exports[`rendering renders string types correctly 1`] = `
 <div
   className="q20_node__string"
 >
-  <label
-    className="q20_nodeString__testString--label"
-    htmlFor="test_form.test_string"
+  <div
+    className="q20_node__testString--labelAndDescription"
   >
-    test string
-    <span
-      className="q20_nodeString__testString--description"
+    <label
+      className="q20_node__testString--label"
       htmlFor="test_form.test_string"
     >
-      A simple String
-    </span>
-  </label>
+      test string
+      <span
+        className="q20_node__testString--description"
+        htmlFor="test_form.test_string"
+      >
+        A simple String
+      </span>
+    </label>
+  </div>
   <div
     className="q20_testString__errorHandler"
   >

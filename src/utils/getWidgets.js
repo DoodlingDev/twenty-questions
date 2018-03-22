@@ -1,5 +1,6 @@
 import OnFocus from "../components/nodes/widgets/onFocus";
 import StyledBoolean from "../components/nodes/widgets/styledBoolean";
+import Dropdown from "../components/nodes/widgets/dropdown";
 
 /**
  * getWidgets
@@ -19,6 +20,7 @@ export default function getWidgets(
   const widgetRegistry = {
     OnFocus,
     StyledBoolean,
+    Dropdown,
   };
 
   return Object.assign(widgetRegistry, widgetList);
