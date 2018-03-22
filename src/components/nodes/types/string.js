@@ -15,7 +15,8 @@ export const FormNodeString = (props: q20$RenderedNode) => {
     }
   }
   if (props.widget) {
-    const WidgetTag = props.widgets[props.widget];
+    const downcasedWidgetName = props.widget.toLowerCase();
+    const WidgetTag = props.widgets[downcasedWidgetName];
     return <WidgetTag {...props} />;
   } else {
     return (

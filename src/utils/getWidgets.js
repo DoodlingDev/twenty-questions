@@ -18,9 +18,9 @@ export default function getWidgets(
   }
 
   const widgetRegistry = {
-    OnFocus,
-    StyledBoolean,
-    Dropdown,
+    onfocus: OnFocus,
+    styledboolean: StyledBoolean,
+    dropdown: Dropdown,
   };
 
   return Object.assign(widgetRegistry, widgetList);

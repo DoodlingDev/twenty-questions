@@ -4,18 +4,22 @@ exports[`rendering renders array types correctly 1`] = `
 <div
   className="q20_node__array"
 >
-  <label
-    className="q20_nodeArray__testArray--label"
-    htmlFor="test_form.test_array"
+  <div
+    className="q20_node__testArray--labelAndDescription"
   >
-    test array
-    <span
-      className="q20_nodeArray__testArray--description"
+    <label
+      className="q20_node__testArray--label"
       htmlFor="test_form.test_array"
     >
-      A simple array
-    </span>
-  </label>
+      test array
+      <span
+        className="q20_node__testArray--description"
+        htmlFor="test_form.test_array"
+      >
+        A simple array
+      </span>
+    </label>
+  </div>
   <div
     className="q20_testArray__errorHandler"
   >

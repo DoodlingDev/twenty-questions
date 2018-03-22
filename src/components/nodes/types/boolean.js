@@ -2,6 +2,7 @@
 import React from "react";
 import cn from "../../../utils/className";
 import ErrorHandler from "../../errorHandler";
+import LabelAndDescription from "../../common/labelAndDescription";
 
 export const FormNodeBoolean = (props: q20$RenderedNode) => {
   if (process.env.NODE_ENV != "production" && process.env.NODE_ENV != "test") {
@@ -16,54 +17,19 @@ export const FormNodeBoolean = (props: q20$RenderedNode) => {
   const thisValue =
     props.valueManager.values[props.path] || props.defaultValue || false;
   if (props.widget) {
-    let NodeComponent = props.widgets[props.widget];
+    const downcasedWidgetName = props.widget.toLowerCase();
+    let NodeComponent = props.widgets[downcasedWidgetName];
     return <NodeComponent key={`node-${props.path}`} {...props} />;
-    // do a thing with a widget
   } else {
     return (
-      <div className={cn("node", "boolean")}>
-        {props.label && (
-          <label
-            htmlFor={props.path}
-            className={cn(
-              "nodeBoolean",
-              props.name,
-              "label",
-              props.layoutStyle,
-            )}
-          >
-            {props.label}
-            {props.description && (
-              <span
-                htmlFor={props.path}
-                className={cn(
-                  "nodeBoolean",
-                  props.name,
-                  "description",
-                  props.layoutStyle,
-                )}
-              >
-                {props.description}
-              </span>
-            )}
-          </label>
-        )}
-
-        {!props.label &&
-          props.description && (
-            <span
-              htmlFor={props.path}
-              className={cn(
-                "nodeBoolean",
-                props.name,
-                "description",
-                props.layoutStyle,
-              )}
-            >
-              {props.description}
-            </span>
-          )}
-
+      <div className={cn("node", "boolean", props.layoutStyle)}>
+        <LabelAndDescription
+          label={props.label}
+          path={props.path}
+          name={props.name}
+          layoutStyle={props.layoutStyle}
+          description={props.description}
+        />
         <ErrorHandler
           key={`errorHandler-${props.path}`}
           name={props.name}
