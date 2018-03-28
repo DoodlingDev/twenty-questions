@@ -28,8 +28,7 @@ export const NodeWrapper = (props: q20$RenderedNode) => {
       </ErrorHandler>
       {nodeContent}
     </div>
-
   );
-}
+};
 
 export default NodeWrapper;
