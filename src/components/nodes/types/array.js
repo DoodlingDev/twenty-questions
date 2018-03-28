@@ -1,9 +1,8 @@
 // @flow
 import React, { Component } from "react";
 import cn from "../../../utils/className";
-import ErrorHandler from "../../errorHandler";
 import FormNodeObject from "./object";
-import LabelAndDescription from "../../common/labelAndDescription";
+import NodeWrapper from "../nodeWrapper";
 
 type q20$FormNodeArrayState = {
   directChildsName: string,
@@ -154,46 +153,34 @@ export class FormNodeArray extends Component<
     if (this.props.widget) {
       const downcasedWidgetName = this.props.widget.toLowerCase();
       const WidgetTag = this.props.widgets[downcasedWidgetName];
-      return <WidgetTag {...this.props} />;
+      return (
+        <NodeWrapper {...this.props}>
+          <WidgetTag {...this.props} />
+        </NodeWrapper>
+      );
     } else {
       return (
-        <div className={cn("node", "array")}>
-          <LabelAndDescription
-            label={this.props.label}
-            path={this.props.path}
-            name={this.props.name}
-            layoutStyle={this.props.layoutStyle}
-            description={this.props.description}
-          />
-          <ErrorHandler
-            key={`errorHandler-${this.props.path}`}
-            name={this.props.name}
-            path={this.props.path}
-            value={this.props.valueManager.values[this.props.path]}
-            label={this.props.label || this.props.name}
-            validations={this.props.valueManager.validate[this.props.path]}
+        <NodeWrapper {...this.props}>
+          <fieldset
+            className={cn(
+              "nodeArray",
+              this.props.name,
+              "fieldset",
+              this.props.layoutStyle,
+            )}
           >
-            <fieldset
-              className={cn(
-                "nodeArray",
-                this.props.name,
-                "fieldset",
-                this.props.layoutStyle,
-              )}
+            <button
+              type="add"
+              onClick={event => {
+                event.preventDefault();
+                this.addRow();
+              }}
             >
-              <button
-                type="add"
-                onClick={event => {
-                  event.preventDefault();
-                  this.addRow();
-                }}
-              >
-                add
-              </button>
-              {this.renderChildren()}
-            </fieldset>
-          </ErrorHandler>
-        </div>
+              add
+            </button>
+            {this.renderChildren()}
+          </fieldset>
+        </NodeWrapper>
       );
     }
   }
