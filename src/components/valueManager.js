@@ -62,7 +62,9 @@ export default function withValueManager(ComponentToWrap) {
     }
 
     /**
-     * of
+     * deleteRowValue
+     *   Looks through the valueState, deletes a row based on user input,
+     *   and reorders the remaining key/value matches if necessary.
      * @param {object} props path (string) and index(number) being
      *   passed from the field that is being deleted.
      */
@@ -90,6 +92,9 @@ export default function withValueManager(ComponentToWrap) {
     /**
      * mapValuesForSubmit
      *   calls to the arrangeValues function.
+     *   Combines the values from state and the submit shape to create the params
+     *   for form submission. Returns those formatted params.
+     * @return {object} arranged values for submit
      */
     mapValuesForSubmit() {
       return arrangeValues({

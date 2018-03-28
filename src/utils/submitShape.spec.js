@@ -59,8 +59,11 @@ describe("createShapeMap", () => {
       },
     ];
     const result = submitShape(testShape);
-
-
+    expect(result[0]).toMatchObject({
+      name: "test_array",
+      validates: [],
+      type: "array",
+    });
   });
 
   it("maintains object structure unless :nosubmit", () => {
