@@ -12,7 +12,7 @@ import FormNodeObject from "../components/nodes/types/object";
  * @return {object} Rendered Node component or null if no conditional needed
  */
 export default function checkForConditionalRendering(props) {
-  if (props.conditional && props.properties && Object.keys(props.properties).includes(props.valueManager.values[props.path])) {
+  if (props.conditional === true && props.properties && Object.keys(props.properties).includes(props.valueManager.values[props.path])) {
     const property = props.properties[props.valueManager.values[props.path]];
     return(
       <FormNodeObject
