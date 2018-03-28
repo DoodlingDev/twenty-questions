@@ -37,6 +37,7 @@ export type q20$RenderedNode = {
   description?: string,
   widget?: string,
   widgets: q20$widgetList,
+  children?: any,
   layoutStyle?: string,
   placeholder?: string,
   validates?: string[],
