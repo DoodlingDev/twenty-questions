@@ -118,6 +118,7 @@ export class FormController extends Component<
   submitHandler(event: Object): typeof undefined {
     event.preventDefault();
     if (this.props.validate.all(this.props.values, this.props.fieldRegistry)) {
+      debugger
       this.props.submitFn(this.props.submitValues());
     }
   }

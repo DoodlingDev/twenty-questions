@@ -27,6 +27,7 @@ export default function withValueManager(ComponentToWrap) {
       this.mapValuesForSubmit = this.mapValuesForSubmit.bind(this);
       this.submitShape = submitShape(props.properties);
       this.state = {
+        submitShape: submitShape(props.properties),
         values: {},
         errors: {},
         fieldRegistry: [],
@@ -61,7 +62,9 @@ export default function withValueManager(ComponentToWrap) {
     }
 
     /**
-     * of
+     * deleteRowValue
+     *   Looks through the valueState, deletes a row based on user input,
+     *   and reorders the remaining key/value matches if necessary.
      * @param {object} props path (string) and index(number) being
      *   passed from the field that is being deleted.
      */
@@ -89,9 +92,15 @@ export default function withValueManager(ComponentToWrap) {
     /**
      * mapValuesForSubmit
      *   calls to the arrangeValues function.
+     *   Combines the values from state and the submit shape to create the params
+     *   for form submission. Returns those formatted params.
+     * @return {object} arranged values for submit
      */
     mapValuesForSubmit() {
-      arrangeValues(this.state.values, this.submitShape);
+      return arrangeValues({
+        values: this.state.values,
+        submitShape: this.submitShape,
+      });
     }
 
     /**
@@ -121,6 +130,7 @@ export default function withValueManager(ComponentToWrap) {
         <ComponentToWrap
           changeValue={this.changeValue}
           fieldRegistry={this.state.fieldRegistry}
+          registerField={this.registerField}
           values={this.state.values}
           deleteRow={this.deleteRowValue}
           submitValues={this.mapValuesForSubmit}

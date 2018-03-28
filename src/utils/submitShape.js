@@ -53,8 +53,17 @@ function recurse(
 
         break;
       case "array":
+        if (!propertyObject.properties && propertyObject.options) {
+          let propertyArray = {
+            name: propertyObject.name || "",
+            validates: propertyObject.validates || [],
+            type: propertyObject.type,
+          };
+          outputBuffer.push(propertyArray);
+          break;
+        }
       case "object":
-        if (!propertyObject.properties) {
+        if (!propertyObject.properties && !propertyObject.options) {
           throw new Error(
             `${propertyObject.type} type named ${
               propertyObject.name
@@ -65,7 +74,7 @@ function recurse(
           name: propertyObject.name || "",
           validates: propertyObject.validates || [],
           type: propertyObject.type,
-          children: recurse(propertyObject.properties),
+          children: propertyObject.properties ? recurse(propertyObject.properties) : null,
         };
         outputBuffer.push(propertyArray);
 

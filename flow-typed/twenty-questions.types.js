@@ -91,9 +91,6 @@ type q20$TabNavigationProps = {
 
 export type q20$FormControllerState = {
   tabButtons: ?React$Element<*>[],
-  // values: q20$FormValues,
-  // errors: q20$FormErrors,
-  // fieldRegistry: string[],
 };
 
 export type q20$Validator = {};

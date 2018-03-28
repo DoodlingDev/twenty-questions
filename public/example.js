@@ -5,6 +5,7 @@ import Form from "index";
 const ExampleApp = props => {
   return <Form
     title="FORM"
+    typeAheadValidation={true}
     description="This is a form"
     submitButton={<button type="submit">Submit me</button>}
     properties={[
@@ -49,10 +50,10 @@ const ExampleApp = props => {
                         validates: ["required"],
                       },
                       {
-                        type: "string",
+                        type: "array",
                         name: "test_dropdown",
                         label: "dropdown",
-                        widget: "Dropdown",
+                        widget: "multiselect",
                         options: [
                           "one",
                           "two",

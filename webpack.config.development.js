@@ -22,6 +22,7 @@ module.exports = {
       }
     ]
   },
+  devtool: "inline-source-map",
   devServer: {
     watchOptions: {
       aggregateTimeout: 600,
