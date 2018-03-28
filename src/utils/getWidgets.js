@@ -1,6 +1,7 @@
 import OnFocus from "../components/nodes/widgets/onFocus";
 import StyledBoolean from "../components/nodes/widgets/styledBoolean";
 import Dropdown from "../components/nodes/widgets/dropdown";
+import MultiSelect from "../components/nodes/widgets/multiselect";
 
 /**
  * getWidgets
@@ -21,6 +22,7 @@ export default function getWidgets(
     onfocus: OnFocus,
     styledboolean: StyledBoolean,
     dropdown: Dropdown,
+    multiselect: MultiSelect,
   };
 
   return Object.assign(widgetRegistry, widgetList);

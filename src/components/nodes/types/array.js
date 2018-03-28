@@ -152,7 +152,7 @@ export class FormNodeArray extends Component<
    */
   render() {
     if (this.props.widget) {
-      const downcasedWidgetName = this.props.widgets.toLowerCase();
+      const downcasedWidgetName = this.props.widget.toLowerCase();
       const WidgetTag = this.props.widgets[downcasedWidgetName];
       return <WidgetTag {...this.props} />;
     } else {

@@ -49,6 +49,20 @@ describe("createShapeMap", () => {
     expect(result[0].children.length).toBe(2);
   });
 
+  it("handles arrays with options instead of props", () => {
+    const testShape = [
+      {
+        type: "array",
+        name: "test_array",
+        label: "Test Array",
+        options: ["one", "two"],
+      },
+    ];
+    const result = submitShape(testShape);
+
+
+  });
+
   it("maintains object structure unless :nosubmit", () => {
     const testShape = [
       {

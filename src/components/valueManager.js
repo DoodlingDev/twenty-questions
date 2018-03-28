@@ -27,6 +27,7 @@ export default function withValueManager(ComponentToWrap) {
       this.mapValuesForSubmit = this.mapValuesForSubmit.bind(this);
       this.submitShape = submitShape(props.properties);
       this.state = {
+        submitShape: submitShape(props.properties),
         values: {},
         errors: {},
         fieldRegistry: [],
@@ -91,7 +92,10 @@ export default function withValueManager(ComponentToWrap) {
      *   calls to the arrangeValues function.
      */
     mapValuesForSubmit() {
-      arrangeValues(this.state.values, this.submitShape);
+      return arrangeValues({
+        values: this.state.values,
+        submitShape: this.submitShape,
+      });
     }
 
     /**
@@ -121,6 +125,7 @@ export default function withValueManager(ComponentToWrap) {
         <ComponentToWrap
           changeValue={this.changeValue}
           fieldRegistry={this.state.fieldRegistry}
+          registerField={this.registerField}
           values={this.state.values}
           deleteRow={this.deleteRowValue}
           submitValues={this.mapValuesForSubmit}

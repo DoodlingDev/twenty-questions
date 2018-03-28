@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders correctly 1`] = `
+Array [
+  <label
+    htmlFor="path.to.testing_component-option-0"
+  >
+    <input
+      checked={false}
+      id="path.to.testing_component-option-0"
+      name="one"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    one
+  </label>,
+  <label
+    htmlFor="path.to.testing_component-option-1"
+  >
+    <input
+      checked={false}
+      id="path.to.testing_component-option-1"
+      name="two"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    two
+  </label>,
+  <label
+    htmlFor="path.to.testing_component-option-2"
+  >
+    <input
+      checked={false}
+      id="path.to.testing_component-option-2"
+      name="three"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    three
+  </label>,
+]
+`;
+
+exports[`rendering renders correctly with an item checked 1`] = `
+Array [
+  <label
+    htmlFor="path.to.testing_component-option-0"
+  >
+    <input
+      checked={false}
+      id="path.to.testing_component-option-0"
+      name="one"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    one
+  </label>,
+  <label
+    htmlFor="path.to.testing_component-option-1"
+  >
+    <input
+      checked={true}
+      id="path.to.testing_component-option-1"
+      name="two"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    two
+  </label>,
+  <label
+    htmlFor="path.to.testing_component-option-2"
+  >
+    <input
+      checked={false}
+      id="path.to.testing_component-option-2"
+      name="three"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    three
+  </label>,
+]
+`;
