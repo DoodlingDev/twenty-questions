@@ -1,8 +1,7 @@
 // @flow
 import React from "react";
 import cn from "../../../utils/className";
-import ErrorHandler from "../../errorHandler";
-import LabelAndDescription from "../../common/labelAndDescription";
+import NodeWrapper from "../nodeWrapper";
 
 export const FormNodeString = (props: q20$RenderedNode) => {
   if (process.env.NODE_ENV != "production" && process.env.NODE_ENV != "test") {
@@ -17,42 +16,26 @@ export const FormNodeString = (props: q20$RenderedNode) => {
   if (props.widget) {
     const downcasedWidgetName = props.widget.toLowerCase();
     const WidgetTag = props.widgets[downcasedWidgetName];
-    return <WidgetTag {...props} />;
+    return <NodeWrapper {...props}><WidgetTag {...props} /></NodeWrapper>;
   } else {
     return (
-      <div className={cn("node", "string", props.layoutStyle)}>
-        <LabelAndDescription
-          label={props.label}
-          path={props.path}
-          name={props.name}
-          layoutStyle={props.layoutStyle}
-          description={props.description}
+      <NodeWrapper {...props} >
+        <input
+          key={`${props.path}-input`}
+          className={cn("nodeString", props.name, "input", props.layoutStyle)}
+          id={props.path}
+          type="text"
+          value={props.valueManager.values[props.path] || ""}
+          placeholder={props.placeholder}
+          onChange={event => {
+            props.valueManager.update({
+              path: props.path,
+              name: props.name,
+              value: event.target.value,
+            });
+          }}
         />
-        <ErrorHandler
-          key={`errorHandler-${props.path}`}
-          name={props.name}
-          path={props.path}
-          value={props.valueManager.values[props.path]}
-          label={props.label || props.name}
-          validations={props.valueManager.validate[props.path]}
-        >
-          <input
-            key={`${props.path}-input`}
-            className={cn("nodeString", props.name, "input", props.layoutStyle)}
-            id={props.path}
-            type="text"
-            value={props.valueManager.values[props.path] || ""}
-            placeholder={props.placeholder}
-            onChange={event => {
-              props.valueManager.update({
-                path: props.path,
-                name: props.name,
-                value: event.target.value,
-              });
-            }}
-          />
-        </ErrorHandler>
-      </div>
+      </NodeWrapper>
     );
   }
 };

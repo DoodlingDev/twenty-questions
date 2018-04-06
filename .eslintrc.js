@@ -15,6 +15,7 @@ module.exports = {
     "react",
     "promise",
     "prettier",
+    "jsx-a11y",
   ],
   "parserOptions": {
     "ecmaVersion": 6,

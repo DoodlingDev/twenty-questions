@@ -2,20 +2,24 @@
 
 exports[`rendering renders string types correctly 1`] = `
 <div
-  className="q20_node__number"
+  className="q20_node"
 >
-  <label
-    className="q20_nodeNumber__testNumber--label"
-    htmlFor="test.test_number"
+  <div
+    className="q20_node__testNumber--labelAndDescription"
   >
-    test number
-    <span
-      className="q20_nodeNumber__testNumber--description"
+    <label
+      className="q20_node__testNumber--label"
       htmlFor="test.test_number"
     >
-      this is a test number
-    </span>
-  </label>
+      test number
+      <span
+        className="q20_node__testNumber--description"
+        htmlFor="test.test_number"
+      >
+        this is a test number
+      </span>
+    </label>
+  </div>
   <div
     className="q20_testNumber__errorHandler"
   >

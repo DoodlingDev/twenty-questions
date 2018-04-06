@@ -2,7 +2,7 @@
 
 exports[`rendering renders correctly 1`] = `
 <div
-  className="q20_node__boolean"
+  className="q20_node"
 >
   <div
     className="q20_node__testBoolean--labelAndDescription"

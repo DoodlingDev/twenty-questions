@@ -26,6 +26,24 @@ const ExampleApp = props => {
             name: "b_string",
             label: "B String",
             validates: ["required"],
+            conditional: true,
+            properties: {
+              "one":
+                {
+                  type: "object",
+                  name: "conditional-name",
+                  properties: [
+                    {
+                      type: "string",
+                      name: "o_string",
+                      label: "O String",
+                      validates: ["required"],
+
+                    },
+
+                  ],
+                },
+            },
           },
           {
             type: "array",

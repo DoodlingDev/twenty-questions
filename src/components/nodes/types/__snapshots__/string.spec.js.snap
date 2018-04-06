@@ -2,7 +2,7 @@
 
 exports[`rendering renders string types correctly 1`] = `
 <div
-  className="q20_node__string"
+  className="q20_node"
 >
   <div
     className="q20_node__testString--labelAndDescription"

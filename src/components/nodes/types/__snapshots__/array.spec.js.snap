@@ -2,7 +2,7 @@
 
 exports[`rendering renders array types correctly 1`] = `
 <div
-  className="q20_node__array"
+  className="q20_node"
 >
   <div
     className="q20_node__testArray--labelAndDescription"
