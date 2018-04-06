@@ -19,8 +19,8 @@ const setupProps = {
   },
 };
 
-// it("renders correctly", () => {
-//   const ren = renderer.create(<DatePicker {...setupProps} />).toJSON();
-//   expect(ren).toMatchSnapshot();
-// });
+it("renders correctly", () => {
+  const ren = renderer.create(<DatePicker {...setupProps} />).toJSON();
+  expect(ren).toMatchSnapshot();
+});
 
