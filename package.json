@@ -41,7 +41,6 @@
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "camelcase": "^4.1.0",
-    "css-loader": "^0.28.11",
     "cypress": "^1.4.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
