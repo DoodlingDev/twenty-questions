@@ -45,6 +45,7 @@ export default class DatePicker extends Component<q20$RenderedNode, State> {
     return (
       <DatePickerComponent
         key={this.props.path}
+        className={cn("node", "string", "datepicker-widget", this.props.layoutStyle)}
         dateFormat={dateHelpers.defaultDateStrFormat}
         onBlur={e => e.preventDefault()}
         onChangeRaw={event => {

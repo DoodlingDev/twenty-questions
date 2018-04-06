@@ -5,7 +5,7 @@ import moment from "moment";
 import type Moment from "moment";
 
 const momentRegExp = new RegExp("\\d{4}-\\d{2}-.+:.+..+");
-const defaultDateStrFormat = "YYYY-MM-DD";
+export const defaultDateStrFormat = "YYYY-MM-DD";
 
 /**
  * formattedStringDateFor
@@ -18,7 +18,7 @@ const defaultDateStrFormat = "YYYY-MM-DD";
  */
 export function formattedStringDateFor(
   dateString: string,
-  formatString: string,
+  formatString: ?string,
 ) {
   if (formatString === undefined) formatString = defaultDateStrFormat;
 
@@ -63,7 +63,7 @@ export function momentToISOString(momentObject: Moment) {
  * @param {string} format (optional) alternative to default string date format
  * @return {string} a str representation of a date/time, possibly mutated
  */
-export function datePickerValue(dateString: string, format: string) {
+export function datePickerValue(dateString: string, format: ?string) {
   if (momentRegExp.test(dateString)) {
     return formattedStringDateFor(dateString, format);
   }
