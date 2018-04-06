@@ -19,6 +19,7 @@ const ExampleApp = props => {
             name: "a_string",
             label: "A String",
             validates: ["required"],
+            widget: "datepicker",
           },
           {
             type: "string",

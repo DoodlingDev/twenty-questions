@@ -40,6 +40,7 @@ export class FormController extends Component<
 
   static defaultProps = {
     submitButton: <button>Submit Me</button>,
+    dateFormat: "YYYY-MM-DD",
   };
 
   /**
@@ -79,6 +80,7 @@ export class FormController extends Component<
             },
           }}
           register={this.props.registerField}
+          dateFormat={this.props.dateFormat}
         />
       );
     });

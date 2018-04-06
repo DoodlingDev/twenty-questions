@@ -42,6 +42,8 @@ export type q20$RenderedNode = {
   validates?: string[],
   properties?: Array<q20$Property>,
   options?: Array<string>,
+  disabled?: boolean,
+  dateFormat?: string,
 };
 
 export type q20$Property = q20$RenderedNode | q20$RenderedNodeWithChildren;
@@ -78,6 +80,7 @@ export type q20$FormControllerProps = {
   errorHandlerComponent: React$Element<*>,
   typeAheadValidation: boolean,
   submitFn: ({}) => {},
+  dateFormat?: string,
 };
 
 type q20$TabNavigationProps = {
