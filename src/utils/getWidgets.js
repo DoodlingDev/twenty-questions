@@ -2,6 +2,7 @@ import OnFocus from "../components/nodes/widgets/onFocus";
 import StyledBoolean from "../components/nodes/widgets/styledBoolean";
 import Dropdown from "../components/nodes/widgets/dropdown";
 import MultiSelect from "../components/nodes/widgets/multiselect";
+import DatePicker from "../components/nodes/widgets/datepicker";
 
 /**
  * getWidgets
@@ -23,6 +24,7 @@ export default function getWidgets(
     styledboolean: StyledBoolean,
     dropdown: Dropdown,
     multiselect: MultiSelect,
+    datepicker: DatePicker,
   };
 
   return Object.assign(widgetRegistry, widgetList);
