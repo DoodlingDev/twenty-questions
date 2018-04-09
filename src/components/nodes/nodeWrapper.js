@@ -26,13 +26,11 @@ export const NodeWrapper = (props: q20$RenderedNode) => {
         label={props.label || props.name}
         validations={props.valueManager.validate[props.path]}
       >
-        {props.sameAsPath ?
-            <SameAsPathWidget {...props}>
-              {props.children}
-            </SameAsPathWidget>
-            : props.children
-
-        }
+        {props.sameAsPath ? (
+          <SameAsPathWidget {...props}>{props.children}</SameAsPathWidget>
+        ) : (
+          props.children
+        )}
       </ErrorHandler>
       {nodeContent}
     </div>
