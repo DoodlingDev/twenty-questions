@@ -1,8 +1,6 @@
 // @flow
 import React from "react";
 import cn from "../../../utils/className";
-import LabelAndDescription from "../../common/labelAndDescription";
-import ErrorHandler from "../../errorHandler";
 
 const Dropdown = (props: q20$RenderedNode) => {
   let layoutStyle = props.layoutStyle ? props.layoutStyle.repeat(1) : "";
@@ -47,41 +45,25 @@ const Dropdown = (props: q20$RenderedNode) => {
 
   return (
     <div className={cn("node", "string", "dropdown-widget")}>
-      <LabelAndDescription
-        label={props.label}
-        path={props.path}
-        name={props.name}
-        layoutStyle={props.layoutStyle}
-        description={props.description}
-      />
-      <ErrorHandler
-        key={`errorHandler-${props.path}`}
-        name={props.name}
-        path={props.path}
+      <select
+        className={cn("node", props.path, "dropdown-field", layoutStyle)}
+        type="select"
         value={props.valueManager.values[props.path]}
-        label={props.label || props.name}
-        validations={props.valueManager.validate[props.path]}
+        onChange={event => {
+          props.valueManager.update({
+            path: props.path,
+            name: props.name,
+            value: event.target.value,
+          });
+        }}
       >
-        <select
-          className={cn("node", props.path, "dropdown-field", layoutStyle)}
-          type="select"
-          value={props.valueManager.values[props.path]}
-          onChange={event => {
-            props.valueManager.update({
-              path: props.path,
-              name: props.name,
-              value: event.target.value,
-            });
-          }}
-        >
-          {props.label &&
-            <option value="" key="placeholder-option">
-              {props.label}
-            </option>
-          }
-          {optionMap()}
-        </select>
-      </ErrorHandler>
+        {props.label &&
+          <option value="" key="placeholder-option">
+            {props.label}
+          </option>
+        }
+        {optionMap()}
+      </select>
     </div>
   );
 }

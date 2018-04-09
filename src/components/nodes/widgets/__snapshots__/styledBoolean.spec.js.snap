@@ -5,17 +5,13 @@ exports[`rendering renders correctly 1`] = `
   className="q20_node__boolean"
 >
   <div
-    className="q20_testBool__errorHandler"
+    className="q20_styledBooleanWidget__thisTestPath--container"
   >
-    <div
-      className="q20_styledBooleanWidget__thisTestPath--container"
-    >
-      <button
-        className="q20_styledBooleanWidget__thisTestPath--box"
-        name="testBool"
-        onClick={[Function]}
-      />
-    </div>
+    <button
+      className="q20_styledBooleanWidget__thisTestPath--box"
+      name="testBool"
+      onClick={[Function]}
+    />
   </div>
 </div>
 `;

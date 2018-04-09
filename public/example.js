@@ -19,7 +19,20 @@ const ExampleApp = props => {
             name: "a_string",
             label: "A String",
             validates: ["required"],
-            widget: "datepicker",
+            widget: "dropdown",
+            options: [
+              "one",
+              "two",
+              "three",
+            ]
+          },
+          {
+            type: "string",
+            name: "same_as_string",
+            label: "A Similar String",
+            validates: ["required"],
+            sameAsPath: "form-name.a_string",
+            sameAsPathMessage: "Same As 'A String'"
           },
           {
             type: "string",

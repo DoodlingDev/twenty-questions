@@ -4,7 +4,6 @@ import withValueManager from "./valueManager";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
-import camelize from "../utils/camelize";
 import withTabbedNavigation from "./tabbedNavigation";
 import FormBuilder from "./formBuilder";
 import TabButton from "./tabButton";
@@ -52,15 +51,14 @@ export class FormController extends Component<
    */
   mapProperties() {
     return this.props.properties.map(property => {
-      let propertyTitle = property.label || "";
       return (
         <FormNodeObject
-          key={`tab-object-${camelize(propertyTitle)}`}
+          key={property.name}
           name={property.name}
           label={property.label ? property.label : undefined}
           description={property.description}
           type="object"
-          path={`${camelize(propertyTitle)}`}
+          path={property.name}
           properties={property.properties}
           widgets={getWidgets(this.props.widgets)}
           widget={property.widget ? property.widget : undefined}

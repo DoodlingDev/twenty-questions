@@ -45,6 +45,8 @@ export type q20$RenderedNode = {
   options?: Array<string>,
   disabled?: boolean,
   dateFormat?: string,
+  sameAsPath?: string,
+  sameAsPathMessage?: string,
 };
 
 export type q20$Property = q20$RenderedNode | q20$RenderedNodeWithChildren;
