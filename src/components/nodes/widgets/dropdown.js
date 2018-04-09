@@ -1,8 +1,6 @@
 // @flow
 import React from "react";
 import cn from "../../../utils/className";
-import LabelAndDescription from "../../common/labelAndDescription";
-import ErrorHandler from "../../errorHandler";
 
 const Dropdown = (props: q20$RenderedNode) => {
   let layoutStyle = props.layoutStyle ? props.layoutStyle.repeat(1) : "";

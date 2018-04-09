@@ -4,7 +4,6 @@ import withValueManager from "./valueManager";
 import FormNodeObject from "./nodes/types/object";
 import getWidgets from "../utils/getWidgets";
 import withValidation from "./validator";
-import camelize from "../utils/camelize";
 import withTabbedNavigation from "./tabbedNavigation";
 import FormBuilder from "./formBuilder";
 import TabButton from "./tabButton";

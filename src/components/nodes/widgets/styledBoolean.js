@@ -1,6 +1,5 @@
 import React from "react";
 import cn from "../../../utils/className";
-import ErrorHandler from "../../errorHandler";
 
 const StyledBoolean = (props: q20$RenderedNode) => {
   let checkedValue;
