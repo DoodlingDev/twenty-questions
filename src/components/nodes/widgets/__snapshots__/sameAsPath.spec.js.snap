@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot renders renders default correctly 1`] = `
+<div
+  className="q20_node__sameAsPath--testSame"
+>
+  <label>
+    Same as Above
+    <input
+      checked={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </label>
+</div>
+`;
+
+exports[`snapshot renders renders with message correctly 1`] = `
+<div
+  className="q20_node__sameAsPath--testSame"
+>
+  <label>
+    Same as above whatsit
+    <input
+      checked={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </label>
+</div>
+`;
